@@ -1,0 +1,1076 @@
+[    0.004939] NOHZ: local_softirq_pending 02
+[    0.135065] scm_enable_mem_protection: SCM call failed
+[    0.243999] Failed to create IPC log0
+[    0.244005] Failed to create IPC log1
+[    0.244028] Failed to create IPC log2
+[    0.244031] Failed to create IPC log3
+[    0.244034] Failed to create IPC log4
+[    0.253254] unable to find DT imem DLOAD mode node
+[    0.254296] unable to find DT imem EDLOAD mode node
+[    0.257140] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 304
+[    0.257533] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 305
+[    0.257881] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 306
+[    0.258230] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 307
+[    0.258523] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 308
+[    0.258871] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 309
+[    0.259168] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 310
+[    0.259529] msm_watchdog 17c10000.qcom,wdt: Dump setup failed, id = 311
+[    0.270319] (NULL device *): msm_gsi_probe:4573 failed to create IPC log, continue...
+[    0.271427] sm8150-pinctrl 3000000.pinctrl: invalid resource
+[    0.280162] pm8150l_s4_mmcx_sup_level: regulator get failed, ret=-517
+[    0.280496] pm8150l_s5_level: regulator get failed, ret=-517
+[    0.280662] regulator_proxy_consumer_register: regulator_get() failed for soc:rpmh-regulator-mmcxlvl, rc=-517
+[    0.285606] rpmh_regulator_probe: smpf2: could not find RPMh address for resource
+[    0.285803] rpmh_regulator_probe: ldof2: could not find RPMh address for resource
+[    0.286049] rpmh_regulator_probe: ldof5: could not find RPMh address for resource
+[    0.286295] rpmh_regulator_probe: ldof6: could not find RPMh address for resource
+[    0.329829] AXI: msm_bus_scale_register_client(): msm_bus_scale_register_client: Bus driver not ready.
+[    0.329831] video_cc-sm8150 ab00000.qcom,videocc: Unable to register for bw voting
+[    0.330893] Unable to find DT property: qcom,msm-imem-minidump-debug
+[    0.330953] msm_bus_fabric_rpmh_init_driver
+[    0.331209] msm_bus: Probe started
+[    0.332278] msm_bus: DT Parsing complete
+[    0.334665] msm_bus_fab_init_noc_ops: Invalid Bus type
+[    0.334767] msm_bus_fab_init_noc_ops: Invalid Bus type
+[    0.334864] msm_bus_fab_init_noc_ops: Invalid Bus type
+[    0.334953] msm_bus_fab_init_noc_ops: Invalid Bus type
+[    0.346412] register_client_adhoc:find path.src 161 dest 627
+[    0.346476] register_client_adhoc:Client handle 1 apps_smmu
+[    0.347485] register_client_adhoc:find path.src 161 dest 627
+[    0.347536] register_client_adhoc:Client handle 2 apps_smmu
+[    0.347695] register_client_adhoc:find path.src 161 dest 627
+[    0.347788] register_client_adhoc:Client handle 3 apps_smmu
+[    0.347949] register_client_adhoc:find path.src 22 dest 773
+[    0.348039] register_client_adhoc:Client handle 4 mnoc_hf_1_tbu
+[    0.348185] register_client_adhoc:find path.src 154 dest 10070
+[    0.348253] register_client_adhoc:Client handle 5 apps_smmu
+[    0.348403] register_client_adhoc:find path.src 22 dest 773
+[    0.348473] register_client_adhoc:Client handle 6 mnoc_hf_0_tbu
+[    0.348613] register_client_adhoc:find path.src 154 dest 10070
+[    0.348676] register_client_adhoc:Client handle 7 apps_smmu
+[    0.348832] register_client_adhoc:find path.src 161 dest 627
+[    0.348927] register_client_adhoc:Client handle 8 apps_smmu
+[    0.349085] register_client_adhoc:find path.src 161 dest 627
+[    0.349177] register_client_adhoc:Client handle 9 apps_smmu
+[    0.349334] register_client_adhoc:find path.src 137 dest 772
+[    0.349406] register_client_adhoc:Client handle 10 mnoc_sf_0_tbu
+[    0.355044] virt zone: sensor[gpuss-1-usr] read error:-22
+[    0.355340] tsens_tm_probe : unable to create IPC Logging 0 for tsens 0x000000000c263000
+[    0.355342] tsens_tm_probe : unable to create IPC Logging 1 for tsens 0x000000000c263000
+[    0.355386] tsens_tm_probe : unable to create IPC Logging 2 for tsens 0x000000000c263000
+[    0.356175] tsens_tm_probe : unable to create IPC Logging 0 for tsens 0x000000000c265000
+[    0.356253] tsens_tm_probe : unable to create IPC Logging 1 for tsens 0x000000000c265000
+[    0.356332] tsens_tm_probe : unable to create IPC Logging 2 for tsens 0x000000000c265000
+[    0.376135] qupv3_geni_se 8c0000.qcom,qupv3_0_geni_se: geni_se_probe Failed to allocate log context
+[    0.376384] qupv3_geni_se ac0000.qcom,qupv3_1_geni_se: geni_se_probe Failed to allocate log context
+[    0.376583] qupv3_geni_se cc0000.qcom,qupv3_2_geni_se: geni_se_probe Failed to allocate log context
+[    0.377170] ipa: get resource failed for ipa-hw-ver!
+[    0.377339] ipa: get resource failed for ipa-hw-ver!
+[    0.377466] ipa: get resource failed for ipa-hw-ver!
+[    0.378078] pcie:pcie_init.
+[    0.378122] pcie_init: unable to create IPC log context for pcie0-short
+[    0.378199] pcie_init: unable to create IPC log context for pcie0-long
+[    0.378242] pcie_init: unable to create IPC log context for pcie0-dump
+[    0.378320] pcie_init: unable to create IPC log context for pcie1-short
+[    0.378362] pcie_init: unable to create IPC log context for pcie1-long
+[    0.378443] pcie_init: unable to create IPC log context for pcie1-dump
+[    0.378490] pcie_init: unable to create IPC log context for pcie2-short
+[    0.378577] pcie_init: unable to create IPC log context for pcie2-long
+[    0.378664] pcie_init: unable to create IPC log context for pcie2-dump
+[    0.378712] pcie_init: unable to create IPC log context for pcie3-short
+[    0.378798] pcie_init: unable to create IPC log context for pcie3-long
+[    0.378845] pcie_init: unable to create IPC log context for pcie3-dump
+[    0.379183] msm_pcie_get_resources: Could not get required GPIO perst-gpio
+[    0.379263] msm_pcie_probe: PCIe: Driver probe failed for RC0:-2
+[    0.379847] pci-msm 1c08000.qcom,pcie: prop pinctrl-0 index 2 invalid phandle
+[    0.380105] register_client_adhoc:find path.src 1 dest 590
+[    0.380198] register_client_adhoc:find path.src 1 dest 589
+[    0.380303] register_client_adhoc:find path.src 1 dest 596
+[    0.380443] register_client_adhoc:find path.src 22 dest 512
+[    0.380554] register_client_adhoc:find path.src 23 dest 512
+[    0.380693] register_client_adhoc:Client handle 11 bus-proxy-client
+[    0.381532] register_client_adhoc:find path.src 1 dest 589
+[    0.381605] register_client_adhoc:Client handle 12 bps_gdsc_ahb
+[    0.382236] register_client_adhoc:find path.src 1 dest 589
+[    0.382296] register_client_adhoc:Client handle 13 ipe_0_gdsc_ahb
+[    0.382796] register_client_adhoc:find path.src 1 dest 589
+[    0.382855] register_client_adhoc:Client handle 14 ipe_1_gdsc_ahb
+[    0.383333] register_client_adhoc:find path.src 1 dest 589
+[    0.383393] register_client_adhoc:Client handle 15 ife_0_gdsc_ahb
+[    0.383870] register_client_adhoc:find path.src 1 dest 589
+[    0.383932] register_client_adhoc:Client handle 16 ife_1_gdsc_ahb
+[    0.384424] register_client_adhoc:find path.src 1 dest 589
+[    0.384481] register_client_adhoc:Client handle 17 titan_top_gdsc_ahb
+[    0.384981] register_client_adhoc:find path.src 1 dest 590
+[    0.385041] register_client_adhoc:Client handle 18 mdss_core_gdsc_ahb
+[    0.385488] register_client_adhoc:find path.src 1 dest 596
+[    0.385551] register_client_adhoc:Client handle 19 mvsc_gdsc_ahb
+[    0.386028] register_client_adhoc:find path.src 1 dest 596
+[    0.386087] register_client_adhoc:Client handle 20 mvs0_gdsc_ahb
+[    0.386556] register_client_adhoc:find path.src 1 dest 596
+[    0.386619] register_client_adhoc:Client handle 21 mvs1_gdsc_ahb
+[    0.387310] register_client_adhoc:find path.src 1 dest 589
+[    0.387375] register_client_adhoc:Client handle 22 clk_camcc_debugfs
+[    0.388402] Unable to find platform_device node for cam_cc_cci_1_clk_src opp-handle
+[    0.388532] Failed to fill device_list for qcom,cam_cc_cci_1_clk_src-opp-handle
+[    0.391757] register_client_adhoc:find path.src 1 dest 590
+[    0.391828] register_client_adhoc:Client handle 23 clk_dispcc_debugfs
+[    0.395890] register_client_adhoc:find path.src 1 dest 596
+[    0.395963] register_client_adhoc:Client handle 24 clk_videocc_debugfs
+[    0.424970] mdss_pll_util_parse_dt_supply: no supply entry present
+[    0.883701] icnss: Unable to create log context
+[    0.883787] icnss: Unable to create log long context
+[    0.899177] register_client_adhoc:find path.src 125 dest 512
+[    0.899361] register_client_adhoc:Client handle 25 scm_pas
+[    0.899759] minidump-id not found for adsp
+[    0.900192] minidump-id not found for slpi
+[    0.900546] minidump-id not found for spss
+[    0.900778] minidump-id not found for npu
+[    0.900968] register_client_adhoc:find path.src 154 dest 10070
+[    0.900988] register_client_adhoc:Client handle 26 pil-cdsp
+[    0.901121] minidump-id not found for cdsp
+[    0.901557] register_client_adhoc:find path.src 63 dest 512
+[    0.901633] register_client_adhoc:Client handle 27 pil-venus
+[    0.901705] minidump-id not found for venus
+[    0.902054] minidump-id not found for ipa_fws
+[    0.902309] minidump-id not found for a640_zap
+[    0.903243] qiib_driver_data_init: unable to create logging context
+[    0.905637] register_client_adhoc:find path.src 1 dest 618
+[    0.905729] register_client_adhoc:Client handle 28 msm-rng-noc
+[    0.911215] diag: diag_pcie_register: failed registering pcie channels
+[    0.911348] diag: MUX: unable to register pcie operations for proc: 0, err: -22
+[    0.911419] diag: MUX: unable to register PCIe operations, continuing with USB registrations for proc: 0, err: -22
+[    0.926635] diag: Unable to register with PCIE, id: 1
+[    0.926766] diag: MUX: unable to register pcie operations for proc: 1, err: -5
+[    0.926897] diag: MUX: unable to register PCIe operations, continuing with USB registrations for proc: 1, err: -5
+[    0.927619] register_client_adhoc:find path.src 20003 dest 20515
+[    0.927685] register_client_adhoc:find path.src 20004 dest 20515
+[    0.927841] register_client_adhoc:Client handle 29 disp_rsc_mnoc
+[    0.927917] register_client_adhoc:find path.src 20001 dest 20513
+[    0.928083] register_client_adhoc:Client handle 30 disp_rsc_llcc
+[    0.928220] register_client_adhoc:find path.src 20000 dest 20512
+[    0.928314] register_client_adhoc:Client handle 31 disp_rsc_ebi
+[    0.929263] AXI: get_pdata(): Error: Client name not found
+[    0.929395] AXI: msm_bus_cl_get_pdata(): client has to provide missing entry for successful registration
+[    0.929539] AXI: get_pdata(): Error: Client name not found
+[    0.929670] AXI: msm_bus_cl_get_pdata(): client has to provide missing entry for successful registration
+[    0.930143] OF: graph: no port node found in /soc/qcom,dsi-display-primary
+[    0.930265] msm-dsi-panel:[dsi_panel_parse_qsync_caps:1559] [xiaomi 42 02 0a video mode dual dsi cphy panel] qsync min fps not defined rc:-22
+[    0.930467] msm-dsi-panel:[dsi_panel_parse_reset_sequence:2364] RESET SEQ LENGTH = 32
+[    0.936783] register_client_adhoc:find path.src 26 dest 512
+[    0.936876] register_client_adhoc:Client handle 32 grp3d
+[    0.937037] register_client_adhoc:find path.src 26 dest 10036
+[    0.937156] register_client_adhoc:Client handle 33 cnoc
+[    0.937290] query_client_usecase_all: query_start
+[    0.937378] query_client_usecase_all: query_start
+[    0.937762] register_client_adhoc:find path.src 1 dest 598
+[    0.937914] register_client_adhoc:Client handle 34 ahbpath
+[    1.006678] AXI: get_pdata(): Error: Client name not found
+[    1.006761] AXI: msm_bus_cl_get_pdata(): client has to provide missing entry for successful registration
+[    1.007126] QSEECOM: qseecom_probe: Unable to register bus client
+[    1.007648] register_client_adhoc:find path.src 125 dest 512
+[    1.007831] register_client_adhoc:Client handle 35 qcedev-noc
+[    1.009148] sps_register_bam_device : unable to create IPC Logging 0 for bam 0x0000000001dc4000
+[    1.009150] sps_register_bam_device : unable to create IPC Logging 1 for bam 0x0000000001dc4000
+[    1.009283] sps_register_bam_device : unable to create IPC Logging 2 for bam 0x0000000001dc4000
+[    1.009353] sps_register_bam_device : unable to create IPC Logging 3 for bam 0x0000000001dc4000
+[    1.009483] sps_register_bam_device : unable to create IPC Logging 4 for bam 0x0000000001dc4000
+[    1.013490] register_client_adhoc:find path.src 125 dest 512
+[    1.013609] register_client_adhoc:Client handle 36 qcrypto-noc
+[    1.019652] register_client_adhoc:find path.src 123 dest 512
+[    1.020080] register_client_adhoc:find path.src 1 dest 757
+[    1.020500] register_client_adhoc:Client handle 37 ufshc_mem
+[    1.028520] sm8150-pinctrl 3000000.pinctrl: pin GPIO_114 already requested by soc:display_gpio_regulator_enp; cannot claim for 884000.spi
+[    1.028676] sm8150-pinctrl 3000000.pinctrl: pin-114 (884000.spi) status -22
+[    1.028809] sm8150-pinctrl 3000000.pinctrl: could not request pin 114 (GPIO_114) from group gpio114  on device 3000000.pinctrl
+[    1.028941] spi_geni 884000.spi: Error applying setting, reverse things back
+[    1.030594] usbnet_init: Error getting ipc_log_ctxt
+[    1.030668] usbnet_init: Error getting ipc_log_ctxt
+[    1.030738] usbnet_init: Error getting ipc_log_ctxt
+[    1.039127] dwc3 a600000.dwc3: Error getting ipc_log_ctxt
+[    1.039205] dwc3 a600000.dwc3: Error getting ipc_log_ctxt for ep_events
+[    1.040071] register_client_adhoc:find path.src 61 dest 512
+[    1.040229] register_client_adhoc:find path.src 61 dest 676
+[    1.040369] register_client_adhoc:find path.src 1 dest 583
+[    1.040571] ufshcd-qcom 1d84000.ufshc: ufshcd_print_pwr_info:[RX, TX]: gear=[1, 1], lane[1, 1], pwr[SLOWAUTO_MODE, SLOWAUTO_MODE], rate = 0
+[    1.040572] register_client_adhoc:Client handle 38 usb0
+[    1.043394] dwc3 a800000.dwc3: Error getting ipc_log_ctxt
+[    1.043466] dwc3 a800000.dwc3: Error getting ipc_log_ctxt for ep_events
+[    1.043700] register_client_adhoc:find path.src 101 dest 512
+[    1.043801] register_client_adhoc:find path.src 101 dest 676
+[    1.043985] register_client_adhoc:find path.src 1 dest 751
+[    1.044134] register_client_adhoc:Client handle 38 usb1
+[    1.046564] fgsi_init: Err allocating ipc_log_ctxt
+[    1.047306] qpnp-pdphy c440000.qcom,spmi:qcom,pm8150b@2:qcom,usb-pdphy@1700: usbpd_create failed: -517
+[    1.067507] ktz8866 1-0011: K81 reading 0x04 is 0x00
+[    1.067951] ktz8866 1-0011: K81 reading 0x05 is 0xaa
+[    1.068355] ktz8866 1-0011: K81 reading 0x02 is 0x33
+[    1.068797] ktz8866 1-0011: K81 reading 0x15 is 0xb1
+[    1.069190] ktz8866 1-0011: K81 reading 0x03 is 0xbd
+[    1.069583] ktz8866 1-0011: K81 reading 0x14 is 0x11
+[    1.070023] ktz8866 1-0011: K81 reading 0x09 is 0x9f
+[    1.070416] ktz8866 1-0011: K81 reading 0x08 is 0x5f
+[    1.070730] ktz8866 1-0011: ktz8866 reading 0x0f is 0x00
+[    1.080633] register_client_adhoc:find path.src 1 dest 589
+[    1.080766] register_client_adhoc:Client handle 39 cam_ahb
+[    1.081014] register_client_adhoc:find path.src 136 dest 512
+[    1.081160] register_client_adhoc:Client handle 40 cam_hf_1_mnoc
+[    1.081359] register_client_adhoc:find path.src 146 dest 778
+[    1.081436] register_client_adhoc:Client handle 41 cam_hf_1_camnoc
+[    1.081605] register_client_adhoc:find path.src 145 dest 512
+[    1.081738] register_client_adhoc:Client handle 42 cam_hf_2_mnoc
+[    1.081930] register_client_adhoc:find path.src 147 dest 778
+[    1.082004] register_client_adhoc:Client handle 43 cam_hf_2_camnoc
+[    1.082173] register_client_adhoc:find path.src 137 dest 512
+[    1.082307] register_client_adhoc:Client handle 44 cam_sf_1_mnoc
+[    1.082490] register_client_adhoc:find path.src 148 dest 778
+[    1.082566] register_client_adhoc:Client handle 45 cam_sf_1_camnoc
+[    1.087216] CAM_ERR: CAM-ISP: cam_vfe_bus_rd_ver1_init: 1082 Inval_prms soc_info:00000000b2dd23f3 hw_intf:000000002be6207f hw_info00000000f42e76ac
+[    1.087386] CAM_ERR: CAM-ISP: cam_vfe_bus_rd_ver1_init: 1083 controller: 000000002eedaf4a
+[    1.087449] CAM_ERR: CAM-ISP: cam_vfe_core_init: 875 Error! RD cam_vfe_bus_init failed
+[    1.089797] CAM_ERR: CAM-ISP: cam_vfe_bus_rd_ver1_init: 1082 Inval_prms soc_info:0000000015c5e5f3 hw_intf:0000000002605b27 hw_info00000000f42e76ac
+[    1.089905] CAM_ERR: CAM-ISP: cam_vfe_bus_rd_ver1_init: 1083 controller: 00000000bc3e4622
+[    1.090012] CAM_ERR: CAM-ISP: cam_vfe_core_init: 875 Error! RD cam_vfe_bus_init failed
+[    1.092231] CAM_ERR: CAM-UTIL: cam_soc_util_get_option_clk_by_name: 525 No clk named ife_dsp_clk found. Dev vfe2
+[    1.093862] CAM_ERR: CAM-UTIL: cam_soc_util_get_option_clk_by_name: 525 No clk named ife_dsp_clk found. Dev vfe3
+[    1.105225] [Onewire] onewire_gpio_init: onewire gpio init entry.
+[    1.105359] [Onewire] onewire_gpio_probe: onewire probe entry
+[    1.105479] [Onewire] onewire_gpio_parse_dt: ow_gpio: 5
+[    1.105691] [Onewire] onewire_gpio_probe: onewire_gpio_level_addr is 3d05004; onewire_gpio_cfg_addr is 3d05000
+[    1.105692] [Onewire] onewire_gpio_probe: onewire_data->gpio_cfg66_reg is 9a2d000; onewire_data->gpio_in_out_reg is 9a22004
+[    1.105828] [Onewire] onewire_gpio_init: onewire gpio init entry.
+[    1.106017] [Onewire] onewire_gpio_probe: onewire probe entry
+[    1.106073] [Onewire] onewire_gpio_parse_dt: ow_gpio: 10
+[    1.106256] [Onewire] onewire_gpio_probe: onewire_gpio_level_addr is 390a004; onewire_gpio_cfg_addr is 390a000
+[    1.106256] [Onewire] onewire_gpio_probe: onewire_data->gpio_cfg66_reg is 9a3d000; onewire_data->gpio_in_out_reg is 9a35004
+[    1.106387] [ds28e16] ds28e16_init: ds28e16_init entry.
+[    1.106556] [ds28e16] ds28e16_probe: ds28e16_probe entry.
+[    1.106659] [ds28e16] ds28e16_probe: platform_device is soc:maxim_ds28e16
+[    1.106776] [ds28e16] verify_psy_register: batt_verify power supply register successfully
+[    1.106939] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.107056] [ds28e16] ds28e16_init: ds28e16_init entry.
+[    1.107118] [ds28e16] ds28e16_probe: ds28e16_probe entry.
+[    1.107221] [ds28e16] ds28e16_probe: platform_device is soc:maxim_ds28e16_slave
+[    1.107305] [ds28e16] verify_psy_register: batt_verify_slave power supply register successfully
+[    1.107465] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.107768] i2c_geni 890000.i2c: i2c error :-107
+[    1.107873] [bq2597x-STANDALONE]:__bq2597x_read_byte:i2c read fail: can't read from reg 0x13
+[    1.107928] [bq2597x-STANDALONE]:bq2597x_charger_probe:No bq2597x device found!
+[    1.116135] [ds28e16] ds28el16_Read_RomID_retry: read rom id communication start 0...
+[    1.116180] [ds28e16] verify_get_property: unsupported property 67
+[    1.116302] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow start
+[    1.116362] [ds28e16] verify_get_property: unsupported property 4
+[    1.116364] [ds28e16] verify_get_property: unsupported property 67
+[    1.116365] [ds28e16] verify_get_property: unsupported property 4
+[    1.117172] [ds28e16] verify_get_property: unsupported property 67
+[    1.117178] [ds28e16] ds28el16_Read_RomID_retry_slave: read rom id communication start 0...
+[    1.117319] [ds28e16] verify_get_property: unsupported property 4
+[    1.117465] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave start
+[    1.117687] [ds28e16] verify_get_property: unsupported property 67
+[    1.117826] [ds28e16] verify_get_property: unsupported property 4
+[    1.123240] ln8000@pri: ln8000_interrupt_handler: ln8000_interrupt_handler enter!
+[    1.136109] [ds28e16] verify_get_property: unsupported property 67
+[    1.136187] [ds28e16] verify_get_property: unsupported property 4
+[    1.136325] [ds28e16] verify_get_property: unsupported property 67
+[    1.136404] [ds28e16] verify_get_property: unsupported property 4
+[    1.137837] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.137952] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.138011] FG: battery_authentic_work: FG: authentic prop is 1
+[    1.138120] [ds28e16] ds28el16_Read_RomID_retry: read rom id communication start 0...
+[    1.138228] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow start
+[    1.145326] power_supply bq2597x-standalone: driver failed to report `ti_set_bus_protection_for_qc3' property: -22
+[    1.155321] FG: fg_gen4_get_batt_profile: cmdline of batt profile is not defined, read page0 to reload file
+[    1.156892] Couldn't parse device tree rc=-517
+[    1.164132] [ds28e16] verify_get_property: unsupported property 67
+[    1.164143] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.164289] [ds28e16] verify_get_property: unsupported property 4
+[    1.164439] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.164447] [ds28e16] ds28el16_Read_RomID_retry: read rom id communication start 0...
+[    1.164526] [ds28e16] verify_get_property: unsupported property 67
+[    1.164676] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow start
+[    1.164755] [ds28e16] verify_get_property: unsupported property 4
+[    1.165026] FG: fg_psy_get_property: unsupported property 67
+[    1.165237] bt_power_populate_dt_pinfo: bt-reset-gpio not provided in device tree
+[    1.165296] bt_dt_parse_clk_info: clocks is not provided in device tree
+[    1.165398] bt_power_populate_dt_pinfo: clock not provided in device tree
+[    1.166069] wlan: Loading driver v5.2.03.33D ()
+[    1.168040] [ds28e16] verify_get_property: unsupported property 67
+[    1.168123] [ds28e16] verify_get_property: unsupported property 4
+[    1.168201] [ds28e16] verify_get_property: unsupported property 67
+[    1.168345] [ds28e16] verify_get_property: unsupported property 4
+[    1.168423] FG: fg_psy_get_property: unsupported property 67
+[    1.168605] power_supply idt: driver failed to report `div_2_mode' property: -22
+[    1.169281] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow success!
+[    1.169539] [ds28e16] Read_RomID: Ready to write 0x33 to maxim IC!
+[    1.169715] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave success!
+[    1.169910] [ds28e16] Read_RomID_slave: Ready to write 0x33 to maxim IC!
+[    1.170751] [ds28e16] Read_RomID: RomID = 9f,c9,67,e0,15,f0,04,a9
+[    1.170832] [ds28e16] Read_RomID: crc_low_first = a9
+[    1.170983] [ds28e16] ds28el16_get_page_status_retry: read page status communication start... 0
+[    1.171093] [ds28e16] Read_RomID_slave: RomID = 9f,f6,67,e0,15,f0,04,60
+[    1.171134] [ds28e16] ds28el16_get_page_data_retry: read page data communication start... 0
+[    1.171209] [ds28e16] Read_RomID_slave: crc_low_first_slave = 60
+[    1.171359] [ds28e16] DS28E16_cmd_readMemory: DS28E16_cmd_readMemory write_buf:
+[    1.171443] [ds28e16] ds28el16_get_page_status_retry_slave: read page status communication start... 0
+[    1.171586] [ds28e16] DS28E16_cmd_readMemory: 02 44 01
+[    1.171733] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow start
+[    1.171738] [ds28e16] ds28el16_get_page_data_retry_slave: read page data communication start... 0
+[    1.172118] [ds28e16] DS28E16_cmd_readMemory_slave: DS28E16_cmd_readMemory_slave write_buf:
+[    1.172259] [ds28e16] DS28E16_cmd_readMemory_slave: 02 44 01
+[    1.172262] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave start
+[    1.173370] ipa_uc_reg_rdyCB:2141 IPA HW is not supported
+[    1.174232] seemp: seemp_logk_init: SCM call failed with ret val = 0 -3 0
+[    1.175158] register_client_adhoc:find path.src 1 dest 770
+[    1.175234] register_client_adhoc:Client handle 46 soc:qcom,cpu-cpu-llcc-bw
+[    1.175765] register_client_adhoc:find path.src 129 dest 512
+[    1.175893] register_client_adhoc:Client handle 47 soc:qcom,cpu-llcc-ddr-bw
+[    1.176655] register_client_adhoc:find path.src 154 dest 512
+[    1.176749] register_client_adhoc:Client handle 48 soc:qcom,npu-npu-ddr-bw
+[    1.176962] register_client_adhoc:find path.src 1 dest 770
+[    1.177015] register_client_adhoc:Client handle 49 soc:qcom,cpu0-cpu-llcc-lat
+[    1.177206] register_client_adhoc:find path.src 1 dest 770
+[    1.177260] register_client_adhoc:Client handle 51 soc:qcom,cpu4-cpu-llcc-lat
+[    1.177473] register_client_adhoc:find path.src 129 dest 512
+[    1.177526] register_client_adhoc:Client handle 50 soc:qcom,cpu0-llcc-ddr-lat
+[    1.177744] register_client_adhoc:find path.src 129 dest 512
+[    1.177828] register_client_adhoc:Client handle 52 soc:qcom,cpu4-llcc-ddr-lat
+[    1.178015] register_client_adhoc:find path.src 129 dest 512
+[    1.178098] register_client_adhoc:Client handle 53 soc:qcom,cpu4-cpu-ddr-latfloor
+[    1.178222] register_client_adhoc:find path.src 1 dest 627
+[    1.178354] register_client_adhoc:Client handle 54 soc:qcom,snoc_cnoc_keepalive
+[    1.178493] register_client_adhoc:find path.src 154 dest 10070
+[    1.178570] register_client_adhoc:Client handle 55 soc:qcom,cdsp_keepalive
+[    1.178851] register_client_adhoc:find path.src 26 dest 512
+[    1.178926] register_client_adhoc:Client handle 56 soc:qcom,gpubw
+[    1.179415] sm8150-pinctrl 3000000.pinctrl: pin GPIO_101 already requested by 4-003b; cannot claim for vendor:extcon_usb1
+[    1.179518] sm8150-pinctrl 3000000.pinctrl: pin-101 (vendor:extcon_usb1) status -22
+[    1.179583] sm8150-pinctrl 3000000.pinctrl: could not request pin 101 (GPIO_101) from group gpio101  on device 3000000.pinctrl
+[    1.179649] extcon-usb-gpio vendor:extcon_usb1: Error applying setting, reverse things back
+[    1.182531] apr_probe: Unable to create ipc log context
+[    1.189624] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow: len error!
+[    1.189803] [ds28e16] ds28el16_Read_RomID_retry: read rom id communication start 1...
+[    1.189840] [ds28e16] ds28el16_Read_RomID_retry_slave: read rom id communication start 0...
+[    1.189911] FG: ds_romid_work: FG: romid prop is 9f c9 67 e0 15 f0 04 a9
+[    1.216233] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow: len error!
+[    1.216440] [ds28e16] ds28el16_Read_RomID_retry: read rom id communication start 1...
+[    1.216494] [ds28e16] ds28el16_Read_RomID_retry_slave: read rom id communication start 0...
+[    1.216597] [ds28e16] ds28el16_get_page_status_retry: read page status communication start... 0
+[    1.216695] [ds28e16] ds28el16_get_page_status_retry_slave: read page status communication start... 0
+[    1.216796] [ds28e16] ds28el16_get_page_data_retry: read page data communication start... 0
+[    1.216847] [ds28e16] DS28E16_cmd_readMemory: DS28E16_cmd_readMemory write_buf:
+[    1.216946] [ds28e16] DS28E16_cmd_readMemory: 02 44 00
+[    1.216947] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow start
+[    1.227161] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow success!
+[    1.227271] [ds28e16] ds28el16_get_page_data_retry: page number is 1
+[    1.227334] [ds28e16] ds28el16_get_page_data_retry: page data:
+[    1.227444] [ds28e16] ds28el16_get_page_data_retry: 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31 31
+[    1.227446] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page0_data is 0
+[    1.227560] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave success!
+[    1.227606] [ds28e16] ds28el16_get_page_data_retry: mi_page0_data data:
+[    1.227704] [ds28e16] ds28el16_get_page_data_retry_slave: page number is 1
+[    1.227705] [ds28e16] ds28el16_get_page_data_retry_slave: page data:
+[    1.227709] [ds28e16] ds28el16_get_page_data_retry_slave: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.227711] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page0_data_slave is 0
+[    1.227713] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page0_data_slave data:
+[    1.227716] [ds28e16] ds28el16_get_page_data_retry_slave: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[    1.227719] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page1_data_slave is 1
+[    1.227829] [ds28e16] ds28el16_get_page_data_retry: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+[    1.227867] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page1_data_slave data:
+[    1.227965] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page1_data is 1
+[    1.228072] [ds28e16] ds28el16_get_page_data_retry_slave: %02x ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.228074] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_counter_slave is 0
+[    1.228082] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.228145] [ds28e16] ds28el16_get_page_data_retry: mi_page1_data data:
+[    1.228233] [ds28e16] verify_get_property: unsupported property 200
+[    1.228342] [ds28e16] ds28el16_get_page_data_retry: %02x 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31
+[    1.228427] [ds28e16] verify_get_property: unsupported property 201
+[    1.228494] [ds28e16] ds28el16_get_page_data_retry: flag_mi_counter is 0
+[    1.228582] [ds28e16] verify_get_property: unsupported property 202
+[    1.228584] [ds28e16] verify_get_property: unsupported property 203
+[    1.228585] [ds28e16] verify_get_property: unsupported property 204
+[    1.228587] [ds28e16] ds28el16_get_page_data_retry_slave: read page data communication start... 0
+[    1.228588] [ds28e16] DS28E16_cmd_readMemory_slave: DS28E16_cmd_readMemory_slave write_buf:
+[    1.228595] [ds28e16] DS28E16_cmd_readMemory_slave: 02 44 00
+[    1.228596] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave start
+[    1.229981] [ds28e16] verify_get_property: batt_verified_result_from_uefi is true
+[    1.230093] [ds28e16] verify_get_property: unsupported property 200
+[    1.230199] [ds28e16] verify_get_property: unsupported property 201
+[    1.230253] [ds28e16] verify_get_property: unsupported property 202
+[    1.230352] [ds28e16] verify_get_property: unsupported property 203
+[    1.230406] [ds28e16] verify_get_property: unsupported property 204
+[    1.230526] [ds28e16] ds28el16_get_page_data_retry: read page data communication start... 0
+[    1.230636] [ds28e16] DS28E16_cmd_readMemory: DS28E16_cmd_readMemory write_buf:
+[    1.230691] [ds28e16] DS28E16_cmd_readMemory: 02 44 00
+[    1.230692] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow start
+[    1.240054] ufs_get_device_desc Write-Booster wb_buf_alloc 786432
+[    1.258835] ufshcd-qcom 1d84000.ufshc: ufshcd_print_pwr_info:[RX, TX]: gear=[1, 1], lane[1, 1], pwr[SLOWAUTO_MODE, SLOWAUTO_MODE], rate = 0
+[    1.272161] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow success!
+[    1.272262] [ds28e16] ds28el16_get_page_data_retry: page number is 0
+[    1.272315] [ds28e16] ds28el16_get_page_data_retry: page data:
+[    1.272416] [ds28e16] ds28el16_get_page_data_retry: 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31 31
+[    1.272418] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page0_data is 1
+[    1.272569] [ds28e16] ds28el16_get_page_data_retry: mi_page0_data data:
+[    1.272670] [ds28e16] ds28el16_get_page_data_retry: 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31 31
+[    1.272672] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page1_data is 1
+[    1.272822] [ds28e16] ds28el16_get_page_data_retry: mi_page1_data data:
+[    1.272922] [ds28e16] ds28el16_get_page_data_retry: %02x 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31
+[    1.272924] [ds28e16] ds28el16_get_page_data_retry: flag_mi_counter is 0
+[    1.273072] [ds28e16] ds28el16_get_page_data_retry_slave: read page data communication start... 0
+[    1.273169] [ds28e16] DS28E16_cmd_readMemory_slave: DS28E16_cmd_readMemory_slave write_buf:
+[    1.273267] [ds28e16] DS28E16_cmd_readMemory_slave: 02 44 00
+[    1.273269] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave start
+[    1.282425] [ds28e16] DS28E16_standard_cmd_flow: DS28E16_standard_cmd_flow: len error!
+[    1.282642] [ds28e16] ds28el16_get_page_data_retry: read page data communication start... 1
+[    1.282705] [ds28e16] ds28el16_get_page_data_retry: page number is 0
+[    1.282800] [ds28e16] ds28el16_get_page_data_retry: page data:
+[    1.282910] [ds28e16] ds28el16_get_page_data_retry: 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31 31
+[    1.282912] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page0_data is 1
+[    1.283068] [ds28e16] ds28el16_get_page_data_retry: mi_page0_data data:
+[    1.283177] [ds28e16] ds28el16_get_page_data_retry: 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31 31
+[    1.283178] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page1_data is 1
+[    1.283335] [ds28e16] ds28el16_get_page_data_retry: mi_page1_data data:
+[    1.283450] [ds28e16] ds28el16_get_page_data_retry: %02x 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31
+[    1.283452] [ds28e16] ds28el16_get_page_data_retry: flag_mi_counter is 0
+[    1.283604] [ds28e16] ds28el16_get_page_data_retry: read page data communication start... 0
+[    1.283657] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave success!
+[    1.283714] [ds28e16] ds28el16_get_page_data_retry: page number is 1
+[    1.283754] [ds28e16] ds28el16_get_page_data_retry_slave: page number is 0
+[    1.283755] [ds28e16] ds28el16_get_page_data_retry_slave: page data:
+[    1.283759] [ds28e16] ds28el16_get_page_data_retry_slave: 53 42 4e 34 45 31 38 57 00 0c d6 57 4d 44 31 31
+[    1.283760] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page0_data_slave is 1
+[    1.283762] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page0_data_slave data:
+[    1.283765] [ds28e16] ds28el16_get_page_data_retry_slave: 53 42 4e 34 45 31 38 57 00 0c d6 57 4d 44 31 31
+[    1.283768] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page1_data_slave is 1
+[    1.283865] [ds28e16] ds28el16_get_page_data_retry: page data:
+[    1.283963] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page1_data_slave data:
+[    1.283966] [ds28e16] ds28el16_get_page_data_retry_slave: %02x ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.283968] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_counter_slave is 0
+[    1.283973] [ds28e16] ds28el16_get_page_data_retry_slave: read page data communication start... 0
+[    1.283976] [ds28e16] ds28el16_get_page_data_retry_slave: page number is 1
+[    1.284040] [ds28e16] ds28el16_get_page_data_retry: 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31 31
+[    1.284134] [ds28e16] ds28el16_get_page_data_retry_slave: page data:
+[    1.284138] [ds28e16] ds28el16_get_page_data_retry_slave: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.284140] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page0_data_slave is 1
+[    1.284141] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page0_data_slave data:
+[    1.284144] [ds28e16] ds28el16_get_page_data_retry_slave: 53 42 4e 34 45 31 38 57 00 0c d6 57 4d 44 31 31
+[    1.284146] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page1_data_slave is 1
+[    1.284148] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page1_data_slave data:
+[    1.284255] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page0_data is 1
+[    1.284299] [ds28e16] ds28el16_get_page_data_retry_slave: %02x ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.284404] [ds28e16] ds28el16_get_page_data_retry: mi_page0_data data:
+[    1.284490] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_counter_slave is 0
+[    1.284601] [ds28e16] ds28el16_get_page_data_retry: 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31 31
+[    1.284641] [ds28e16] ds28el16_Read_RomID_retry_slave: read rom id communication start 0...
+[    1.284644] [ds28e16] verify_get_property: batt_chip_ok_result_from_uefi is true already
+[    1.286381] [ds28e16] ds28el16_get_page_data_retry: flag_mi_page1_data is 1
+[    1.286500] [ds28e16] ds28el16_get_page_data_retry: mi_page1_data data:
+[    1.286567] [ds28e16] ds28el16_get_page_data_retry: %02x 53 42 4e 34 45 31 38 57 00 00 57 57 4d 44 31
+[    1.286569] [ds28e16] ds28el16_get_page_data_retry: flag_mi_counter is 0
+[    1.286782] [ds28e16] ds28el16_Read_RomID_retry: read rom id communication start 0...
+[    1.286842] [ds28e16] verify_get_property: batt_chip_ok_result_from_uefi is true already
+[    1.324877] [ds28e16] DS28E16_standard_cmd_flow_slave: DS28E16_standard_cmd_flow_slave: len error!
+[    1.325085] [ds28e16] ds28el16_get_page_data_retry_slave: read page data communication start... 1
+[    1.325180] [ds28e16] ds28el16_get_page_data_retry_slave: page number is 0
+[    1.325233] [ds28e16] ds28el16_get_page_data_retry_slave: page data:
+[    1.325331] [ds28e16] ds28el16_get_page_data_retry_slave: 53 42 4e 34 45 31 38 57 00 0c d6 57 4d 44 31 31
+[    1.325333] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page0_data_slave is 1
+[    1.325481] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page0_data_slave data:
+[    1.325582] [ds28e16] ds28el16_get_page_data_retry_slave: 53 42 4e 34 45 31 38 57 00 0c d6 57 4d 44 31 31
+[    1.325583] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_page1_data_slave is 1
+[    1.325773] [ds28e16] ds28el16_get_page_data_retry_slave: mi_page1_data_slave data:
+[    1.325829] [ds28e16] ds28el16_get_page_data_retry_slave: %02x ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+[    1.325830] [ds28e16] ds28el16_get_page_data_retry_slave: flag_mi_counter_slave is 0
+[    1.326030] [ds28e16] verify_get_property: batt_chip_ok_result_from_uefi is true already
+[    1.326125] [ds28e16] verify_get_property: batt_chip_ok_result_from_uefi is true already
+[    1.353889] ufs_get_device_desc Write-Booster wb_buf_alloc 786432
+[    1.359985] ufshcd-qcom 1d84000.ufshc: ufshcd_print_pwr_info:[RX, TX]: gear=[4, 4], lane[2, 2], pwr[FAST MODE, FAST MODE], rate = 1
+[    1.490817] msm-dai-q6-hdmi soc:qcom,msm-dai-q6-hdmi_ms: invalid device ID 24578
+[    1.491044] msm-auxpcm-dev soc:qcom,msm-sen-auxpcm: msm_auxpcm_dev_probe: invalid DT intf name senary
+[    1.494772] msm-dai-tdm soc:qcom,msm-dai-tdm-sen-rx: msm_dai_tdm_q6_probe: group id not supported 0x9150
+[    1.494854] msm-dai-tdm soc:qcom,msm-dai-tdm-sen-tx: msm_dai_tdm_q6_probe: group id not supported 0x9151
+[    1.505502] dwc3 a600000.dwc3: Error getting ipc_log_ctxt
+[    1.505580] dwc3 a600000.dwc3: Error getting ipc_log_ctxt for ep_events
+[    1.506133] register_client_adhoc:find path.src 61 dest 512
+[    1.506258] register_client_adhoc:find path.src 61 dest 676
+[    1.506395] register_client_adhoc:find path.src 1 dest 583
+[    1.506509] register_client_adhoc:Client handle 57 usb0
+[    1.506739] sps_register_bam_device : unable to create IPC Logging 0 for bam 0x000000000a704000
+[    1.506742] sps_register_bam_device : unable to create IPC Logging 1 for bam 0x000000000a704000
+[    1.506833] sps_register_bam_device : unable to create IPC Logging 2 for bam 0x000000000a704000
+[    1.506920] sps_register_bam_device : unable to create IPC Logging 3 for bam 0x000000000a704000
+[    1.506969] sps_register_bam_device : unable to create IPC Logging 4 for bam 0x000000000a704000
+[    1.507151] ipa_get_transport_type:2913 IPA HW is not supported
+[    1.507467] ipa_rm ipa_rm_delete_resource:146 IPA RM was not initialized
+[    1.507538] ipa_get_ipc_logbuf:3418 IPA HW is not supported
+[    1.507608] ipa_get_ipc_logbuf_low:3431 IPA HW is not supported
+[    1.507645] usb_bam_ipa_delete_resources: Failed to delete USB_PROD resource
+[    1.507715] ipa_rm ipa_rm_delete_resource:146 IPA RM was not initialized
+[    1.507751] ipa_get_ipc_logbuf:3418 IPA HW is not supported
+[    1.507820] ipa_get_ipc_logbuf_low:3431 IPA HW is not supported
+[    1.507858] usb_bam_ipa_delete_resources: Failed to delete USB_CONS resource
+[    1.508691] qpnp-pdphy c440000.qcom,spmi:qcom,pm8150b@2:qcom,usb-pdphy@1700: usbpd_create failed: -517
+[    1.510483] [ds28e16] verify_get_property: unsupported property 67
+[    1.510532] [ds28e16] verify_get_property: unsupported property 4
+[    1.510620] [ds28e16] verify_get_property: unsupported property 67
+[    1.510666] [ds28e16] verify_get_property: unsupported property 4
+[    1.510693] power_supply main: driver failed to report `flash_trigger' property: -1
+[    1.510755] FG: fg_psy_get_property: unsupported property 67
+[    1.510979] Get prop 67 is not supported in pc_port
+[    1.511111] batt power supply prop 67 not supported
+[    1.511160] [ds28e16] verify_get_property: unsupported property 67
+[    1.511208] [ds28e16] verify_get_property: unsupported property 4
+[    1.511295] [ds28e16] verify_get_property: unsupported property 67
+[    1.511381] [ds28e16] verify_get_property: unsupported property 4
+[    1.511429] FG: fg_psy_get_property: unsupported property 67
+[    1.511601] Get prop 67 is not supported in pc_port
+[    1.511681] batt power supply prop 67 not supported
+[    1.513507] of_batterydata_get_best_profile: No battery data found
+[    1.515862] pm8150b_charger: smblib_support_liquid_feature: support_liquid is 0
+[    1.536627] [ds28e16] verify_get_property: unsupported property 67
+[    1.536677] [ds28e16] verify_get_property: unsupported property 4
+[    1.536766] [ds28e16] verify_get_property: unsupported property 67
+[    1.536816] [ds28e16] verify_get_property: unsupported property 4
+[    1.536908] FG: fg_psy_get_property: unsupported property 67
+[    1.537092] Get prop 67 is not supported in pc_port
+[    1.537225] batt power supply prop 67 not supported
+[    1.540051] [ds28e16] verify_get_property: unsupported property 67
+[    1.540150] [ds28e16] verify_get_property: unsupported property 4
+[    1.540201] [ds28e16] verify_get_property: unsupported property 67
+[    1.540288] [ds28e16] verify_get_property: unsupported property 4
+[    1.540336] FG: fg_psy_get_property: unsupported property 67
+[    1.540477] Get prop 67 is not supported in pc_port
+[    1.540548] batt power supply prop 67 not supported
+[    1.547871] dwc3 a600000.dwc3: Error getting ipc_log_ctxt
+[    1.547912] dwc3 a600000.dwc3: Error getting ipc_log_ctxt for ep_events
+[    1.548513] register_client_adhoc:find path.src 61 dest 512
+[    1.548635] register_client_adhoc:find path.src 61 dest 676
+[    1.548667] sps_register_bam_device : unable to create IPC Logging 0 for bam 0x000000000a704000
+[    1.548725] register_client_adhoc:find path.src 1 dest 583
+[    1.548766] sps_register_bam_device : unable to create IPC Logging 1 for bam 0x000000000a704000
+[    1.548886] sps_register_bam_device : unable to create IPC Logging 2 for bam 0x000000000a704000
+[    1.548908] register_client_adhoc:Client handle 57 usb0
+[    1.548985] sps_register_bam_device : unable to create IPC Logging 3 for bam 0x000000000a704000
+[    1.549100] sps_register_bam_device : unable to create IPC Logging 4 for bam 0x000000000a704000
+[    1.549284] ipa_get_transport_type:2913 IPA HW is not supported
+[    1.549945] ipa_rm ipa_rm_delete_resource:146 IPA RM was not initialized
+[    1.550017] ipa_get_ipc_logbuf:3418 IPA HW is not supported
+[    1.550054] ipa_get_ipc_logbuf_low:3431 IPA HW is not supported
+[    1.550123] usb_bam_ipa_delete_resources: Failed to delete USB_PROD resource
+[    1.550161] ipa_rm ipa_rm_delete_resource:146 IPA RM was not initialized
+[    1.550230] ipa_get_ipc_logbuf:3418 IPA HW is not supported
+[    1.550267] ipa_get_ipc_logbuf_low:3431 IPA HW is not supported
+[    1.550336] usb_bam_ipa_delete_resources: Failed to delete USB_CONS resource
+[    1.551243] usbpd usbpd0: do not limit current
+[    1.552155] power_supply main: driver failed to report `flash_trigger' property: -1
+[    1.552205] power_supply dc: driver failed to report `input_voltage_regulation' property: -22
+[    1.552258] [ds28e16] verify_get_property: unsupported property 67
+[    1.552392] [ds28e16] verify_get_property: unsupported property 4
+[    1.552444] [ds28e16] verify_get_property: unsupported property 67
+[    1.552497] [ds28e16] verify_get_property: unsupported property 4
+[    1.552581] FG: fg_psy_get_property: unsupported property 67
+[    1.552677] Get prop 67 is not supported in pc_port
+[    1.552779] batt power supply prop 67 not supported
+[    1.553254] dwc3 a600000.dwc3: Error getting ipc_log_ctxt
+[    1.553293] dwc3 a600000.dwc3: Error getting ipc_log_ctxt for ep_events
+[    1.553853] register_client_adhoc:find path.src 61 dest 512
+[    1.553961] register_client_adhoc:find path.src 61 dest 676
+[    1.554062] register_client_adhoc:find path.src 1 dest 583
+[    1.554172] register_client_adhoc:Client handle 57 usb0
+[    1.554989] sps_register_bam_device : unable to create IPC Logging 0 for bam 0x000000000a704000
+[    1.554992] sps_register_bam_device : unable to create IPC Logging 1 for bam 0x000000000a704000
+[    1.554994] sps_register_bam_device : unable to create IPC Logging 2 for bam 0x000000000a704000
+[    1.555118] sps_register_bam_device : unable to create IPC Logging 3 for bam 0x000000000a704000
+[    1.555189] sps_register_bam_device : unable to create IPC Logging 4 for bam 0x000000000a704000
+[    1.555351] ipa_get_transport_type:2913 IPA HW is not supported
+[    1.555712] Please check if `measure` clk is registered.
+[    1.568073] [ds28e16] verify_get_property: unsupported property 67
+[    1.568127] [ds28e16] verify_get_property: unsupported property 4
+[    1.568212] [ds28e16] verify_get_property: unsupported property 67
+[    1.568259] [ds28e16] verify_get_property: unsupported property 4
+[    1.568345] FG: fg_psy_get_property: unsupported property 67
+[    1.568457] Get prop 67 is not supported in pc_port
+[    1.568566] batt power supply prop 67 not supported
+[    1.569900] register_client_adhoc:find path.src 1 dest 590
+[    1.569999] register_client_adhoc:Client handle 58 mdss_reg
+[    1.570080] register_client_adhoc:find path.src 22 dest 512
+[    1.570196] register_client_adhoc:find path.src 23 dest 512
+[    1.570335] register_client_adhoc:Client handle 59 mdss_sde
+[    1.570779] msm_drm ae00000.qcom,mdss_mdp: failed to get memory resource: vbif_nrt_phys
+[    1.570830] msm_drm ae00000.qcom,mdss_mdp: failed to get memory resource: sid_phys
+[    1.574726] [drm-dp] dp_aux_get: invalid input
+[    1.574798] [drm-dp] dp_init_sub_modules: failed to initialize aux, rc = -19
+[    1.574837] [drm:sde_connector_init:2610] [sde error]post-init failed, -19
+[    1.594129] Unable to find log_buf by kallsyms!
+[    1.633213] register_client_adhoc:find path.src 1 dest 590
+[    1.633308] register_client_adhoc:Client handle 60 sde_reg
+[    1.633602] register_client_adhoc:find path.src 25 dest 512
+[    1.633679] register_client_adhoc:Client handle 61 mdss_rotator
+[    1.633754] register_client_adhoc:find path.src 1 dest 590
+[    1.633862] register_client_adhoc:Client handle 62 mdss_rot_reg
+[    1.634114] No change in context(0==0), skip
+[    1.635417] ngd_msm_ctrl 171c0000.slim: error creating ipc_logging context
+[    1.635457] ngd_msm_ctrl 171c0000.slim: error creating ipc_error_logging context
+[    1.636290] ngd_msm_ctrl 17240000.slim: error creating ipc_logging context
+[    1.636326] ngd_msm_ctrl 17240000.slim: error creating ipc_error_logging context
+[    1.659316] CAM_ERR: CAM-CCI: cam_cci_assign_fops: 501 Invalid dev node:00000000f42e76ac offset: 0
+[    1.659803] [USBPD-PM]: usbpd_pm_probe: usbpd_pm_probe enter
+[    1.659860] [USBPD-PM]: pd_policy_parse_dt: pm_config.bat_volt_lp_lmt:4500
+[    1.659960] [USBPD-PM]: pd_policy_parse_dt: pm_config.bat_curr_lp_lmt:6000
+[    1.660071] [USBPD-PM]: pd_policy_parse_dt: pm_config.bus_volt_lp_lmt:12000
+[    1.660126] [USBPD-PM]: pd_policy_parse_dt: pm_config.bus_curr_lp_lmt:3000
+[    1.660226] [USBPD-PM]: pd_policy_parse_dt: pm_config.bus_curr_compensate:0
+[    1.660280] [USBPD-PM]: pd_policy_parse_dt: pdpm->ffc_bat_volt_max:4480
+[    1.660388] [USBPD-PM]: usbpd_check_cp_sec_psy: cp_sec_psy not found
+[    1.661274] [FC2-PM]: cp_qc30_probe: cp_qc30_probe enter
+[    1.661333] [FC2-PM]: cp_qc30_parse_dt: qc3-ffc-bat-volt-max property missing, use default
+[    1.661435] [FC2-PM]: cp_qc30_probe: charge pump qc3 probe
+[    1.662350] lpm_levels: register_cluster_lpm_stats()
+[    1.662604] lpm_levels: register_cluster_lpm_stats()
+[    1.664018] [ds28e16] ds28el16_get_page_status_retry: read page status communication start... 0
+[    1.664086] [ds28e16] ds28el16_get_page_status_retry_slave: read page status communication start... 0
+[    1.664152] FG: ds_status_work: FG: ds_status prop is 02 00 08 03 02 00 ff c8
+[    1.666573] ipa-wan ipa3_wwan_init:4919 ipa3_ctx was not initialized
+[    1.666676] ipa_get_ipc_logbuf:3418 IPA HW is not supported
+[    1.666730] ipa_get_ipc_logbuf_low:3431 IPA HW is not supported
+[    1.666830] ipa_get_ipc_logbuf:3418 IPA HW is not supported
+[    1.666884] ipa_get_ipc_logbuf_low:3431 IPA HW is not supported
+[    1.668492] msm_bus_late_init: Remove handoff bw requests
+[    1.671444] Warning: unable to open an initial console.
+[    1.672535] Internal error: Accessing user space memory outside uaccess.h routines: 9600000f [#1] PREEMPT SMP
+[    1.672609] Process init (pid: 1, stack limit = 0x00000000f76c5084)
+[    1.672649] CPU: 5 PID: 1 Comm: init Tainted: G S              4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.672718] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.672787] task: 00000000fc1013ed task.stack: 00000000f76c5084
+[    1.672831] pc : __su_filename_is_su.llvm.11428456400808757641+0x38/0xa0
+[    1.672901] lr : ksu_handle_faccessat+0x18/0x68
+[    1.672938] sp : ffffff800805bdf0 pstate : 00400145
+[    1.673007] x29: ffffff800805be10 x28: ffffffe678918000 
+[    1.673046] x27: ffffff8f1608f000 x26: 0000000000000030 
+[    1.673116] x25: 00000000000001b3 x24: 0000000000000015 
+[    1.673154] x23: 0000000080000000 x22: 0000007fa3108768 
+[    1.673224] x21: 00000000ffffffff x20: 0000005768ef4000 
+[    1.673262] x19: ffffff800805be58 x18: 0000000000000000 
+[    1.673331] x17: 0000000000000000 x16: ffffff8f1483d698 
+[    1.673369] x15: 0000000000000000 x14: 0000007fa310f9e8 
+[    1.673406] x13: 0000007fa2ffa000 x12: 0000000000125480 
+[    1.673476] x11: 0000000000000000 x10: 0000000000000001 
+[    1.673513] x9 : 0000000000000002 x8 : 0000007fa2ffef9b 
+[    1.673582] x7 : 0000000000000000 x6 : 0000000000000000 
+[    1.673620] x5 : 0000000000000000 x4 : 00000000ffffffff 
+[    1.673689] x3 : 0000000000000000 x2 : ffffff800805be54 
+[    1.673726] x1 : ffffff800805be58 x0 : 0000000000000000 
+[    1.673797] 
+[    1.673797] PC: ksu_handle_faccessat+0x60/0x68:
+[    1.673833] 7f40  a8c27bfd d65f03c0 d100c3ff a9027bfd 910083fd f0006608 f9447508 f81f83a8
+[    1.673907] 7f60  f800f3ff f90007ff d503201f f9400008 2a1f03e0 b4000268 b140051f 54000228
+[    1.673980] 7f80  f9400101 b40001c1 910023e0 528001e2 97ffedec f100041f 5400012b 90005be1
+[    1.674020] 7fa0  91053c21 910023e0 528001e2 97c00936 7100001f 1a9f17e0 14000002 2a1f03e0
+[    1.674093] 
+[    1.674093] LR: ksu_handle_execveat_ksud+0x190/0x1b8:
+[    1.674162] 7eb8  97c232ad d4210000 17ffffd0 b00039e0 911abc00 90003ea1 910d2c21 97c232a6
+[    1.674202] 7ed8  d4210000 17ffffe5 a9be7bfd f9000bf3 910003fd aa0103e0 aa0103f3 94000015
+[    1.674275] 7ef8  36000200 97c78a0f 360000a0 d0004620 910b0000 97c23298 1400000a d0004fe0
+[    1.674347] 7f18  91191000 97c23294 f9400268 90005be1 91057821 528001e2 f9400100 97c009c3
+[    1.674420] 
+[    1.674420] SP: 0xffffff800805bdb0:
+[    1.674457] bdb0  15687f80 ffffff8f 00400145 00000000 a3122480 0000007f 9200004f 00000000
+[    1.674529] bdd0  ffffffff 0000007f 60000000 00000000 0805be10 ffffff80 15687f80 ffffff8f
+[    1.674601] bdf0  0805bec0 ffffff80 00000000 00000000 00000000 ff000000 b161e500 14933010
+[    1.674642] be10  0805be20 ffffff80 15687ef8 ffffff8f 0805be70 ffffff80 1483d6e4 ffffff8f
+[    1.674714] 
+[    1.674751] Call trace:
+[    1.674789]  __su_filename_is_su.llvm.11428456400808757641+0x38/0xa0
+[    1.674858]  ksu_handle_faccessat+0x18/0x68
+[    1.674898]  SyS_faccessat+0x4c/0x244
+[    1.674968]  el0_svc_naked+0x34/0x38
+[    1.675007] Code: 2a1f03e0 b4000268 b140051f 54000228 (f9400101) 
+[    1.675044] ---[ end trace df3a0c498d5cffd2 ]---
+[    1.688033] usb 1-1: new full-speed USB device number 2 using xhci-hcd
+[    1.689707] Kernel panic - not syncing: Fatal exception
+[    1.689778] SMP: stopping secondary CPUs
+[    1.689818] CPU0: stopping
+[    1.689876] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.689975] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.690074] task: 0000000026115701 task.stack: 000000002945181a
+[    1.690132] pc : lpm_cpuidle_enter+0x4d8/0x514
+[    1.690232] lr : lpm_cpuidle_enter+0x454/0x514
+[    1.690285] sp : ffffff8f16fe3de0 pstate : a0c00005
+[    1.690385] x29: ffffff8f16fe3df0 x28: ffffffe67fb4bc50 
+[    1.690441] x27: ffffff8f16fea478 x26: ffffff8f16ff8900 
+[    1.690541] x25: 000000000000019d x24: 0000000000000000 
+[    1.690596] x23: ffffff8f16cc0c90 x22: 0000005768e8b000 
+[    1.690696] x21: ffffffe668d86040 x20: ffffffe66a51d840 
+[    1.690752] x19: 0000000000000000 x18: 0000000000000000 
+[    1.690807] x17: 0000000000000007 x16: 0000000000000f5e 
+[    1.690907] x15: ffffffe66a51d514 x14: 0000000000000005 
+[    1.690963] x13: 000000000000033c x12: 0000000000000018 
+[    1.691064] x11: 0000000034155555 x10: 001f78a3fffd4400 
+[    1.691119] x9 : 14933010b161e500 x8 : 0000000000000000 
+[    1.691220] x7 : 0000000000000000 x6 : 000000000000003f 
+[    1.691274] x5 : 0000000000000001 x4 : 0000000064b86d30 
+[    1.691374] x3 : 0000000000000001 x2 : 0000000000000001 
+[    1.691428] x1 : 0000000000000080 x0 : ffffffff9b479130 
+[    1.691530] 
+[    1.691530] PC: lpm_cpuidle_enter+0x498/0x514:
+[    1.691584] 1424  d538d088 b000d129 9100a129 f000d176 913342d6 b8696908 2a1f03e1 f8687b75
+[    1.691690] 1444  8b1602a0 97d285d9 f10fa01f 5400006b 8b1602a0 97d28551 f900de9f d50342ff
+[    1.691796] 1464  2a1303e0 a9464ff4 a94557f6 a9445ff8 a94367fa a9426ffc a9417bfd 9101c3ff
+[    1.691858] 1484  d65f03c0 941fe4fe 17ffff0b 941fe4fc 17ffffb6 941fe4fa 17ffff85 a9bd7bfd
+[    1.691967] 
+[    1.691967] LR: lpm_cpuidle_enter+0x414/0x514:
+[    1.692066] 13a0  f8687b76 8b1702c0 97d28601 f10fa01f 5400006b 8b1702c0 97d28579 d538d088
+[    1.692128] 13c0  f94007e9 b8b56908 2a1f03e1 f8687b68 f8696908 f940e515 911c02a0 97d285f4
+[    1.692235] 13e0  f10fa01f 5400006b 911c02a0 97d2856c f9433aa8 b4000128 911c0100 2a1f03e1
+[    1.692342] 1400  97d285eb f10fa01f 5400008b f9433aa8 911c0100 97d28562 f940de88 b4000228
+[    1.692450] 
+[    1.692450] SP: 0xffffff8f16fe3da0:
+[    1.692504] 3da0  15291464 ffffff8f a0c00005 00000000 16fe3df0 ffffff8f 152913e0 ffffff8f
+[    1.692611] 3dc0  ffffffff ffffffff 00000001 00000000 16fe3df0 ffffff8f 15291464 ffffff8f
+[    1.692673] 3de0  16fea478 ffffff8f 16cc0c48 ffffff8f 16fe3e50 ffffff8f 15289f50 ffffff8f
+[    1.692780] 3e00  16fe9000 ffffff8f 17270000 ffffff8f 16cb6028 ffffff8f 16fe9d60 ffffff8f
+[    1.692886] 
+[    1.692942] CPU: 0 PID: 0 Comm: swapper/0 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.693040] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.693093] Call trace:
+[    1.693194]  dump_backtrace+0x0/0x1b4
+[    1.693251]  dump_stack+0x84/0xb8
+[    1.693306]  handle_IPI+0x1d8/0x360
+[    1.693404]  gic_handle_irq+0x16c/0x1a0
+[    1.693458]  el1_irq+0xb0/0x130
+[    1.693512]  lpm_cpuidle_enter+0x4d8/0x514
+[    1.693611]  cpuidle_enter_state+0x1a8/0x30c
+[    1.693668]  do_idle.llvm.12302114733088574541+0x1c0/0x2f0
+[    1.693722]  cpu_startup_entry+0x20/0x24
+[    1.693822]  kernel_init+0x0/0x164
+[    1.693878]  start_kernel+0x524/0x564
+[    1.693933] CPU1: stopping
+[    1.694033] CPU: 1 PID: 0 Comm: swapper/1 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.694086] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.694187] task: 000000005824346b task.stack: 00000000ef1fb780
+[    1.694289] pc : lpm_cpuidle_enter+0x4d8/0x514
+[    1.694344] lr : lpm_cpuidle_enter+0x454/0x514
+[    1.694398] sp : ffffff80080ebe80 pstate : a0c00005
+[    1.694497] x29: ffffff80080ebe90 x28: ffffffe67fb60c50 
+[    1.694553] x27: ffffff8f16fea478 x26: ffffffe678981a00 
+[    1.694653] x25: 00000000000006ed x24: 0000000000000000 
+[    1.694708] x23: ffffff8f16cc0c90 x22: 0000005768ea0000 
+[    1.694809] x21: ffffffe668d86040 x20: ffffffe66a51d840 
+[    1.694865] x19: 0000000000000000 x18: 0000000000000000 
+[    1.694965] x17: 00000000000004a4 x16: 0000000000000f5e 
+[    1.695020] x15: ffffffe66a51d514 x14: 0000000000000004 
+[    1.695124] x13: 000000000000033c x12: 0000000000000018 
+[    1.695183] x11: 0000000034155555 x10: 001f78a3fffd4400 
+[    1.695294] x9 : 14933010b161e500 x8 : 0000000000000000 
+[    1.695352] x7 : 0000000000000000 x6 : 000000000000003f 
+[    1.695410] x5 : 0000000000000001 x4 : 0000000064b86f04 
+[    1.695516] x3 : 0000000000000001 x2 : 0000000000000001 
+[    1.695575] x1 : 0000000000000080 x0 : ffffffff9b478ef3 
+[    1.695683] 
+[    1.695683] PC: lpm_cpuidle_enter+0x498/0x514:
+[    1.695741] 1424  d538d088 b000d129 9100a129 f000d176 913342d6 b8696908 2a1f03e1 f8687b75
+[    1.695852] 1444  8b1602a0 97d285d9 f10fa01f 5400006b 8b1602a0 97d28551 f900de9f d50342ff
+[    1.695959] 1464  2a1303e0 a9464ff4 a94557f6 a9445ff8 a94367fa a9426ffc a9417bfd 9101c3ff
+[    1.696066] 1484  d65f03c0 941fe4fe 17ffff0b 941fe4fc 17ffffb6 941fe4fa 17ffff85 a9bd7bfd
+[    1.696130] 
+[    1.696130] LR: lpm_cpuidle_enter+0x414/0x514:
+[    1.696228] 13a0  f8687b76 8b1702c0 97d28601 f10fa01f 5400006b 8b1702c0 97d28579 d538d088
+[    1.696335] 13c0  f94007e9 b8b56908 2a1f03e1 f8687b68 f8696908 f940e515 911c02a0 97d285f4
+[    1.696397] 13e0  f10fa01f 5400006b 911c02a0 97d2856c f9433aa8 b4000128 911c0100 2a1f03e1
+[    1.696503] 1400  97d285eb f10fa01f 5400008b f9433aa8 911c0100 97d28562 f940de88 b4000228
+[    1.696612] 
+[    1.696612] SP: 0xffffff80080ebe40:
+[    1.696665] be40  15291464 ffffff8f a0c00005 00000000 080ebe90 ffffff80 152913e0 ffffff8f
+[    1.696772] be60  ffffffff ffffffff 00000001 00000000 080ebe90 ffffff80 15291464 ffffff8f
+[    1.696879] be80  16fea478 ffffff8f 16cc0c48 ffffff8f 080ebef0 ffffff80 15289f50 ffffff8f
+[    1.696941] bea0  16fe9000 ffffff8f 17270000 ffffff8f 16cb6028 ffffff8f 16fe9d60 ffffff8f
+[    1.697049] 
+[    1.697104] CPU: 1 PID: 0 Comm: swapper/1 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.697203] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.697301] Call trace:
+[    1.697356]  dump_backtrace+0x0/0x1b4
+[    1.697412]  dump_stack+0x84/0xb8
+[    1.697466]  handle_IPI+0x1d8/0x360
+[    1.697564]  gic_handle_irq+0x16c/0x1a0
+[    1.697619]  el1_irq+0xb0/0x130
+[    1.697674]  lpm_cpuidle_enter+0x4d8/0x514
+[    1.697774]  cpuidle_enter_state+0x1a8/0x30c
+[    1.697830]  do_idle.llvm.12302114733088574541+0x1c0/0x2f0
+[    1.697931]  cpu_startup_entry+0x20/0x24
+[    1.697985]  __cpu_disable+0x0/0x88
+[    1.698042] CPU2: stopping
+[    1.698099] CPU: 2 PID: 0 Comm: swapper/2 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.698196] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.698297] task: 000000009ee62fe1 task.stack: 0000000014204284
+[    1.698354] pc : lpm_cpuidle_enter+0x4d8/0x514
+[    1.698454] lr : lpm_cpuidle_enter+0x454/0x514
+[    1.698508] sp : ffffff80080f3e80 pstate : a0c00145
+[    1.698607] x29: ffffff80080f3e90 x28: ffffffe67fb75c50 
+[    1.698663] x27: ffffff8f16fea478 x26: ffffffe678984e00 
+[    1.698764] x25: 00000000000035d6 x24: 0000000000000000 
+[    1.698819] x23: ffffff8f16cc0c90 x22: 0000005768eb5000 
+[    1.698920] x21: ffffffe668d86040 x20: ffffffe66a51d840 
+[    1.698975] x19: 0000000000000000 x18: 0000000000000000 
+[    1.699030] x17: 00000000000002ae x16: 0000000000000f5e 
+[    1.699129] x15: ffffffe66a51d514 x14: 0000000000000002 
+[    1.699184] x13: 000000000000033c x12: 0000000000000018 
+[    1.699284] x11: 0000000034155555 x10: 001f78a3fffd4400 
+[    1.699339] x9 : 14933010b161e500 x8 : 0000000000000000 
+[    1.699439] x7 : 0000000000000000 x6 : 000000000000003f 
+[    1.699494] x5 : 0000000000000001 x4 : 0000000064b870d9 
+[    1.699594] x3 : 0000000000000001 x2 : 0000000000000001 
+[    1.699649] x1 : 00000000000001c0 x0 : ffffffff9b478d52 
+[    1.699752] 
+[    1.699752] PC: lpm_cpuidle_enter+0x498/0x514:
+[    1.699805] 1424  d538d088 b000d129 9100a129 f000d176 913342d6 b8696908 2a1f03e1 f8687b75
+[    1.699913] 1444  8b1602a0 97d285d9 f10fa01f 5400006b 8b1602a0 97d28551 f900de9f d50342ff
+[    1.700019] 1464  2a1303e0 a9464ff4 a94557f6 a9445ff8 a94367fa a9426ffc a9417bfd 9101c3ff
+[    1.700082] 1484  d65f03c0 941fe4fe 17ffff0b 941fe4fc 17ffffb6 941fe4fa 17ffff85 a9bd7bfd
+[    1.700190] 
+[    1.700190] LR: lpm_cpuidle_enter+0x414/0x514:
+[    1.700289] 13a0  f8687b76 8b1702c0 97d28601 f10fa01f 5400006b 8b1702c0 97d28579 d538d088
+[    1.700351] 13c0  f94007e9 b8b56908 2a1f03e1 f8687b68 f8696908 f940e515 911c02a0 97d285f4
+[    1.700458] 13e0  f10fa01f 5400006b 911c02a0 97d2856c f9433aa8 b4000128 911c0100 2a1f03e1
+[    1.700565] 1400  97d285eb f10fa01f 5400008b f9433aa8 911c0100 97d28562 f940de88 b4000228
+[    1.700674] 
+[    1.700674] SP: 0xffffff80080f3e40:
+[    1.700728] 3e40  15291464 ffffff8f a0c00145 00000000 080f3e90 ffffff80 152913e0 ffffff8f
+[    1.700835] 3e60  ffffffff ffffffff 00000001 00000000 080f3e90 ffffff80 15291464 ffffff8f
+[    1.700897] 3e80  000001c0 00000000 16cc0c48 ffffff8f 080f3ef0 ffffff80 15289f50 ffffff8f
+[    1.701004] 3ea0  16fe9000 ffffff8f 17270000 ffffff8f 16cb6028 ffffff8f 16fe9d60 ffffff8f
+[    1.701111] 
+[    1.701165] CPU: 2 PID: 0 Comm: swapper/2 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.701263] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.701317] Call trace:
+[    1.701418]  dump_backtrace+0x0/0x1b4
+[    1.701473]  dump_stack+0x84/0xb8
+[    1.701528]  handle_IPI+0x1d8/0x360
+[    1.701627]  gic_handle_irq+0x16c/0x1a0
+[    1.701681]  el1_irq+0xb0/0x130
+[    1.701735]  lpm_cpuidle_enter+0x4d8/0x514
+[    1.701835]  cpuidle_enter_state+0x1a8/0x30c
+[    1.701890]  do_idle.llvm.12302114733088574541+0x1c0/0x2f0
+[    1.701945]  cpu_startup_entry+0x20/0x24
+[    1.702045]  __cpu_disable+0x0/0x88
+[    1.702100] CPU3: stopping
+[    1.702155] CPU: 3 PID: 0 Comm: swapper/3 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.702252] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.702353] task: 00000000cc3d0cce task.stack: 000000000be9e5dd
+[    1.702410] pc : lpm_cpuidle_enter+0x4d8/0x514
+[    1.702510] lr : lpm_cpuidle_enter+0x454/0x514
+[    1.702564] sp : ffffff80080fbe80 pstate : a0c00005
+[    1.702663] x29: ffffff80080fbe90 x28: ffffffe67fb8ac50 
+[    1.702719] x27: ffffff8f16fea478 x26: ffffffe678980d00 
+[    1.702774] x25: 00000000000005a2 x24: 0000000000000000 
+[    1.702874] x23: ffffff8f16cc0c90 x22: 0000005768eca000 
+[    1.702930] x21: ffffffe668d86040 x20: ffffffe66a51d840 
+[    1.703031] x19: 0000000000000000 x18: 0000000000000000 
+[    1.703086] x17: 00000000000001cd x16: 0000000000000f5e 
+[    1.703186] x15: ffffffe66a51d514 x14: 0000000000000004 
+[    1.703241] x13: 000000000000033c x12: 0000000000000018 
+[    1.703342] x11: 0000000034155555 x10: 001f78a3fffd4400 
+[    1.703397] x9 : 14933010b161e500 x8 : 0000000000000000 
+[    1.703502] x7 : 0000000000000000 x6 : 000000000000003f 
+[    1.703560] x5 : 0000000000000001 x4 : 0000000064b871a9 
+[    1.703671] x3 : 0000000000000001 x2 : 0000000000000001 
+[    1.703730] x1 : 0000000000000080 x0 : ffffffff9b478c4e 
+[    1.703839] 
+[    1.703839] PC: lpm_cpuidle_enter+0x498/0x514:
+[    1.703896] 1424  d538d088 b000d129 9100a129 f000d176 913342d6 b8696908 2a1f03e1 f8687b75
+[    1.704012] 1444  8b1602a0 97d285d9 f10fa01f 5400006b 8b1602a0 97d28551 f900de9f d50342ff
+[    1.704124] 1464  2a1303e0 a9464ff4 a94557f6 a9445ff8 a94367fa a9426ffc a9417bfd 9101c3ff
+[    1.704186] 1484  d65f03c0 941fe4fe 17ffff0b 941fe4fc 17ffffb6 941fe4fa 17ffff85 a9bd7bfd
+[    1.704296] 
+[    1.704296] LR: lpm_cpuidle_enter+0x414/0x514:
+[    1.704350] 13a0  f8687b76 8b1702c0 97d28601 f10fa01f 5400006b 8b1702c0 97d28579 d538d088
+[    1.704456] 13c0  f94007e9 b8b56908 2a1f03e1 f8687b68 f8696908 f940e515 911c02a0 97d285f4
+[    1.704563] 13e0  f10fa01f 5400006b 911c02a0 97d2856c f9433aa8 b4000128 911c0100 2a1f03e1
+[    1.704670] 1400  97d285eb f10fa01f 5400008b f9433aa8 911c0100 97d28562 f940de88 b4000228
+[    1.704732] 
+[    1.704732] SP: 0xffffff80080fbe40:
+[    1.704830] be40  15291464 ffffff8f a0c00005 00000000 080fbe90 ffffff80 152913e0 ffffff8f
+[    1.704937] be60  ffffffff ffffffff 00000001 00000000 080fbe90 ffffff80 15291464 ffffff8f
+[    1.704999] be80  00000080 00000000 16cc0c48 ffffff8f 080fbef0 ffffff80 15289f50 ffffff8f
+[    1.705106] bea0  16fe9000 ffffff8f 17270000 ffffff8f 16cb6028 ffffff8f 16fe9d60 ffffff8f
+[    1.705213] 
+[    1.705268] CPU: 3 PID: 0 Comm: swapper/3 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.705367] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.705421] Call trace:
+[    1.705522]  dump_backtrace+0x0/0x1b4
+[    1.705578]  dump_stack+0x84/0xb8
+[    1.705632]  handle_IPI+0x1d8/0x360
+[    1.705687]  gic_handle_irq+0x16c/0x1a0
+[    1.705787]  el1_irq+0xb0/0x130
+[    1.705842]  lpm_cpuidle_enter+0x4d8/0x514
+[    1.705896]  cpuidle_enter_state+0x1a8/0x30c
+[    1.705996]  do_idle.llvm.12302114733088574541+0x1c0/0x2f0
+[    1.706051]  cpu_startup_entry+0x20/0x24
+[    1.706151]  __cpu_disable+0x0/0x88
+[    1.706205] CPU7: stopping
+[    1.706243] CPU: 7 PID: 0 Comm: swapper/7 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.706303] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.706368] task: 000000008378fd1a task.stack: 00000000c44bf253
+[    1.706407] pc : lpm_cpuidle_enter+0x4d8/0x514
+[    1.706474] lr : lpm_cpuidle_enter+0x454/0x514
+[    1.706509] sp : ffffff8008223e80 pstate : a0c00005
+[    1.706544] x29: ffffff8008223e90 x28: ffffffe67fbdec50 
+[    1.706611] x27: ffffff8f16fea478 x26: ffffffe678980000 
+[    1.706647] x25: 00000000000035eb x24: 0000000000000000 
+[    1.706714] x23: ffffff8f16cc0c90 x22: 0000005768f1e000 
+[    1.706749] x21: ffffffe668d86040 x20: ffffffe66a51bc40 
+[    1.706814] x19: 0000000000000000 x18: 0000000000000000 
+[    1.706849] x17: 0000000000000194 x16: 0000000000001188 
+[    1.706913] x15: 0000000000000000 x14: 0000000000000001 
+[    1.706948] x13: 000000000000033c x12: 0000000000000018 
+[    1.707012] x11: 0000000034155555 x10: 001f78a3fffd4400 
+[    1.707047] x9 : 14933010b161e500 x8 : 0000000000000000 
+[    1.707113] x7 : 0000000000000000 x6 : 000000000000003f 
+[    1.707148] x5 : 0000000000000001 x4 : 0000000064b87728 
+[    1.707183] x3 : 0000000000000001 x2 : 0000000000000001 
+[    1.707248] x1 : 0000000000000080 x0 : ffffffff9b4787a0 
+[    1.707284] 
+[    1.707284] PC: lpm_cpuidle_enter+0x498/0x514:
+[    1.707350] 1424  d538d088 b000d129 9100a129 f000d176 913342d6 b8696908 2a1f03e1 f8687b75
+[    1.707419] 1444  8b1602a0 97d285d9 f10fa01f 5400006b 8b1602a0 97d28551 f900de9f d50342ff
+[    1.707458] 1464  2a1303e0 a9464ff4 a94557f6 a9445ff8 a94367fa a9426ffc a9417bfd 9101c3ff
+[    1.707526] 1484  d65f03c0 941fe4fe 17ffff0b 941fe4fc 17ffffb6 941fe4fa 17ffff85 a9bd7bfd
+[    1.707594] 
+[    1.707594] LR: lpm_cpuidle_enter+0x414/0x514:
+[    1.707629] 13a0  f8687b76 8b1702c0 97d28601 f10fa01f 5400006b 8b1702c0 97d28579 d538d088
+[    1.707697] 13c0  f94007e9 b8b56908 2a1f03e1 f8687b68 f8696908 f940e515 911c02a0 97d285f4
+[    1.707764] 13e0  f10fa01f 5400006b 911c02a0 97d2856c f9433aa8 b4000128 911c0100 2a1f03e1
+[    1.707802] 1400  97d285eb f10fa01f 5400008b f9433aa8 911c0100 97d28562 f940de88 b4000228
+[    1.707840] 
+[    1.707840] SP: 0xffffff8008223e40:
+[    1.707905] 3e40  15291464 ffffff8f a0c00005 00000000 08223e90 ffffff80 152913e0 ffffff8f
+[    1.707943] 3e60  ffffffff ffffffff 00000001 00000000 08223e90 ffffff80 15291464 ffffff8f
+[    1.708010] 3e80  00000080 00000000 16cc0c48 ffffff8f 08223ef0 ffffff80 15289f50 ffffff8f
+[    1.708077] 3ea0  16fe9000 ffffff8f 17270000 ffffff8f 16cb6028 ffffff8f 16fe9d60 ffffff8f
+[    1.708144] 
+[    1.708180] CPU: 7 PID: 0 Comm: swapper/7 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.708215] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.708280] Call trace:
+[    1.708315]  dump_backtrace+0x0/0x1b4
+[    1.708381]  dump_stack+0x84/0xb8
+[    1.708416]  handle_IPI+0x1d8/0x360
+[    1.708451]  gic_handle_irq+0x16c/0x1a0
+[    1.708515]  el1_irq+0xb0/0x130
+[    1.708551]  lpm_cpuidle_enter+0x4d8/0x514
+[    1.708587]  cpuidle_enter_state+0x1a8/0x30c
+[    1.708653]  do_idle.llvm.12302114733088574541+0x1c0/0x2f0
+[    1.708689]  cpu_startup_entry+0x20/0x24
+[    1.708724]  __cpu_disable+0x0/0x88
+[    1.708790] CPU6: stopping
+[    1.708828] CPU: 6 PID: 0 Comm: swapper/6 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.708896] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.708935] task: 000000003c73882b task.stack: 0000000065254184
+[    1.709013] pc : lpm_cpuidle_enter+0x4d8/0x514
+[    1.709051] lr : lpm_cpuidle_enter+0x454/0x514
+[    1.709121] sp : ffffff800821be80 pstate : a0c00145
+[    1.709158] x29: ffffff800821be90 x28: ffffffe67fbc9c50 
+[    1.709228] x27: ffffff8f16fea478 x26: ffffffe678983400 
+[    1.709265] x25: 0000000000006418 x24: 0000000000000000 
+[    1.709336] x23: ffffff8f16cc0c90 x22: 0000005768f09000 
+[    1.709373] x21: ffffffe668d86040 x20: ffffffe66a51bc40 
+[    1.709443] x19: 0000000000000000 x18: 0000000000000000 
+[    1.709480] x17: 0000000000000780 x16: 0000000000001188 
+[    1.709518] x15: ffffffe66a51c914 x14: 0000000000000001 
+[    1.709587] x13: 000000000000033c x12: 0000000000000018 
+[    1.709625] x11: 0000000034155555 x10: 001f78a3fffd4400 
+[    1.709694] x9 : 14933010b161e500 x8 : 0000000000000000 
+[    1.709731] x7 : 0000000000000000 x6 : 000000000000003f 
+[    1.709801] x5 : 0000000000000001 x4 : 0000000064b8768b 
+[    1.709839] x3 : 0000000000000001 x2 : 0000000000000001 
+[    1.709908] x1 : 00000000000001c0 x0 : ffffffff9b478704 
+[    1.709948] 
+[    1.709948] PC: lpm_cpuidle_enter+0x498/0x514:
+[    1.710016] 1424  d538d088 b000d129 9100a129 f000d176 913342d6 b8696908 2a1f03e1 f8687b75
+[    1.710059] 1444  8b1602a0 97d285d9 f10fa01f 5400006b 8b1602a0 97d28551 f900de9f d50342ff
+[    1.710131] 1464  2a1303e0 a9464ff4 a94557f6 a9445ff8 a94367fa a9426ffc a9417bfd 9101c3ff
+[    1.710203] 1484  d65f03c0 941fe4fe 17ffff0b 941fe4fc 17ffffb6 941fe4fa 17ffff85 a9bd7bfd
+[    1.710276] 
+[    1.710276] LR: lpm_cpuidle_enter+0x414/0x514:
+[    1.710313] 13a0  f8687b76 8b1702c0 97d28601 f10fa01f 5400006b 8b1702c0 97d28579 d538d088
+[    1.710385] 13c0  f94007e9 b8b56908 2a1f03e1 f8687b68 f8696908 f940e515 911c02a0 97d285f4
+[    1.710457] 13e0  f10fa01f 5400006b 911c02a0 97d2856c f9433aa8 b4000128 911c0100 2a1f03e1
+[    1.710497] 1400  97d285eb f10fa01f 5400008b f9433aa8 911c0100 97d28562 f940de88 b4000228
+[    1.710571] 
+[    1.710571] SP: 0xffffff800821be40:
+[    1.710607] be40  15291464 ffffff8f a0c00145 00000000 0821be90 ffffff80 152913e0 ffffff8f
+[    1.710648] be60  ffffffff ffffffff 00000001 00000000 0821be90 ffffff80 15291464 ffffff8f
+[    1.710721] be80  000001c0 00000000 16cc0c48 ffffff8f 0821bef0 ffffff80 15289f50 ffffff8f
+[    1.710792] bea0  16fe9000 ffffff8f 17270000 ffffff8f 16cb6028 ffffff8f 16fe9d60 ffffff8f
+[    1.710834] 
+[    1.710903] CPU: 6 PID: 0 Comm: swapper/6 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.710941] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.711010] Call trace:
+[    1.711049]  dump_backtrace+0x0/0x1b4
+[    1.711121]  dump_stack+0x84/0xb8
+[    1.711158]  handle_IPI+0x1d8/0x360
+[    1.711196]  gic_handle_irq+0x16c/0x1a0
+[    1.711233]  el1_irq+0xb0/0x130
+[    1.711302]  lpm_cpuidle_enter+0x4d8/0x514
+[    1.711340]  cpuidle_enter_state+0x1a8/0x30c
+[    1.711380]  do_idle.llvm.12302114733088574541+0x1c0/0x2f0
+[    1.711449]  cpu_startup_entry+0x20/0x24
+[    1.711486]  __cpu_disable+0x0/0x88
+[    1.711557] CPU4: stopping
+[    1.711599] CPU: 4 PID: 0 Comm: swapper/4 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.711670] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.711710] task: 0000000043c37ff2 task.stack: 00000000526784b9
+[    1.711787] pc : lpm_cpuidle_enter+0x4d8/0x514
+[    1.711825] lr : lpm_cpuidle_enter+0x454/0x514
+[    1.711894] sp : ffffff800820be80 pstate : a0c00145
+[    1.711938] x29: ffffff800820be90 x28: ffffffe67fb9fc50 
+[    1.712008] x27: ffffff8f16fea478 x26: ffffffe678982700 
+[    1.712046] x25: 00000000000068a5 x24: 0000000000000000 
+[    1.712083] x23: ffffff8f16cc0c90 x22: 0000005768edf000 
+[    1.712152] x21: ffffffe668d86040 x20: ffffffe66a51bc40 
+[    1.712189] x19: 0000000000000000 x18: 0000000000000000 
+[    1.712258] x17: 0000000000000400 x16: 0000000000001188 
+[    1.712296] x15: ffffffe66a51c914 x14: 0000000000000001 
+[    1.712365] x13: 000000000000033c x12: 0000000000000018 
+[    1.712402] x11: 0000000034155555 x10: 001f78a3fffd4400 
+[    1.712471] x9 : 14933010b161e500 x8 : 0000000000000000 
+[    1.712509] x7 : 0000000000000000 x6 : 000000000000003f 
+[    1.712579] x5 : 0000000000000001 x4 : 0000000064b875bb 
+[    1.712617] x3 : 0000000000000001 x2 : 0000000000000001 
+[    1.712687] x1 : 00000000000001c0 x0 : ffffffff9b4785ff 
+[    1.712727] 
+[    1.712727] PC: lpm_cpuidle_enter+0x498/0x514:
+[    1.712797] 1424  d538d088 b000d129 9100a129 f000d176 913342d6 b8696908 2a1f03e1 f8687b75
+[    1.712839] 1444  8b1602a0 97d285d9 f10fa01f 5400006b 8b1602a0 97d28551 f900de9f d50342ff
+[    1.712911] 1464  2a1303e0 a9464ff4 a94557f6 a9445ff8 a94367fa a9426ffc a9417bfd 9101c3ff
+[    1.712983] 1484  d65f03c0 941fe4fe 17ffff0b 941fe4fc 17ffffb6 941fe4fa 17ffff85 a9bd7bfd
+[    1.713024] 
+[    1.713024] LR: lpm_cpuidle_enter+0x414/0x514:
+[    1.713093] 13a0  f8687b76 8b1702c0 97d28601 f10fa01f 5400006b 8b1702c0 97d28579 d538d088
+[    1.713165] 13c0  f94007e9 b8b56908 2a1f03e1 f8687b68 f8696908 f940e515 911c02a0 97d285f4
+[    1.713205] 13e0  f10fa01f 5400006b 911c02a0 97d2856c f9433aa8 b4000128 911c0100 2a1f03e1
+[    1.713277] 1400  97d285eb f10fa01f 5400008b f9433aa8 911c0100 97d28562 f940de88 b4000228
+[    1.713350] 
+[    1.713350] SP: 0xffffff800820be40:
+[    1.713387] be40  15291464 ffffff8f a0c00145 00000000 0820be90 ffffff80 152913e0 ffffff8f
+[    1.713459] be60  ffffffff ffffffff 00000001 00000000 0820be90 ffffff80 15291464 ffffff8f
+[    1.713531] be80  000001c0 00000000 16cc0c48 ffffff8f 0820bef0 ffffff80 15289f50 ffffff8f
+[    1.713603] bea0  16fe9000 ffffff8f 17270000 ffffff8f 16cb6028 ffffff8f 16fe9d60 ffffff8f
+[    1.713644] 
+[    1.713682] CPU: 4 PID: 0 Comm: swapper/4 Tainted: G S    D         4.14.336_bk-Kernel_17.0-b2w3 #3
+[    1.713751] Hardware name: Qualcomm Technologies, Inc. SM8150 V2 PM8150 NABU (DT)
+[    1.713820] Call trace:
+[    1.713859]  dump_backtrace+0x0/0x1b4
+[    1.713899]  dump_stack+0x84/0xb8
+[    1.713968]  handle_IPI+0x1d8/0x360
+[    1.714006]  gic_handle_irq+0x16c/0x1a0
+[    1.714043]  el1_irq+0xb0/0x130
+[    1.714113]  lpm_cpuidle_enter+0x4d8/0x514
+[    1.714151]  cpuidle_enter_state+0x1a8/0x30c
+[    1.714190]  do_idle.llvm.12302114733088574541+0x1c0/0x2f0
+[    1.714260]  cpu_startup_entry+0x20/0x24
+[    1.714298]  __cpu_disable+0x0/0x88
+[    2.514365] Kernel Offset: 0xf0c600000 from 0xffffff8008000000
+[    2.514440] CPU features: 0x13002238
+[    2.514477] Memory Limit: none
+[    2.546845] SMP: stopping secondary CPUs
+[    2.546887] Going down for restart now
+
+No errors detected

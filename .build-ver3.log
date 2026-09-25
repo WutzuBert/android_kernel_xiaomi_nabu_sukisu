@@ -1,0 +1,202 @@
+
+[Config] 内核目录：/home/WutzuBert/android_kernel_xiaomi_nabu-17
+输出目录：/home/WutzuBert/android_kernel_xiaomi_nabu-17/out-full
+配置文件：nabu_defconfig
+并行任务：8
+ThinLTO 磁盘缓存：关闭
+ccache：关闭
+
+[Config] 生成内核配置
+make: 进入目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+  GEN     ./Makefile
+#
+# configuration written to .config
+#
+make: 离开目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+Using /home/WutzuBert/android_kernel_xiaomi_nabu-17/out-full/.config as base
+Merging /home/WutzuBert/android_kernel_xiaomi_nabu-17/bk_build/configs/nabu-a17.config
+Value of CONFIG_KSU_SUSFS_SUS_MAP is redefined by fragment /home/WutzuBert/android_kernel_xiaomi_nabu-17/bk_build/configs/nabu-a17.config:
+Previous value: CONFIG_KSU_SUSFS_SUS_MAP=y
+New value: # CONFIG_KSU_SUSFS_SUS_MAP is not set
+
+Value of CONFIG_NF_CONNTRACK_PROCFS is redefined by fragment /home/WutzuBert/android_kernel_xiaomi_nabu-17/bk_build/configs/nabu-a17.config:
+Previous value: # CONFIG_NF_CONNTRACK_PROCFS is not set
+New value: CONFIG_NF_CONNTRACK_PROCFS=y
+
+#
+# merged configuration written to /home/WutzuBert/android_kernel_xiaomi_nabu-17/out-full/.config (needs make)
+#
+make: 进入目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+  GEN     ./Makefile
+scripts/kconfig/conf  --olddefconfig Kconfig
+#
+# configuration written to .config
+#
+make: 离开目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+
+[Check] 核对必要选项
+
+[Build] 编译内核对象
+make: 进入目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+  GEN     ./Makefile
+scripts/kconfig/conf  --silentoldconfig Kconfig
+  CHK     include/config/kernel.release
+  Using .. as source for kernel
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  CC      kernel/bounds.s
+  CHK     include/generated/bounds.h
+  CHK     include/generated/timeconst.h
+  CC      arch/arm64/kernel/asm-offsets.s
+  CHK     include/generated/asm-offsets.h
+  CALL    ../scripts/checksyscalls.sh
+  LDS     arch/arm64/kernel/vdso/vdso.lds
+  VDSOC   arch/arm64/kernel/vdso/vgettimeofday.o
+  VDSOA   arch/arm64/kernel/vdso/note.o
+  VDSOA   arch/arm64/kernel/vdso/sigreturn.o
+  LD      arch/arm64/kernel/vdso/vdso.so.dbg
+  VDSOSYM include/generated/vdso-offsets.h
+  LDS     arch/arm64/kernel/vdso32/vdso.lds
+  VDSOC32   arch/arm64/kernel/vdso32/vgettimeofday.o
+  VDSOA32   arch/arm64/kernel/vdso32/sigreturn.o
+  VDSOL32   arch/arm64/kernel/vdso32/vdso.so.raw
+  MUNGE   arch/arm64/kernel/vdso32/vdso.so.dbg
+  VDSOSYM include/generated/vdso32-offsets.h
+  LDS     scripts/module-lto.lds
+  CC      scripts/mod/empty.o
+  MKELF   scripts/mod/elfconfig.h
+  HOSTCC  scripts/mod/modpost.o
+  CC      scripts/mod/devicetable-offsets.s
+  CHK     scripts/mod/devicetable-offsets.h
+  HOSTCC  scripts/mod/file2alias.o
+  HOSTCC  scripts/mod/sumversion.o
+  HOSTLD  scripts/mod/modpost
+  CHK     include/generated/compile.h
+make: 离开目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+make: 进入目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  Using .. as source for kernel
+  CHK     scripts/mod/devicetable-offsets.h
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/asm-offsets.h
+  CALL    ../scripts/checksyscalls.sh
+make: 离开目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+make: 进入目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  Using .. as source for kernel
+  CHK     scripts/mod/devicetable-offsets.h
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/asm-offsets.h
+  CALL    ../scripts/checksyscalls.sh
+-- SukiSU-Ultra version: 40900 [v4.2.0-85eb4a9f@main]
+-- KERNEL_VERSION: 4.14
+-- KERNEL_TYPE: Non-GKI
+-- SukiSU-Ultra: using SUSFS_INLINE_HOOK
+-- KPM is disabled
+-- SukiSU-Ultra/compat: modern static_key_interface found
+
+-- SUSFS_VERSION: v1.5.5
+  CC      drivers/kernelsu/ksu.o
+make: 离开目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+
+[Build] 编译Image.gz+设备树
+make: 进入目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  Using .. as source for kernel
+  CHK     scripts/mod/devicetable-offsets.h
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/asm-offsets.h
+  CALL    ../scripts/checksyscalls.sh
+  CHK     include/generated/compile.h
+  CC      arch/arm64/kernel/signal.o
+  CC      arch/arm64/kernel/vdso.o
+  CC      arch/arm64/kernel/signal32.o
+  OBJCOPY arch/arm64/kernel/vdso/vdso.so
+  AS      arch/arm64/kernel/vdso/vdso.o
+  AR      arch/arm64/kernel/vdso/built-in.o
+  OBJCOPY arch/arm64/kernel/vdso32/vdso.so
+  AS      arch/arm64/kernel/vdso32/vdso.o
+  AR      arch/arm64/kernel/vdso32/built-in.o
+  AR      arch/arm64/kernel/built-in.o
+  GZIP    kernel/config_data.gz
+  CHK     kernel/config_data.h
+  DTC     arch/arm64/boot/dts/qcom/sm8150.dtb
+  DTC     arch/arm64/boot/dts/qcom/sm8150-v2.dtb
+  DTC     arch/arm64/boot/dts/qcom/sm8150p.dtb
+  DTC     arch/arm64/boot/dts/qcom/sm8150p-v2.dtb
+  DTC     arch/arm64/boot/dts/qcom/nabu-sm8150-overlay.dtbo
+-- SukiSU-Ultra version: 40900 [v4.2.0-85eb4a9f@main]
+-- KERNEL_VERSION: 4.14
+-- KERNEL_TYPE: Non-GKI
+-- SukiSU-Ultra: using SUSFS_INLINE_HOOK
+-- KPM is disabled
+-- SukiSU-Ultra/compat: modern static_key_interface found
+
+-- SUSFS_VERSION: v1.5.5
+  AR      drivers/kernelsu/built-in.o
+  AR      drivers/built-in.o
+  GEN     .version
+  CHK     include/generated/compile.h
+  UPD     include/generated/compile.h
+  CC      init/version.o
+  AR      init/built-in.o
+  AR      built-in.o
+  LTO     vmlinux.o
+  MODPOST vmlinux.o
+  BTF     .btf.vmlinux.bin.o
+  KSYM    .tmp_kallsyms1.o
+  KSYM    .tmp_kallsyms2.o
+  LD      vmlinux
+  SORTEX  vmlinux
+  SYSMAP  System.map
+  OBJCOPY arch/arm64/boot/Image
+  GZIP    arch/arm64/boot/Image.gz
+make: 离开目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+
+[Build] 生成dtbo.img
+make: 进入目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+  CHK     include/config/kernel.release
+  GEN     ./Makefile
+  CHK     include/generated/uapi/linux/version.h
+  CHK     include/generated/utsrelease.h
+  Using .. as source for kernel
+  CHK     scripts/mod/devicetable-offsets.h
+  CHK     include/generated/timeconst.h
+  CHK     include/generated/bounds.h
+  CHK     include/generated/asm-offsets.h
+  CALL    ../scripts/checksyscalls.sh
+  DTC     arch/arm64/boot/dts/qcom/sm8150.dtb
+  DTC     arch/arm64/boot/dts/qcom/sm8150-v2.dtb
+  DTC     arch/arm64/boot/dts/qcom/sm8150p.dtb
+  DTC     arch/arm64/boot/dts/qcom/sm8150p-v2.dtb
+  DTC     arch/arm64/boot/dts/qcom/nabu-sm8150-overlay.dtbo
+  DTBOIMG arch/arm64/boot/dtbo.img
+make: 离开目录“/home/WutzuBert/android_kernel_xiaomi_nabu-17”
+
+[Check] 校验Image / BTF / DTB / DTBO
+
+gzip: stdout: Broken pipe
+
+[Generate] 生成bk-ZRAM_Tool
+
+[Package] 打包AnyKernel3包
+
+[Done] 构建与打包通过
+[Artifact] 内核版本 : 4.14.336_bk-Kernel_17.0-b2w3
+[Artifact] 产物目录 : /home/WutzuBert/android_kernel_xiaomi_nabu-17/out-full/artifacts
+[Artifact] 安装包   : /home/WutzuBert/android_kernel_xiaomi_nabu-17/out-full/packages/bk-Kernel_nabu-A17-Hyper-b2w3-140012.zip
+[Artifact] SHA256   : b598014ade36028eb76ad1a2e5d0503cb6e787e85be5d52e9d9090a10690d5e8
+BUILD_EXIT=0

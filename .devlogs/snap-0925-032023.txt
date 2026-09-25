@@ -1,0 +1,6 @@
+### snapshot 0925-032023 boot_completed='' boot_mode='' release=''
+--- uname ---
+--- pstore list ---
+--- pstore contents ---
+--- last_kmsg ---
+--- dmesg tail 800 ---

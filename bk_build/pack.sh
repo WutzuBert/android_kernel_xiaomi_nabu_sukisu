@@ -77,7 +77,7 @@ case "$KERNEL_SUFFIX" in
 esac
 
 stamp=$(date -u +%H%M%S)
-PACKAGE="$PACKAGE_ROOT/bk-Kernel_nabu-A17-Hyper-$KERNEL_SUFFIX-$stamp"
+PACKAGE="$PACKAGE_ROOT/bk-Kernel-ayin_nabu-A17-Hyper-$KERNEL_SUFFIX-$stamp"
 ZIP_PATH="$PACKAGE.zip"
 [ ! -e "$PACKAGE" ] && [ ! -e "$ZIP_PATH" ] || { echo "package already exists: $PACKAGE" >&2; exit 1; }
 mkdir -p "$PACKAGE"
@@ -141,7 +141,7 @@ expected_files=$(printf '%s\n%s\n' "$expected_base" "$expected_module" | LC_ALL=
 unzip -p "$ZIP_PATH" anykernel.sh | grep -Fx 'device.name1=nabu' >/dev/null || {
   echo "AnyKernel target is not nabu" >&2; exit 1;
 }
-expected_kernel_string="kernel.string=RinnRei's bk-Kernel / CoolApk @零音Rei"
+expected_kernel_string="kernel.string=RinnRei & ayin's bk-Kernel / CoolApk @零音Rei"
 unzip -p "$ZIP_PATH" anykernel.sh | \
   grep -Fx "$expected_kernel_string" >/dev/null || {
     echo "AnyKernel kernel.string is incorrect" >&2; exit 1;

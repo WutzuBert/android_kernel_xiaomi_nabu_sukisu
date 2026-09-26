@@ -31,7 +31,7 @@ config KPM
       This option is suitable for scenarios where you need to force KPM to be enabled.
       but it may affect system stability.
     select KALLSYMS
-    # select KALLSYMS_ALL (disabled on 4.14 nabu to satisfy build.sh)
+    select KALLSYMS_ALL
 
 menu "KernelSU - SUSFS"
 config KSU_SUSFS

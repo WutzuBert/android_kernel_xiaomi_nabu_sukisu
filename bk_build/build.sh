@@ -52,6 +52,8 @@ fi
 [ -d "$GCC32_DIR/bin" ] || { echo "32-bit GNU binutils not found: $GCC32_DIR/bin" >&2; exit 2; }
 PATH="$CLANG_DIR/bin:$GCC64_DIR/bin:$GCC32_DIR/bin:$PATH"
 export PATH
+export KBUILD_BUILD_USER="ayin"
+export KBUILD_BUILD_HOST="github-ci"
 
 make_kernel()
 {
@@ -110,6 +112,9 @@ for symbol in MACH_XIAOMI_NABU BPF BPF_SYSCALL BPF_JIT BPF_JIT_ALWAYS_ON \
     echo "required config is not enabled: CONFIG_$symbol" >&2; exit 1;
   }
 done
+grep -qx 'CONFIG_KALLSYMS_ALL=y' "$OUT_DIR/.config" || {
+  echo "required config is not enabled: CONFIG_KALLSYMS_ALL" >&2; exit 1;
+}
 grep -qx 'CONFIG_KSU=y' "$OUT_DIR/.config" || {
   echo "required config is not enabled: CONFIG_KSU" >&2; exit 1;
 }
@@ -128,7 +133,7 @@ for symbol in KSU_FEATURE_ADBROOT KSU_SUSFS \
   }
 done
 for symbol in DEBUG_INFO_REDUCED DEBUG_INFO_SPLIT DEBUG_KERNEL DYNAMIC_DEBUG \
-  KALLSYMS_ALL CC_OPTIMIZE_FOR_PERFORMANCE SCHED_WALT IRQ_TIME_ACCOUNTING \
+  CC_OPTIMIZE_FOR_PERFORMANCE SCHED_WALT IRQ_TIME_ACCOUNTING \
   PREEMPT_RT_FULL PREEMPT_RTB PREEMPT_RT_BASE RCU_BOOST; do
   if grep -q "^CONFIG_$symbol=" "$OUT_DIR/.config"; then
     echo "required config is not disabled: CONFIG_$symbol" >&2; exit 1
@@ -223,8 +228,7 @@ if [ -x "$SCRIPT_DIR/tools/kpm/patch_linux" ] && [ -f "$BOOT/Image" ]; then
     ./patch_linux
   )
   if [ -s "$kpm_dir/oImage" ]; then
-    oimage_magic=$(dd if="$kpm_dir/oImage" bs=1 skip=56 count=4 2>/dev/null | od -An -tx1 | tr -d ' 
-')
+    oimage_magic=$(dd if="$kpm_dir/oImage" bs=1 skip=56 count=4 2>/dev/null | od -An -tx1 | tr -d ' \n')
     if [ "$oimage_magic" = "41524d64" ]; then
       cp -f "$kpm_dir/oImage" "$BOOT/Image"
       gzip -n -c -9 "$BOOT/Image" > "$BOOT/Image.gz.tmp" && mv -f "$BOOT/Image.gz.tmp" "$BOOT/Image.gz"
@@ -233,11 +237,6 @@ if [ -x "$SCRIPT_DIR/tools/kpm/patch_linux" ] && [ -f "$BOOT/Image" ]; then
       echo "patched oImage lost ARM64 Image magic: $oimage_magic" >&2
       exit 1
     fi
-  else
-    echo "KPM patch_linux did not generate oImage" >&2
-    exit 1
-  fi
-fi
   else
     echo "KPM patch_linux did not generate oImage" >&2
     exit 1
@@ -296,7 +295,7 @@ grep -Eq '(^|[[:space:]])pid[[:space:]]*;' \
   echo "BTF task_struct::pid is missing" >&2; exit 1;
 }
 kernel_release=$(make_kernel -s kernelrelease)
-[ "$kernel_release" = "4.14.336_bk-Kernel_17.0-b2w3" ] || {
+[ "$kernel_release" = "4.14.336_bk-Kernel-ayin_17.0-b2w3" ] || {
   echo "unexpected kernel release: $kernel_release" >&2; exit 1;
 }
 

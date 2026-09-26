@@ -1,7 +1,7 @@
 #!/sbin/sh
 # AnyKernel3 nabu installer; the packer adds Image.gz, dtb and dtbo.img.
 properties() { "
-kernel.string=RinnRei's bk-Kernel / CoolApk @零音Rei
+kernel.string=RinnRei & ayin's bk-Kernel / CoolApk @零音Rei
 device.name1=nabu
 do.devicecheck=1
 do.modules=0

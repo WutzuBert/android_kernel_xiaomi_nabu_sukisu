@@ -27,7 +27,23 @@ jobs:
             schedtool squashfs-tools xsltproc zip zlib1g-dev python3 \
             cmake libelf-dev libdw-dev
 
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: ccache-nabu-${{ github.sha }}
+          restore-keys: |
+            ccache-nabu-
+
+      - name: Cache pahole v1.25
+        id: cache-pahole
+        uses: actions/cache@v4
+        with:
+          path: ~/pahole
+          key: pahole-v1.25-bin
+
       - name: Setup pahole v1.25
+        if: steps.cache-pahole.outputs.cache-hit != 'true'
         run: |
           git clone --depth=1 -b v1.25 https://git.kernel.org/pub/scm/devel/pahole/pahole.git $HOME/pahole
           mkdir -p $HOME/pahole/build
@@ -36,13 +52,31 @@ jobs:
           make -j$(nproc)
           ./pahole --version
 
+      - name: Cache AOSP Clang r547379
+        id: cache-clang
+        uses: actions/cache@v4
+        with:
+          path: ~/toolchains/linux-x86/clang-r547379
+          key: clang-r547379-toolchain
+
       - name: Setup AOSP Clang r547379
+        if: steps.cache-clang.outputs.cache-hit != 'true'
         run: |
           mkdir -p $HOME/toolchains/linux-x86/clang-r547379
           git clone --depth=1 https://github.com/KiTTYsh/android_prebuilts_clang_host_linux-x86_clang-r547379 $HOME/toolchains/linux-x86/clang-r547379
           $HOME/toolchains/linux-x86/clang-r547379/bin/clang --version | head -1
 
+      - name: Cache GCC 4.9 Toolchains
+        id: cache-gcc
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/toolchains/aarch64-linux-android-4.9
+            ~/toolchains/arm-linux-androideabi-4.9
+          key: gcc-4.9-lineage-19.1-toolchain
+
       - name: Setup GCC 4.9 Toolchains
+        if: steps.cache-gcc.outputs.cache-hit != 'true'
         run: |
           mkdir -p $HOME/toolchains
           git clone --depth=1 -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 $HOME/toolchains/aarch64-linux-android-4.9
@@ -51,7 +85,7 @@ jobs:
           # Ensure aarch64-linux-androidkernel- aliases exist in bin directory
           cd $HOME/toolchains/aarch64-linux-android-4.9/bin
           for f in aarch64-linux-android-*; do
-            target="$"
+            target="${f/aarch64-linux-android-/aarch64-linux-androidkernel-}"
             if [ ! -e "$target" ]; then
               ln -s "$f" "$target"
             fi
@@ -66,7 +100,12 @@ jobs:
           export PAHOLE="$HOME/pahole/build/pahole"
           export DISABLE_LTO_CACHE=1
           export JOBS=$(nproc)
+          export CCACHE=ccache
+          export CCACHE_DIR="$HOME/.cache/ccache"
+          export CCACHE_MAXSIZE="5G"
+          ccache -s
           ./bk_build/build.sh
+          ccache -s
 
       - name: Upload Kernel Packages and Artifacts
         uses: actions/upload-artifact@v4

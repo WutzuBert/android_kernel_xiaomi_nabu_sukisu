@@ -540,8 +540,7 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma, int is_pid)
 				seq_pad(m, ' ');
 				if (spoofed_redirected_name)
 					seq_puts(m, spoofed_redirected_name);
-				seq_putc(m, '
-');
+				seq_putc(m, '\n');
 				srcu_read_unlock(&susfs_srcu_open_redirect, srcu_idx);
 				return;
 			}

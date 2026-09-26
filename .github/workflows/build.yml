@@ -1,0 +1,78 @@
+name: Build and release nabu kernel
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 17.0_336-b1
+      - main
+
+jobs:
+  build:
+    name: Build nabu A17 Kernel
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bc bison build-essential ccache curl flex gawk \
+            git gnupg gperf imagemagick libncurses-dev \
+            lib32readline-dev lib32z1-dev liblz4-tool \
+            libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync \
+            schedtool squashfs-tools xsltproc zip zlib1g-dev python3 \
+            cmake libelf-dev libdw-dev
+
+      - name: Setup pahole v1.25
+        run: |
+          git clone --depth=1 -b v1.25 https://git.kernel.org/pub/scm/devel/pahole/pahole.git $HOME/pahole
+          mkdir -p $HOME/pahole/build
+          cd $HOME/pahole/build
+          cmake -D__LIB=lib ..
+          make -j$(nproc)
+          ./pahole --version
+
+      - name: Setup AOSP Clang r547379
+        run: |
+          mkdir -p $HOME/toolchains/linux-x86/clang-r547379
+          git clone --depth=1 https://github.com/KiTTYsh/android_prebuilts_clang_host_linux-x86_clang-r547379 $HOME/toolchains/linux-x86/clang-r547379
+          $HOME/toolchains/linux-x86/clang-r547379/bin/clang --version | head -1
+
+      - name: Setup GCC 4.9 Toolchains
+        run: |
+          mkdir -p $HOME/toolchains
+          git clone --depth=1 -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 $HOME/toolchains/aarch64-linux-android-4.9
+          git clone --depth=1 -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 $HOME/toolchains/arm-linux-androideabi-4.9
+          
+          # Ensure aarch64-linux-androidkernel- aliases exist in bin directory
+          cd $HOME/toolchains/aarch64-linux-android-4.9/bin
+          for f in aarch64-linux-android-*; do
+            target="$"
+            if [ ! -e "$target" ]; then
+              ln -s "$f" "$target"
+            fi
+          done
+
+      - name: Build Kernel and Package AnyKernel3
+        run: |
+          chmod +x bk_build/build.sh bk_build/pack.sh
+          export CLANG_DIR="$HOME/toolchains/linux-x86/clang-r547379"
+          export GCC64_DIR="$HOME/toolchains/aarch64-linux-android-4.9"
+          export GCC32_DIR="$HOME/toolchains/arm-linux-androideabi-4.9"
+          export PAHOLE="$HOME/pahole/build/pahole"
+          export DISABLE_LTO_CACHE=1
+          export JOBS=$(nproc)
+          ./bk_build/build.sh
+
+      - name: Upload Kernel Packages and Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nabu-A17-kernel-artifacts
+          path: |
+            out/nabu-4.14.336-b2w3/packages/*.zip
+            out/nabu-4.14.336-b2w3/artifacts/*

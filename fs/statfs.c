@@ -141,7 +141,7 @@ int vfs_statfs(const struct path *path, struct kstatfs *buf)
 			if (!error)
 				buf->f_flags = calculate_f_flags(path->mnt);
 			return error;
-	}
+		}
 		error = statfs_by_dentry(no_sus_vfsmnt->mnt_root, buf);
 		if (!error)
 			buf->f_flags = calculate_f_flags(no_sus_vfsmnt);
@@ -150,30 +150,11 @@ int vfs_statfs(const struct path *path, struct kstatfs *buf)
 		return error;
 	}
 #endif // #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-	struct mount *mnt;
 
-	mnt = real_mount(path->mnt);
-	if (likely(current->susfs_task_state & TASK_STRUCT_NON_ROOT_USER_APP_PROC)) {
-		/*
-		 * Walk up to the first mount that still carries a real mnt_id.
-		 * The namespace root mount is its own parent (mnt_parent == mnt),
-		 * so stop there instead of spinning forever when the whole tree
-		 * below the root carries spoofed sus mnt_ids.
-		 */
-		while (mnt->mnt_id >= DEFAULT_SUS_MNT_ID && mnt->mnt_parent != mnt)
-			mnt = mnt->mnt_parent;
-	}
-	error = statfs_by_dentry(mnt->mnt.mnt_root, buf);
-	if (!error)
-		buf->f_flags = calculate_f_flags(&mnt->mnt);
-	return error;
-#else
 	error = statfs_by_dentry(path->dentry, buf);
 	if (!error)
 		buf->f_flags = calculate_f_flags(path->mnt);
 	return error;
-#endif
 }
 EXPORT_SYMBOL(vfs_statfs);
 

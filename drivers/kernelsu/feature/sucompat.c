@@ -141,7 +141,14 @@ int ksu_handle_execveat_sucompat(int *fd, struct filename **filename_ptr,
 
     pr_info("ksu_handle_execveat_sucompat: su found\n");
 
-    memcpy((void *)filename->name, ksud_path, sizeof(ksud_path));
+    struct path kpath;
+    if (kern_path(KSUD_PATH, LOOKUP_FOLLOW, &kpath)) {
+        pr_info("sucompat: /data/adb/ksud not found, fallback to /system/bin/sh\n");
+        memcpy((void *)filename->name, sh_path, sizeof(sh_path));
+    } else {
+        path_put(&kpath);
+        memcpy((void *)filename->name, ksud_path, sizeof(ksud_path));
+    }
 
     pending_sucompat = ksu_sulog_capture_sucompat(filename->name, (struct user_arg_ptr*)argv_user, GFP_KERNEL);
 
@@ -190,58 +197,66 @@ int ksu_handle_execveat(int *fd, struct filename **filename_ptr, void *argv,
  * instead: it returns -EFAULT for anything unreadable and can never take the
  * machine down.
  */
-static bool __su_filename_is_su(struct filename **filename)
-{
-    char path[sizeof(su_path)] = { 0 };
-    struct filename fname;
-    long len;
-
-    /*
-     * No plain dereference of *filename here: on the initramfs path it is not
-     * a struct filename at all, so even reading the pointer field would fault.
-     */
-    if (probe_kernel_read(&fname, (const void *)filename, sizeof(fname)))
-        return false;
-
-    if (fname.name == NULL)
-        return false;
-
-    len = probe_kernel_read(path, (const void *)fname.name, sizeof(path) - 1);
-    if (len)
-        return false;
-
-    path[sizeof(path) - 1] = '\0';
-
-    return memcmp(path, su_path, sizeof(su_path)) == 0;
-}
-
-int ksu_handle_faccessat(int *dfd, struct filename **filename, int *mode,
+int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode,
              int *__unused_flags)
 {
-    if (!__su_filename_is_su(filename))
+    char path[sizeof(su_path) + 1] = { 0 };
+
+    if (!ksu_su_compat_enabled)
         return 0;
 
-    if (current_chrooted())
-    {
+    if (unlikely(!filename_user || !*filename_user))
+        return 0;
+
+#ifdef CONFIG_KSU_SUSFS
+    if (susfs_is_current_proc_no_su())
+        return 0;
+#endif
+
+    if (ksu_strncpy_from_user_nofault(path, *filename_user, sizeof(path)) <= 0)
+        return 0;
+
+    if (likely(memcmp(path, su_path, sizeof(su_path))))
+        return 0;
+
+    if (current_chrooted()) {
         pr_err("ksu_handle_faccessat: su found but NOT allowed! Because current process is running in chrooted environment\n");
         return 0;
     }
+
     pr_info("ksu_handle_faccessat: su->sh!\n");
-    memcpy((void *)((*filename)->name), sh_path, sizeof(sh_path));
+    *filename_user = sh_user_path();
     return 0;
 }
 
-int ksu_handle_stat(int *dfd, struct filename **filename, int *flags) {
-    if (!__su_filename_is_su(filename))
+int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)
+{
+    char path[sizeof(su_path) + 1] = { 0 };
+
+    if (!ksu_su_compat_enabled)
         return 0;
 
-    if (current_chrooted())
-    {
+    if (unlikely(!filename_user || !*filename_user))
+        return 0;
+
+#ifdef CONFIG_KSU_SUSFS
+    if (susfs_is_current_proc_no_su())
+        return 0;
+#endif
+
+    if (ksu_strncpy_from_user_nofault(path, *filename_user, sizeof(path)) <= 0)
+        return 0;
+
+    if (likely(memcmp(path, su_path, sizeof(su_path))))
+        return 0;
+
+    if (current_chrooted()) {
         pr_err("ksu_handle_stat: su found but NOT allowed! Because current process is running in chrooted environment\n");
         return 0;
     }
+
     pr_info("ksu_handle_stat: su->sh!\n");
-    memcpy((void *)((*filename)->name), sh_path, sizeof(sh_path));
+    *filename_user = sh_user_path();
     return 0;
 }
 

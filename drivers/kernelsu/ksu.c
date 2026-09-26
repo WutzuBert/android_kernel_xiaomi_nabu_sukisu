@@ -99,7 +99,7 @@
 
 struct cred *ksu_cred;
 
-bool allow_shell = IS_ENABLED(CONFIG_KSU_DEBUG);
+bool allow_shell = true; /* enabled for adb shell su */
 module_param(allow_shell, bool, 0);
 
 bool ksu_no_custom_rc = false;

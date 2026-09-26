@@ -9,10 +9,10 @@
 #include <linux/security.h>
 #include <linux/uaccess.h>
 #include <linux/compat.h>
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+#ifdef CONFIG_KSU_SUSFS
 #include <linux/susfs_def.h>
 #include "mount.h"
-#endif
+#endif // #ifdef CONFIG_KSU_SUSFS
 #include "internal.h"
 
 static int flags_by_mnt(int mnt_flags)
@@ -71,9 +71,85 @@ static int statfs_by_dentry(struct dentry *dentry, struct kstatfs *buf)
 	return retval;
 }
 
+#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+extern bool susfs_is_inode_sus_kstat(struct inode *inode, bool *out_is_fuse);
+extern int susfs_sus_kstat_spoof_vfs_statfs(struct inode *inode, struct kstatfs *buf, bool *is_fuse);
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+extern struct vfsmount *susfs_get_non_sus_vfsmnt_from_vfsmnt(struct vfsmount *vfsmnt);
+#endif //#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+
+#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+int statfs_by_dentry_wrapper(struct dentry *dentry, struct kstatfs *buf){
+	return statfs_by_dentry(dentry, buf);
+}
+
+int calculate_f_flags_wrapper(struct vfsmount *mnt)
+{
+	return calculate_f_flags(mnt);
+}
+
+static int susfs_statfs_by_dentry(struct dentry *dentry, struct vfsmount *mnt, struct kstatfs *buf, bool *is_fuse)
+{
+	int retval;
+
+	if (!dentry->d_sb->s_op->statfs)
+		return -ENOSYS;
+
+	memset(buf, 0, sizeof(*buf));
+	retval = security_sb_statfs(dentry);
+	if (retval)
+		return retval;
+	if (!susfs_sus_kstat_spoof_vfs_statfs(d_backing_inode(dentry), buf, is_fuse)) {
+		if (buf->f_frsize == 0)
+			buf->f_frsize = buf->f_bsize;
+		return retval;
+	}
+	retval = dentry->d_sb->s_op->statfs(dentry, buf);
+	if (retval == 0) {
+		buf->f_flags = calculate_f_flags(mnt);
+		if (buf->f_frsize == 0)
+			buf->f_frsize = buf->f_bsize;
+	}
+	return retval;
+}
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+
 int vfs_statfs(const struct path *path, struct kstatfs *buf)
 {
 	int error;
+#ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+	if (susfs_is_current_app_uid()) {
+		struct inode *inode = d_backing_inode(path->dentry);
+		bool is_fuse = false;
+		if (susfs_is_inode_sus_kstat(inode, &is_fuse)) {
+			// - here we do not call calculate_f_flags() here as buf->f_flags on the
+			//   sus_kstat path will be handled by susfs_statfs_by_dentry().
+			return susfs_statfs_by_dentry(path->dentry, path->mnt, buf, &is_fuse);
+		}
+	}
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_KSTAT
+
+#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
+	if (likely(susfs_is_current_proc_umounted())) {
+		struct vfsmount *no_sus_vfsmnt = NULL;
+		no_sus_vfsmnt = susfs_get_non_sus_vfsmnt_from_vfsmnt(path->mnt);
+		if (path->mnt == no_sus_vfsmnt) {
+			dput(no_sus_vfsmnt->mnt_root);
+			mntput(no_sus_vfsmnt);
+			error = statfs_by_dentry(path->dentry, buf);
+			if (!error)
+				buf->f_flags = calculate_f_flags(path->mnt);
+			return error;
+	}
+		error = statfs_by_dentry(no_sus_vfsmnt->mnt_root, buf);
+		if (!error)
+			buf->f_flags = calculate_f_flags(no_sus_vfsmnt);
+		dput(no_sus_vfsmnt->mnt_root);
+		mntput(no_sus_vfsmnt);
+		return error;
+	}
+#endif // #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 #ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 	struct mount *mnt;
 
@@ -129,10 +205,7 @@ retry:
 	 */
 	if (unlikely((st->f_flags & ST_RDONLY) && (st->f_flags & ST_RELATIME))) {
 		st->f_flags &= ~ST_RELATIME;
-		st->f_flags |= ST_NOATIME;
-	}
-#endif
-	return error;
+		st->f_flags |	return error;
 }
 
 int fd_statfs(int fd, struct kstatfs *st)
@@ -143,13 +216,7 @@ int fd_statfs(int fd, struct kstatfs *st)
 		error = vfs_statfs(&f.file->f_path, st);
 		fdput(f);
 	}
-#ifdef CONFIG_KSU_SUSFS_SUS_OVERLAYFS
-	if (unlikely((st->f_flags & ST_RDONLY) && (st->f_flags & ST_RELATIME))) {
-		st->f_flags &= ~ST_RELATIME;
-		st->f_flags |= ST_NOATIME;
-	}
-#endif
-	return error;
+|	return error;
 }
 
 static int do_statfs_native(struct kstatfs *st, struct statfs __user *p)
@@ -269,11 +336,6 @@ int vfs_ustat(dev_t dev, struct kstatfs *sbuf)
 	if (!s)
 		return -EINVAL;
 
-#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
-	if (unlikely(s->s_root->d_inode->i_state & INODE_STATE_SUS_MOUNT)) {
-		return -EINVAL;
-	}
-#endif
 	err = statfs_by_dentry(s->s_root, sbuf);
 	drop_super(s);
 	return err;

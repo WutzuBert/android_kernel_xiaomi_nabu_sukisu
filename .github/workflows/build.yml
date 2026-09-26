@@ -91,6 +91,13 @@ jobs:
             fi
           done
 
+      - name: Setup SukiSU KPM patcher
+        run: |
+          git clone --depth=1 https://github.com/SukiSU-Ultra/SukiSU_patch.git $HOME/SukiSU_patch
+          mkdir -p bk_build/tools/kpm
+          cp -a $HOME/SukiSU_patch/kpm/. bk_build/tools/kpm/
+          chmod +x bk_build/tools/kpm/patch_linux bk_build/tools/kpm/kptools || true
+
       - name: Build Kernel and Package AnyKernel3
         run: |
           chmod +x bk_build/build.sh bk_build/pack.sh

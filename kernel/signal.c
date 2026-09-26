@@ -13,7 +13,9 @@
 #include <linux/slab.h>
 #include <linux/export.h>
 #include <linux/init.h>
+#ifdef CONFIG_REKERNEL
 #include <linux/rekernel.h>
+#endif
 #include <linux/sched/mm.h>
 #include <linux/sched/user.h>
 #include <linux/sched/debug.h>
@@ -1213,6 +1215,7 @@ specific_send_sig_info(int sig, struct siginfo *info, struct task_struct *t)
 	return send_signal(sig, info, t, 0);
 }
 
+#ifdef CONFIG_REKERNEL
 static inline bool line_is_frozen(struct task_struct *task)
 {
 	return frozen(task) || freezing(task);
@@ -1266,6 +1269,7 @@ static int __init start_rekernel_server(void)
 	return 0;
 }
 late_initcall(start_rekernel_server);
+#endif
 
 int do_send_sig_info(int sig, struct siginfo *info, struct task_struct *p,
 			bool group)
@@ -1273,6 +1277,7 @@ int do_send_sig_info(int sig, struct siginfo *info, struct task_struct *p,
 	unsigned long flags;
 	int ret = -ESRCH;
 
+#ifdef CONFIG_REKERNEL
 	if (rekernel_netlink && line_is_frozen(p) &&
 	    (sig == SIGKILL || sig == SIGTERM || sig == SIGABRT ||
 	     sig == SIGQUIT)) {
@@ -1283,6 +1288,7 @@ int do_send_sig_info(int sig, struct siginfo *info, struct task_struct *p,
 			 task_uid(p).val, task_uid(current).val);
 		send_netlink_message(binder_kmsg, strlen(binder_kmsg));
 	}
+#endif
 
 	if (lock_task_sighand(p, &flags)) {
 		ret = send_signal(sig, info, p, group);

@@ -113,6 +113,11 @@ done
 grep -qx 'CONFIG_KSU=y' "$OUT_DIR/.config" || {
   echo "required config is not enabled: CONFIG_KSU" >&2; exit 1;
 }
+for feat_symbol in KPM BBG REKERNEL TCP_CONG_BBR TCP_CONG_BRUTAL MQ_IOSCHED_ADIOS; do
+  grep -qx "CONFIG_$feat_symbol=y" "$OUT_DIR/.config" || {
+    echo "required feature is not enabled: CONFIG_$feat_symbol" >&2; exit 1;
+  }
+done
 for symbol in KSU_FEATURE_ADBROOT KSU_SUSFS \
   KSU_SUSFS_SUS_PATH KSU_SUSFS_SUS_KSTAT KSU_SUSFS_SUS_MOUNT \
   KSU_SUSFS_SPOOF_UNAME KSU_SUSFS_ENABLE_LOG \
@@ -204,6 +209,40 @@ stage "Build" "编译Image.gz+设备树"
 make_kernel -j"$JOBS" Image.gz dtbs
 stage "Build" "生成dtbo.img"
 make_kernel -j"$JOBS" dtbo.img
+
+BOOT="$OUT_DIR/arch/$ARCH/boot"
+if [ -x "$SCRIPT_DIR/tools/kpm/patch_linux" ] && [ -f "$BOOT/Image" ]; then
+  stage "Patch" "应用KPM内核补丁"
+  kpm_dir="$OUT_DIR/kpm_patch_work"
+  rm -rf "$kpm_dir"
+  mkdir -p "$kpm_dir"
+  cp -a "$SCRIPT_DIR/tools/kpm/." "$kpm_dir/"
+  cp -f "$BOOT/Image" "$kpm_dir/Image"
+  (
+    cd "$kpm_dir"
+    ./patch_linux
+  )
+  if [ -s "$kpm_dir/oImage" ]; then
+    oimage_magic=$(dd if="$kpm_dir/oImage" bs=1 skip=56 count=4 2>/dev/null | od -An -tx1 | tr -d ' 
+')
+    if [ "$oimage_magic" = "41524d64" ]; then
+      cp -f "$kpm_dir/oImage" "$BOOT/Image"
+      gzip -n -c -9 "$BOOT/Image" > "$BOOT/Image.gz.tmp" && mv -f "$BOOT/Image.gz.tmp" "$BOOT/Image.gz"
+      echo "[KPM] 内核Image注入KernelPatch成功"
+    else
+      echo "patched oImage lost ARM64 Image magic: $oimage_magic" >&2
+      exit 1
+    fi
+  else
+    echo "KPM patch_linux did not generate oImage" >&2
+    exit 1
+  fi
+fi
+  else
+    echo "KPM patch_linux did not generate oImage" >&2
+    exit 1
+  fi
+fi
 
 stage "Check" "校验Image / BTF / DTB / DTBO"
 BOOT="$OUT_DIR/arch/$ARCH/boot"

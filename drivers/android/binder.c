@@ -73,7 +73,9 @@
 #include <linux/spinlock.h>
 
 #include <uapi/linux/android/binder.h>
+#ifdef CONFIG_REKERNEL
 #include <linux/rekernel.h>
+#endif
 #include <uapi/linux/sched/types.h>
 #include "binder_alloc.h"
 #include "binder_internal.h"
@@ -3008,6 +3010,7 @@ static int send_netlink_message(const char *msg, uint16_t len) {
     return netlink_unicast(rekernel_netlink, skbuffer, REKERNEL_USER_PORT, MSG_DONTWAIT);
 }
 
+#ifdef CONFIG_REKERNEL
 static int __init start_rekernel_server(void)
 {
 	extern struct net init_net;
@@ -3035,6 +3038,7 @@ static int __init start_rekernel_server(void)
 	return 0;
 }
 late_initcall(start_rekernel_server);
+#endif
 
 static void binder_transaction(struct binder_proc *proc,
 			       struct binder_thread *thread,
@@ -3127,6 +3131,7 @@ static void binder_transaction(struct binder_proc *proc,
 		target_proc = target_thread->proc;
 		atomic_inc(&target_proc->tmp_ref);
 		binder_inner_proc_unlock(target_thread->proc);
+#ifdef CONFIG_REKERNEL
 		if (rekernel_netlink) {
 			if (target_proc
             	&& (NULL != target_proc->tsk)
@@ -3139,6 +3144,7 @@ static void binder_transaction(struct binder_proc *proc,
          			send_netlink_message(binder_kmsg, strlen(binder_kmsg));
    			}
 		}
+#endif
 	} else {
 		if (tr->target.handle) {
 			struct binder_ref *ref;
@@ -3191,6 +3197,7 @@ static void binder_transaction(struct binder_proc *proc,
 			goto err_dead_binder;
 		}
 		e->to_node = target_node->debug_id;
+#ifdef CONFIG_REKERNEL
 		if (rekernel_netlink) {
 			if (target_proc
             	&& (NULL != target_proc->tsk)
@@ -3203,6 +3210,7 @@ static void binder_transaction(struct binder_proc *proc,
          			send_netlink_message(binder_kmsg, strlen(binder_kmsg));
    			}
 		}
+#endif
 		if (security_binder_transaction(proc->cred,
 						target_proc->cred) < 0) {
 			return_error = BR_FAILED_REPLY;

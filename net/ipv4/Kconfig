@@ -671,6 +671,12 @@ config TCP_CONG_CDG
 	  D.A. Hayes and G. Armitage. "Revisiting TCP congestion control using
 	  delay gradients." In Networking 2011. Preprint: http://goo.gl/No3vdg
 
+config TCP_CONG_BRUTAL
+	tristate "Brutal TCP congestion control"
+	default y
+	---help---
+	  TCP Brutal pacing-based congestion control for 4.14.
+
 config TCP_CONG_BBR
 	tristate "BBR TCP"
 	default n

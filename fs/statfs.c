@@ -186,7 +186,10 @@ retry:
 	 */
 	if (unlikely((st->f_flags & ST_RDONLY) && (st->f_flags & ST_RELATIME))) {
 		st->f_flags &= ~ST_RELATIME;
-		st->f_flags |	return error;
+		st->f_flags |= ST_NOATIME;
+	}
+#endif
+	return error;
 }
 
 int fd_statfs(int fd, struct kstatfs *st)
@@ -197,7 +200,13 @@ int fd_statfs(int fd, struct kstatfs *st)
 		error = vfs_statfs(&f.file->f_path, st);
 		fdput(f);
 	}
-|	return error;
+#ifdef CONFIG_KSU_SUSFS_SUS_OVERLAYFS
+	if (unlikely((st->f_flags & ST_RDONLY) && (st->f_flags & ST_RELATIME))) {
+		st->f_flags &= ~ST_RELATIME;
+		st->f_flags |= ST_NOATIME;
+	}
+#endif
+	return error;
 }
 
 static int do_statfs_native(struct kstatfs *st, struct statfs __user *p)

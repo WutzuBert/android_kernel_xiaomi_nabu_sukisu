@@ -76,6 +76,11 @@ stage()
   printf '\n[%s] %s\n' "$1" "$2"
 }
 
+if [ -f "$SCRIPT_DIR/sync_resukisu.sh" ]; then
+  chmod +x "$SCRIPT_DIR/sync_resukisu.sh"
+  "$SCRIPT_DIR/sync_resukisu.sh"
+fi
+
 stage "Config" "内核目录：$KERNEL_DIR"
 printf '输出目录：%s\n配置文件：%s\n并行任务：%s\n' \
   "$OUT_DIR" "$DEFCONFIG" "$JOBS"
@@ -326,9 +331,14 @@ anykernel_template_sha=$(
   echo "KERNEL_DIRTY_DIFF_SHA256=$dirty_diff_sha"
   echo "ANDROID_STABLE_COMMIT=014241ad77dda0eafbdf671d5b8e86917d8ec97e"
   echo "QUALCOMM_REFERENCE_COMMIT=d1966c80dcfcabe6058eba05ded94a9af967760f"
+  ksu_rel="v4.2.0-rc3"
+  ksu_sha="fa8311f6"
+  [ -f "$KERNEL_DIR/drivers/kernelsu/.resukisu_tag" ] && ksu_rel=$(cat "$KERNEL_DIR/drivers/kernelsu/.resukisu_tag")
+  [ -f "$KERNEL_DIR/drivers/kernelsu/.resukisu_commit" ] && ksu_sha=$(cat "$KERNEL_DIR/drivers/kernelsu/.resukisu_commit")
   echo "KERNELSU_VARIANT=ReSukiSU"
-  echo "KERNELSU_RELEASE=v4.1.0"
-  echo "KERNELSU_BRANCH=builtin"
+  echo "KERNELSU_RELEASE=$ksu_rel"
+  echo "KERNELSU_COMMIT=$ksu_sha"
+  echo "KERNELSU_BRANCH=main"
   echo "SUSFS_SERIES=v2.3.0"
   echo "DROIDSPACES_COMMIT=7412f6fb732fe7f5e3dc6ac0848d82ef9ff98acf"
   echo "KERNELSU_TREE_SHA256=$ksu_tree_sha"

@@ -817,14 +817,17 @@ And public attribution of xiaomi platforms(like J20S and so and)
 	};
 };
 
+/*
+ * Default SE1 SPI pinctrl claims GPIO 114/115, which are the panel
+ * ENP/ENN rails. Nabu has no IR blaster on this controller.
+ */
 &qupv3_se1_spi {
-	status = "ok";
-	irled@0 {
-		compatible = "ir-spi";
-		reg = <0x0>;
-		status = "ok";
-		spi-max-frequency = <19200000>;
-	};
+	status = "disabled";
+};
+
+/* GPIO 101 is the wireless-charger hall, not USB ID. */
+&extcon_usb1 {
+	status = "disabled";
 };
 
 &pm8150l_lpg {

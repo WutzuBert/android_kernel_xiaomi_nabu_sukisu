@@ -83,7 +83,6 @@ capture_wake_state()
 
 recover_wake()
 {
-	# Process killing disabled to prevent soft reboot / recovery loop on HyperOS
 	return 0
 }
 
@@ -115,7 +114,10 @@ daemon_running()
 mkdir -p "$STATE_DIR" || exit 0
 
 if [ "${1:-}" != --daemon ]; then
-	# Disabled to prevent reboot loops on HyperOS / modern Android
+	BK_OLD_PID=$(cat "$PID_FILE" 2>/dev/null)
+	daemon_running "$BK_OLD_PID" && exit 0
+	rm -f "$PID_FILE" "$ACTIVE_FILE"
+	nohup "$0" --daemon </dev/null >> "$LOG_FILE" 2>&1 &
 	exit 0
 fi
 

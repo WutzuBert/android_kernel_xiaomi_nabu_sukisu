@@ -3,6 +3,12 @@
 MODDIR=${0%/*}
 export BK_CONTROL_DIR=$MODDIR
 
+for BK_EXEC in bkctl action.sh \
+  scripts/bk-reburnout.sh scripts/bk-zram-writeback.sh scripts/bk-wake-guard.sh \
+  bin/bk-zram-setup bin/bk-keyboard-monitor; do
+  chmod 0755 "$MODDIR/$BK_EXEC" 2>/dev/null || true
+done
+
 install_log_exporter()
 {
 	BK_EXPORT_APK=$MODDIR/bin/bkk-log-exporter.apk

@@ -39,7 +39,6 @@ config_init()
 		echo 'touch_firmware=modern'
 		echo 'swappiness=180'
 		echo 'mode=auto'
-		echo 'keyboard_enabled=0'
 	} > "$CONFIG_TMP" || return 1
 	mv -f "$CONFIG_TMP" "$CONFIG"
 }
@@ -125,7 +124,6 @@ set_value()
 			;;
 		keyboard_enabled)
 			case "$BK_VALUE" in 0|1) ;; *) return 1 ;; esac
-			config_set "$BK_NAME" "$BK_VALUE" || return 1
 			write_node "$KEYBOARD_NODE" "$BK_VALUE"
 			;;
 		touch_firmware)
@@ -156,8 +154,8 @@ get_all()
 	if [ -r "$REB_STATUS" ]; then
 		BK_RUNTIME_MODE=$(awk '{ for (i = 1; i <= NF; i++) if ($i ~ /^mode=/) { sub(/^mode=/, "", $i); print $i; exit } }' "$REB_STATUS")
 	fi
-	BK_KEYBOARD=$(config_get keyboard_enabled 2>/dev/null)
-	case "$BK_KEYBOARD" in 0|1) ;; *) BK_KEYBOARD=0 ;; esac
+	BK_KEYBOARD=0
+	[ -r "$KEYBOARD_NODE" ] && BK_KEYBOARD=$(cat "$KEYBOARD_NODE" 2>/dev/null)
 	BK_TOUCH=$(config_get touch_firmware 2>/dev/null)
 	BK_TOUCH_NODE=$(touch_node 2>/dev/null) || true
 	[ -n "$BK_TOUCH_NODE" ] && BK_TOUCH_LIVE=$(cat "$BK_TOUCH_NODE" 2>/dev/null)
@@ -369,9 +367,8 @@ case "${1:-}" in
 			audio_boost|protected_writeback|widget_boost|touch_firmware|swappiness|mode)
 				config_get "$2" || exit 1 ;;
 			keyboard_enabled)
-				BK_KEYBOARD=$(config_get keyboard_enabled 2>/dev/null)
-				case "$BK_KEYBOARD" in 0|1) printf '%s\n' "$BK_KEYBOARD" ;; *) echo 0 ;; esac
-				;;			*) die 'unknown setting' ;;
+				cat "$KEYBOARD_NODE" 2>/dev/null || echo 0 ;;
+			*) die 'unknown setting' ;;
 		esac
 		;;
 	set)
@@ -384,9 +381,6 @@ case "${1:-}" in
 		BK_TOUCH=$(config_get touch_firmware)
 		BK_TOUCH_NODE=$(touch_node 2>/dev/null) || exit 1
 		write_node "$BK_TOUCH_NODE" "$BK_TOUCH"
-		BK_KEYBOARD=$(config_get keyboard_enabled 2>/dev/null)
-		case "$BK_KEYBOARD" in 0|1) ;; *) BK_KEYBOARD=0 ;; esac
-		write_node "$KEYBOARD_NODE" "$BK_KEYBOARD" || true
 		;;
 	cycle-mode)
 		case "$(config_get mode)" in

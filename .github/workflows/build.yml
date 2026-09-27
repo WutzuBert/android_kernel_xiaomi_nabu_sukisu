@@ -98,7 +98,7 @@ jobs:
 
       - name: Build Kernel and Package AnyKernel3
         run: |
-          chmod +x bk_build/build.sh bk_build/pack.sh
+          chmod +x bk_build/build.sh bk_build/pack.sh bk_build/build-module.sh
           export CLANG_DIR="$HOME/toolchains/linux-x86/clang-r547379"
           export GCC64_DIR="$HOME/toolchains/aarch64-linux-android-4.9"
           export GCC32_DIR="$HOME/toolchains/arm-linux-androideabi-4.9"
@@ -118,5 +118,6 @@ jobs:
         with:
           name: nabu-A17-kernel-artifacts
           path: |
-            out/nabu-4.14.336-b2w3/packages/*.zip
-            out/nabu-4.14.336-b2w3/artifacts/*
+            out/*/packages/*.zip
+            out/*/artifacts/*
+            out/*/module-artifacts/*

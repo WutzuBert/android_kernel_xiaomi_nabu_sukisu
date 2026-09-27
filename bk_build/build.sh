@@ -9,7 +9,7 @@ else
 fi
 ARCH=${ARCH:-arm64}
 DEFCONFIG=${DEFCONFIG:-nabu_defconfig}
-OUT_DIR=${OUT_DIR:-$KERNEL_DIR/out/nabu-4.14.336-b2w3}
+OUT_DIR=${OUT_DIR:-$KERNEL_DIR/out/nabu-4.14.336-Pan}
 JOBS=${JOBS:-$(nproc 2>/dev/null || echo 4)}
 CLANG_DIR=${CLANG_DIR:-/home/WutzuBert/toolchains/linux-x86/clang-r547379}
 GCC64_DIR=${GCC64_DIR:-/home/WutzuBert/toolchains/aarch64-linux-android-4.9}
@@ -268,7 +268,7 @@ grep -Eq '(^|[[:space:]])pid[[:space:]]*;' \
   echo "BTF task_struct::pid is missing" >&2; exit 1;
 }
 kernel_release=$(make_kernel -s kernelrelease)
-[ "$kernel_release" = "4.14.336_bk-Kernel-ayin_17.0-b2w3" ] || {
+[ "$kernel_release" = "4.14.336_bk-Kernel-ayin_17.0-Pan" ] || {
   echo "unexpected kernel release: $kernel_release" >&2; exit 1;
 }
 
@@ -370,6 +370,8 @@ stage "Package" "打包AnyKernel3包"
 package_path=$(KERNEL_DIR="$KERNEL_DIR" OUT_DIR="$OUT_DIR" \
   KERNEL_RELEASE="$kernel_release" "$SCRIPT_DIR/pack.sh")
 package_sha=$(sha256sum "$package_path" | awk '{print $1}')
+OUT_DIR="$OUT_DIR" CLANG_DIR="$CLANG_DIR" KERNEL_DIR="$KERNEL_DIR" \
+  "$SCRIPT_DIR/build-module.sh"
 stage "Done" "构建与打包通过"
 printf '[Artifact] 内核版本 : %s\n' "$kernel_release"
 printf '[Artifact] 产物目录 : %s/artifacts\n' "$OUT_DIR"

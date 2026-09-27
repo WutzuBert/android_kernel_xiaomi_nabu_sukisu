@@ -36,20 +36,29 @@ else
     abort "Cannot decompress embedded PBRP recovery ramdisk.";
   [ "$(sha256sum "$pbrp_cpio" | awk '{ print $1 }')" = "$pbrp_sha256" ] || \
     abort "Embedded PBRP recovery ramdisk checksum mismatch.";
-  [ "$ramdisk" = "$home/ramdisk" ] || abort "Unexpected AnyKernel ramdisk path.";
-  rm -rf "$ramdisk";
-  mkdir -p "$ramdisk" || abort "Cannot create PBRP ramdisk directory.";
-  cd "$ramdisk";
-  EXTRACT_UNSAFE_SYMLINKS=1 cpio -d -F "$pbrp_cpio" -i || \
-    abort "Cannot extract embedded PBRP recovery ramdisk.";
-  cd "$home";
-  [ -f "$ramdisk/init" ] && [ -f "$ramdisk/prop.default" ] && \
-    [ -f "$ramdisk/twres/ui.xml" ] || abort "Embedded PBRP ramdisk is incomplete.";
+  # On HyperOS 14 / modern Android, if the boot image contains a native system ramdisk,
+  # preserve it to avoid dynamic partition / AVB mount failure caused by old PBRP.
+  if [ -f "$ramdisk/init" ] && [ ! -f "$ramdisk/twres/ui.xml" ]; then
+    ui_print "Preserving native Android system ramdisk for HyperOS compatibility.";
+  else
+    ui_print "Updating embedded PBRP recovery ramdisk...";
+    rm -rf "$ramdisk";
+    mkdir -p "$ramdisk" || abort "Cannot create PBRP ramdisk directory.";
+    cd "$ramdisk";
+    EXTRACT_UNSAFE_SYMLINKS=1 cpio -d -F "$pbrp_cpio" -i || \
+      abort "Cannot extract embedded PBRP recovery ramdisk.";
+    cd "$home";
+    [ -f "$ramdisk/init" ] && [ -f "$ramdisk/prop.default" ] && \
+      [ -f "$ramdisk/twres/ui.xml" ] || abort "Embedded PBRP ramdisk is incomplete.";
+  fi
 
   # Keep recovery selection under the bootloader's force_normal_boot property.
   patch_cmdline androidboot.force_normal_boot ""
+  patch_cmdline androidboot.force_normal_boot "androidboot.force_normal_boot=1"
   if [ -f "$ramdisk/prop.default" ]; then
     patch_prop "$ramdisk/prop.default" ro.mi.os.custfeatureresolve true;
+  elif [ -f "$ramdisk/default.prop" ]; then
+    patch_prop "$ramdisk/default.prop" ro.mi.os.custfeatureresolve true;
   else
     abort "Missing boot ramdisk prop.default; refusing an incomplete HyperOS fix.";
   fi

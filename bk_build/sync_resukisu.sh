@@ -64,8 +64,8 @@ sed -i "s/KSU_BRANCH_NAME\s*:=.*/KSU_BRANCH_NAME := main/g" "$DEST_DIR/Kbuild"
 echo "[+] Enabling allow_shell = true in core/init.c..."
 sed -i 's/bool allow_shell = false;/bool allow_shell = true;/g' "$DEST_DIR/core/init.c"
 
-# 7. Adapt Linux 4.14 user-pointer ABI for sucompat
-echo "[+] Adapting sucompat for Linux 4.14 user-pointer ABI..."
+# 7. Adapt Linux 4.14 user-pointer ABI, hide su for unauthorized UIDs, and disable KPM
+echo "[+] Adapting sucompat and apatch for Linux 4.14 + SUSFS..."
 python3 -u - <<'PY'
 from pathlib import Path
 
@@ -92,8 +92,31 @@ if c_path.exists():
         c = c.replace(fa_target, fa_replace, 1)
     if stat_target in c:
         c = c.replace(stat_target, stat_replace, 1)
+
+    # Restrict faccessat and stat redirects to authorized UIDs
+    old_fa_414 = 'int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode, int *__unused_flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };'
+    new_fa_414 = 'int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode, int *__unused_flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };\n    char __user *sh_p;\n    const struct cred *old_cred;\n    bool ksud_exists;\n\n    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {\n        return 0;\n    }'
+    if old_fa_414 in c:
+        c = c.replace(old_fa_414, new_fa_414, 1)
+
+    old_stat_414 = 'int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };'
+    new_stat_414 = 'int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };\n    char __user *sh_p;\n    const struct cred *old_cred;\n    bool ksud_exists;\n\n    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {\n        return 0;\n    }'
+    if old_stat_414 in c:
+        c = c.replace(old_stat_414, new_stat_414, 1)
+
     c_path.write_text(c, encoding="utf-8")
-    print("  - Updated sucompat.c: 4.14 user-pointer ABI guard installed")
+    print("  - Updated sucompat.c: 4.14 user-pointer ABI & authorized UID filter installed")
+
+# 3. Disable KPM conflict check to prevent kernel crash when clicking KPM in Manager
+ap_path = Path("drivers/kernelsu/compat/apatch_conflict.c")
+if ap_path.exists():
+    ap = ap_path.read_text(encoding="utf-8")
+    old_start = "void ksu_start_apatch_conflict_check()\n{\n    kthread_run(detect_conflict_thread, NULL, \"detect_apatch_conflict\");\n}"
+    new_start = "void ksu_start_apatch_conflict_check(void)\n{\n    pr_info(\"KernelPatch KPM is disabled on built-in kernel\\n\");\n    kernel_patch_type = KERNEL_PATCH_NOT_FOUND;\n}"
+    if old_start in ap:
+        ap = ap.replace(old_start, new_start, 1)
+        ap_path.write_text(ap, encoding="utf-8")
+        print("  - Updated apatch_conflict.c: KPM disabled safely")
 PY
 
 # 8. Record resolved metadata

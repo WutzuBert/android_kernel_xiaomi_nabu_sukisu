@@ -166,8 +166,8 @@ cp "$OUT_DIR/.config" "$OUT_DIR/nabu-a17.config"
 stage "Build" "编译内核对象"
 make_kernel init/version.o
 make_kernel -j"$JOBS" security/selinux/
-# The KernelSU driver object is built ahead of the rest of the tree.
-KSU_OBJECTS=drivers/kernelsu/kernelsu.o
+# The KernelSU driver directory is built ahead of the rest of the tree.
+make_kernel -j"$JOBS" drivers/kernelsu/
 make_kernel -j"$JOBS" \
   kernel/bpf/syscall.o kernel/bpf/verifier.o kernel/bpf/btf.o \
   kernel/bpf/arraymap.o kernel/bpf/hashtab.o kernel/bpf/ringbuf.o \
@@ -175,7 +175,6 @@ make_kernel -j"$JOBS" \
   net/core/filter.o kernel/bpf/cgroup.o net/ipv4/udp.o net/ipv6/udp.o \
   drivers/devfreq/bimc-bwmon.o \
   drivers/extcon/extcon.o \
-  $KSU_OBJECTS \
   arch/arm64/kernel/setup.o arch/arm64/kernel/cpu_errata.o \
   arch/arm64/net/bpf_jit_comp.o fs/pstore/ram.o fs/pstore/platform.o \
   kernel/printk/printk.o kernel/sys.o mm/oom_kill.o \

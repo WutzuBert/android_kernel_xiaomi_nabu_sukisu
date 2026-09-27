@@ -120,7 +120,7 @@ for feat_symbol in REKERNEL TCP_CONG_BBR TCP_CONG_BRUTAL MQ_IOSCHED_ADIOS; do
     echo "required feature is not enabled: CONFIG_$feat_symbol" >&2; exit 1;
   }
 done
-for symbol in KSU_FEATURE_ADBROOT KSU_SUSFS \
+for symbol in KSU_SUSFS \
   KSU_SUSFS_SUS_PATH KSU_SUSFS_SUS_KSTAT KSU_SUSFS_SUS_MOUNT \
   KSU_SUSFS_SPOOF_UNAME KSU_SUSFS_ENABLE_LOG \
   KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG \
@@ -167,7 +167,7 @@ stage "Build" "编译内核对象"
 make_kernel init/version.o
 make_kernel -j"$JOBS" security/selinux/
 # The KernelSU driver object is built ahead of the rest of the tree.
-KSU_OBJECTS=drivers/kernelsu/ksu.o
+KSU_OBJECTS=drivers/kernelsu/kernelsu.o
 make_kernel -j"$JOBS" \
   kernel/bpf/syscall.o kernel/bpf/verifier.o kernel/bpf/btf.o \
   kernel/bpf/arraymap.o kernel/bpf/hashtab.o kernel/bpf/ringbuf.o \
@@ -327,10 +327,10 @@ anykernel_template_sha=$(
   echo "KERNEL_DIRTY_DIFF_SHA256=$dirty_diff_sha"
   echo "ANDROID_STABLE_COMMIT=014241ad77dda0eafbdf671d5b8e86917d8ec97e"
   echo "QUALCOMM_REFERENCE_COMMIT=d1966c80dcfcabe6058eba05ded94a9af967760f"
-  echo "KERNELSU_VARIANT=SukiSU-Ultra"
-  echo "KERNELSU_RELEASE=v4.2.0"
+  echo "KERNELSU_VARIANT=ReSukiSU"
+  echo "KERNELSU_RELEASE=v4.1.0"
   echo "KERNELSU_BRANCH=builtin"
-  echo "SUSFS_SERIES=v1.5.5 (4.14 backport)"
+  echo "SUSFS_SERIES=v2.3.0"
   echo "DROIDSPACES_COMMIT=7412f6fb732fe7f5e3dc6ac0848d82ef9ff98acf"
   echo "KERNELSU_TREE_SHA256=$ksu_tree_sha"
   echo "ANYKERNEL_TEMPLATE_SHA256=$anykernel_template_sha"

@@ -126,6 +126,17 @@ if ap_path.exists():
             ap = ap[:next_brace+1] + '\n    pr_info("KernelPatch KPM is disabled on built-in kernel\\n");\n    kernel_patch_type = KERNEL_PATCH_NOT_FOUND;\n' + ap[close_brace:]
             ap_path.write_text(ap, encoding="utf-8")
             print("  - Updated apatch_conflict.c: KPM disabled safely")
+
+# 4. Support additional init.rc paths in is_init_rc
+ksud_path = Path("drivers/kernelsu/runtime/ksud_integration.c")
+if ksud_path.exists():
+    ksud = ksud_path.read_text(encoding="utf-8")
+    old_cmp = 'if (!!strcmp(dpath, "/init.rc") && !!strcmp(dpath, "/system/etc/init/hw/init.rc"))'
+    new_cmp = 'if (!!strcmp(dpath, "/init.rc") && !!strcmp(dpath, "/system/etc/init/hw/init.rc") && !!strcmp(dpath, "/system/etc/init/init.rc"))'
+    if old_cmp in ksud:
+        ksud = ksud.replace(old_cmp, new_cmp, 1)
+        ksud_path.write_text(ksud, encoding="utf-8")
+        print("  - Updated ksud_integration.c: added /system/etc/init/init.rc support")
 PY
 
 # 8. Record resolved metadata

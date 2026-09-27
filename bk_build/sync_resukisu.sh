@@ -94,15 +94,21 @@ if c_path.exists():
         c = c.replace(stat_target, stat_replace, 1)
 
     # Restrict faccessat and stat redirects to authorized UIDs
-    old_fa_414 = 'int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode, int *__unused_flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };'
-    new_fa_414 = 'int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode, int *__unused_flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };\n    char __user *sh_p;\n    const struct cred *old_cred;\n    bool ksud_exists;\n\n    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {\n        return 0;\n    }'
-    if old_fa_414 in c:
-        c = c.replace(old_fa_414, new_fa_414, 1)
+    target_fa = 'int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode, int *__unused_flags)'
+    idx_fa = c.find(target_fa)
+    if idx_fa != -1:
+        check = 'if (!ksu_is_allow_uid_for_current'
+        next_brace = c.find('{', idx_fa)
+        if check not in c[idx_fa:idx_fa+350]:
+            c = c[:next_brace+1] + '\n    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {\n        return 0;\n    }\n' + c[next_brace+1:]
 
-    old_stat_414 = 'int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };'
-    new_stat_414 = 'int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)\n{\n    char path[sizeof(su_path) + 1] = { 0 };\n    char __user *sh_p;\n    const struct cred *old_cred;\n    bool ksud_exists;\n\n    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {\n        return 0;\n    }'
-    if old_stat_414 in c:
-        c = c.replace(old_stat_414, new_stat_414, 1)
+    target_st = 'int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)'
+    idx_st = c.find(target_st)
+    if idx_st != -1:
+        check = 'if (!ksu_is_allow_uid_for_current'
+        next_brace = c.find('{', idx_st)
+        if check not in c[idx_st:idx_st+350]:
+            c = c[:next_brace+1] + '\n    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {\n        return 0;\n    }\n' + c[next_brace+1:]
 
     c_path.write_text(c, encoding="utf-8")
     print("  - Updated sucompat.c: 4.14 user-pointer ABI & authorized UID filter installed")
@@ -111,12 +117,15 @@ if c_path.exists():
 ap_path = Path("drivers/kernelsu/compat/apatch_conflict.c")
 if ap_path.exists():
     ap = ap_path.read_text(encoding="utf-8")
-    old_start = "void ksu_start_apatch_conflict_check()\n{\n    kthread_run(detect_conflict_thread, NULL, \"detect_apatch_conflict\");\n}"
-    new_start = "void ksu_start_apatch_conflict_check(void)\n{\n    pr_info(\"KernelPatch KPM is disabled on built-in kernel\\n\");\n    kernel_patch_type = KERNEL_PATCH_NOT_FOUND;\n}"
-    if old_start in ap:
-        ap = ap.replace(old_start, new_start, 1)
-        ap_path.write_text(ap, encoding="utf-8")
-        print("  - Updated apatch_conflict.c: KPM disabled safely")
+    target_start = "ksu_start_apatch_conflict_check"
+    idx = ap.find(target_start)
+    if idx != -1:
+        next_brace = ap.find("{", idx)
+        close_brace = ap.find("}", next_brace)
+        if next_brace != -1 and close_brace != -1:
+            ap = ap[:next_brace+1] + '\n    pr_info("KernelPatch KPM is disabled on built-in kernel\\n");\n    kernel_patch_type = KERNEL_PATCH_NOT_FOUND;\n' + ap[close_brace:]
+            ap_path.write_text(ap, encoding="utf-8")
+            print("  - Updated apatch_conflict.c: KPM disabled safely")
 PY
 
 # 8. Record resolved metadata

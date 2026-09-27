@@ -71,10 +71,26 @@ reb_config_get()
 
 reb_daemon_running()
 {
-	[ -n "$1" ] && [ -r "/proc/$1/cmdline" ] || return 1
-	case "$(tr '\000' ' ' < "/proc/$1/cmdline" 2>/dev/null)" in
+	[ -n "$1" ] && [ -d "/proc/$1" ] && [ -r "/proc/$1/cmdline" ] || return 1
+
+	# Never let tr read /proc/<pid>/cmdline directly.  When that process exits
+	# between the check above and the read, toybox tr spins forever on the read
+	# error - observed as `tr' in state R chewing on a dead pid's cmdline while
+	# the caller sat in pipe_wait.  That wedges the starter path at the bottom of
+	# this file (the parent never reaches `nohup $0 --daemon'), so the runtime
+	# policy silently stops switching modes until the stale pid file is removed
+	# by hand.  `cat' gives up on the read error and closes the pipe, and the
+	# timeout bounds every remaining case.
+	if command -v timeout >/dev/null 2>&1; then
+		REB_PID_CMDLINE=$(timeout 2 cat "/proc/$1/cmdline" 2>/dev/null | tr '\000' ' ')
+	else
+		REB_PID_CMDLINE=$(cat "/proc/$1/cmdline" 2>/dev/null | tr '\000' ' ')
+	fi
+
+	case "$REB_PID_CMDLINE" in
 		*bk-reburnout.sh*--daemon*) return 0 ;;
 	esac
+
 	return 1
 }
 
@@ -963,10 +979,57 @@ REB_TOUCH_LAST_JIFFIES=
 REB_TOUCH_HIGH_COUNT=0
 trap 'reb_cleanup' EXIT HUP INT TERM
 
-case "$(uname -r)" in
-	4.14.336_bk-Kernel_17.0-b2w3) ;;
-	*) reb_log "ignored on incompatible kernel $(uname -r)"; exit 0 ;;
-esac
+# Kernel compatibility gate.
+#
+# Kernel version strings cannot be trusted on this ROM: brene (Baseband Guard)
+# replaces the uname release/version with a stock-looking string whose
+# `-g<8 digits>' suffix is randomised on every boot, and it may shadow
+# /proc/sys/kernel/osrelease too.  So check every source we can - /proc/version
+# is built from the kernel banner rather than from the utsname, which makes it
+# the hardest to fake - and if all of them disagree, fall back to probing the
+# tuning knobs this script actually drives.  Those only exist on the kernel the
+# module ships with, so their presence is proof that no string spoofing can hide.
+reb_kernel_banner_release()
+{
+	[ -r /proc/version ] || return 0
+	awk '{ print $3; exit }' /proc/version 2>/dev/null
+}
+
+reb_kernel_osrelease()
+{
+	[ -r /proc/sys/kernel/osrelease ] || return 0
+	cat /proc/sys/kernel/osrelease 2>/dev/null
+}
+
+reb_kernel_uname_release()
+{
+	uname -r 2>/dev/null
+}
+
+reb_kernel_supported()
+{
+	for REB_KERNEL_PROBE in \
+		"$(reb_kernel_banner_release)" \
+		"$(reb_kernel_osrelease)" \
+		"$(reb_kernel_uname_release)"; do
+		case "$REB_KERNEL_PROBE" in
+			4.14.336_bk-Kernel*b2w3*) return 0 ;;
+		esac
+	done
+
+	if [ -r /sys/devices/system/cpu/cpufreq/policy0/scaling_governor ] &&
+	   [ -d /sys/devices/platform/soc/1d84000.ufshc ] &&
+	   [ -d /sys/class/kgsl/kgsl-3d0/devfreq ]; then
+		return 0
+	fi
+
+	return 1
+}
+
+if ! reb_kernel_supported; then
+	reb_log "ignored on incompatible kernel (banner=$(reb_kernel_banner_release) osrelease=$(reb_kernel_osrelease) uname=$(reb_kernel_uname_release))"
+	exit 0
+fi
 
 # service.d starts before Android reports boot completion.  Install the
 # allocation reserve here so it also covers the late modem/QRTR startup burst.

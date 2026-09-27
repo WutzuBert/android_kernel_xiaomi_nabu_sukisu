@@ -108,6 +108,92 @@ int ksu_handle_execveat_init(struct filename *filename, struct user_arg_ptr *arg
     return ret;
 }
 
+/*
+ * Magisk-only `su' flags that KernelSU's own su rejects with "unknown option".
+ * Apps written against Magisk (or against an older KernelSU that accepted them)
+ * pass them and then never obtain root - Scene, for instance, issues
+ * `su -M -c ...', where -M is Magisk's --mount-master.
+ *
+ * do_execveat_common() hands this hook `&argv' and only consumes argv later, in
+ * count()/copy_strings(), so pointing that struct at a filtered array is enough:
+ * the argument strings themselves stay exactly where the caller put them, only
+ * the two pointers change.
+ */
+#define KSU_SU_ARG_MAX 64
+#define KSU_SU_FLAG_MAX_LEN 16
+
+static const char *const ksu_su_unsupported_flags[] = {
+    "-M", "--mount-master", "-mm",
+};
+
+static bool ksu_su_flag_unsupported(const char *arg)
+{
+    int i;
+
+    for (i = 0; i < ARRAY_SIZE(ksu_su_unsupported_flags); i++) {
+        if (!strcmp(arg, ksu_su_unsupported_flags[i]))
+            return true;
+    }
+
+    return false;
+}
+
+static void ksu_sucompat_strip_unsupported_flags(void *argv_user)
+{
+    struct user_arg_ptr *uargv = (struct user_arg_ptr *)argv_user;
+    const char __user *kept[KSU_SU_ARG_MAX + 1];
+    char arg[KSU_SU_FLAG_MAX_LEN];
+    void __user *buffer;
+    int i, n = 0, dropped = 0;
+
+    if (unlikely(!uargv))
+        return;
+
+    kept[KSU_SU_ARG_MAX] = NULL;
+
+    for (i = 0; i < KSU_SU_ARG_MAX; i++) {
+        const char __user *p = get_user_arg_ptr(*uargv, i);
+
+        if (!p) {
+            kept[n] = NULL;
+            break;
+        }
+
+        if (IS_ERR(p))
+            return; /* argv not readable: leave the command untouched */
+
+        if (ksu_strncpy_from_user_nofault(arg, p, sizeof(arg)) > 0 &&
+            ksu_su_flag_unsupported(arg)) {
+            dropped++;
+            continue;
+        }
+
+        kept[n++] = p;
+    }
+
+    if (!dropped)
+        return;
+
+#ifdef CONFIG_COMPAT
+    if (uargv->is_compat) {
+        compat_uptr_t compat[KSU_SU_ARG_MAX + 1];
+
+        for (i = 0; i <= n; i++)
+            compat[i] = (compat_uptr_t)(unsigned long)kept[i];
+
+        buffer = userspace_stack_buffer(compat, (n + 1) * sizeof(compat[0]));
+        if (likely(buffer))
+            uargv->ptr.compat = buffer;
+
+        return;
+    }
+#endif
+
+    buffer = userspace_stack_buffer(kept, (n + 1) * sizeof(kept[0]));
+    if (likely(buffer))
+        uargv->ptr.native = buffer;
+}
+
 // the call from execve_handler_pre won't provided correct value for __never_use_argument, use them after fix execve_handler_pre, keeping them for consistence for manually patched code
 int ksu_handle_execveat_sucompat(int *fd, struct filename **filename_ptr,
                  void *argv_user, void *envp_user,
@@ -140,6 +226,12 @@ int ksu_handle_execveat_sucompat(int *fd, struct filename **filename_ptr,
     }
 
     pr_info("ksu_handle_execveat_sucompat: su found\n");
+
+    /*
+     * Drop Magisk-only flags before the command reaches ksud; otherwise apps
+     * such as Scene (`su -M -c ...') never obtain root.
+     */
+    ksu_sucompat_strip_unsupported_flags(argv_user);
 
     struct path kpath;
     if (kern_path(KSUD_PATH, LOOKUP_FOLLOW, &kpath)) {
@@ -185,17 +277,19 @@ int ksu_handle_execveat(int *fd, struct filename **filename_ptr, void *argv,
 }
 
 /*
- * Safely answer "is this path 'su'?".
+ * `su' existence emulation.
  *
- * The struct filename handed to us is not always a real one: vfs_statx() is
- * called from initramfs unpacking with a kernel char * that the hook receives
- * as "struct filename **", so ->name may be junk. Dereferencing that junk with
- * plain C raises a permission fault from the PAN-enabled kernel and die()s
- * with "Accessing user space memory outside uaccess.h routines" (uaccess
- * brackets in this driver do not survive the LTO link, so we cannot rely on
- * clearing PAN). probe_kernel_read() reads through the exception table
- * instead: it returns -EFAULT for anything unreadable and can never take the
- * machine down.
+ * fs/stat.c (vfs_statx) and fs/open.c (SYSCALL_DEFINE3(faccessat)) carry a
+ * `const char __user *filename' on this kernel, so what arrives here is the
+ * address of that user pointer - reading it as a `struct filename **' and
+ * rewriting it in place dereferenced user memory from kernel context, which
+ * either returned -EFAULT through the exception table (PAN) or killed the
+ * machine.  Read the path with the uaccess helper and hand back a pointer to a
+ * kernel-provided string placed on the user stack instead, so that `su' merely
+ * appears to exist (as /system/bin/sh): shells look commands up with
+ * access()/stat() and never reach execve() otherwise.
+ *
+ * Visibility is deliberately restricted - see the two guards below.
  */
 int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode,
              int *__unused_flags)
@@ -210,6 +304,17 @@ int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode,
 
 #ifdef CONFIG_KSU_SUSFS
     if (susfs_is_current_proc_no_su())
+        return 0;
+
+    /*
+     * Hardening: only advertise `su' to a process that is actually allowed to
+     * run it.  The no_su marking above is the primary gate, but it depends on
+     * susfs_zygote_sid/susfs_zygote_next_sid being initialised by
+     * apply_kernelsu_rules(); if that ever regresses, every process sees the
+     * emulated /system/bin/su and root-detection apps report it.  Checking the
+     * allowlist here keeps the emulation invisible even then.
+     */
+    if (!ksu_is_allow_uid_for_current(current_uid().val))
         return 0;
 #endif
 
@@ -241,6 +346,10 @@ int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)
 
 #ifdef CONFIG_KSU_SUSFS
     if (susfs_is_current_proc_no_su())
+        return 0;
+
+    /* Hardening: see ksu_handle_faccessat() above. */
+    if (!ksu_is_allow_uid_for_current(current_uid().val))
         return 0;
 #endif
 

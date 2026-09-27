@@ -254,6 +254,20 @@ do_stop_machine:
 out_flush:
     smp_mb();
     reset_avc_cache();
+#ifdef CONFIG_KSU_SUSFS
+    /*
+     * The 5.10+ path above initialises the SUSFS SELinux SIDs at this point; the
+     * 4.14 path used to return without doing so, which left susfs_zygote_sid at
+     * 0.  ksu_handle_setresuid() then never matched a zygote child, so
+     * handle_zygote_setresuid() never ran for any process: nothing was marked
+     * no_su/umounted, the emulated /system/bin/su stayed visible to every app
+     * (root-detection apps report it) and module mounts were never hidden.
+     * Resolve the SIDs here as well.  security_secctx_to_secid() may sleep, so
+     * this has to stay outside stop_machine()/the policy write lock - same as
+     * reset_avc_cache() above.
+     */
+    susfs_set_batch_sid();
+#endif
 #endif
 }
 

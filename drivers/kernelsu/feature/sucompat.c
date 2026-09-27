@@ -532,6 +532,10 @@ int ksu_handle_faccessat(int *dfd, struct filename **filename, int *mode, int *_
         return 0;
     }
 
+    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {
+        return 0;
+    }
+
     if (unlikely(IS_ERR(*filename) || (*filename)->name == NULL))
         return 0;
 
@@ -554,6 +558,12 @@ int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode,
 {
     char path[sizeof(su_path) + 1] = { 0 };
     char __user *sh_p;
+    const struct cred *old_cred;
+    bool ksud_exists;
+
+    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {
+        return 0;
+    }
 
 #ifdef CONFIG_KSU_SUSFS
     if (susfs_is_current_proc_no_su()) {
@@ -583,6 +593,15 @@ int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode,
 
     if (likely(memcmp(path, su_path, sizeof(su_path))))
         return 0;
+
+    old_cred = override_creds(ksu_cred);
+    ksud_exists = is_ksud_exists();
+    revert_creds(old_cred);
+
+    if (!ksud_exists) {
+        pr_info("no ksud found, don't process faccessat for su!\n");
+        return 0;
+    }
 
     pr_info("ksu_handle_faccessat su->sh!\n");
     sh_p = sh_user_path();
@@ -630,6 +649,12 @@ int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)
 {
     char path[sizeof(su_path) + 1] = { 0 };
     char __user *sh_p;
+    const struct cred *old_cred;
+    bool ksud_exists;
+
+    if (!ksu_is_allow_uid_for_current(ksu_get_uid_t(current_uid()))) {
+        return 0;
+    }
 
 #ifdef CONFIG_KSU_SUSFS
     if (susfs_is_current_proc_no_su()) {
@@ -660,6 +685,15 @@ int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags)
 
     if (likely(memcmp(path, su_path, sizeof(su_path))))
         return 0;
+
+    old_cred = override_creds(ksu_cred);
+    ksud_exists = is_ksud_exists();
+    revert_creds(old_cred);
+
+    if (!ksud_exists) {
+        pr_info("no ksud found, don't process stat for su!\n");
+        return 0;
+    }
 
     pr_info("ksu_handle_stat su->sh!\n");
     sh_p = sh_user_path();

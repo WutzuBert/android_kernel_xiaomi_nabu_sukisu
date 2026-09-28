@@ -28,7 +28,8 @@ for file in module.prop customize.sh bkctl action.sh service.sh \
   webroot/composeResources/org.bkkernel.control.generated.resources/drawable/home.svg \
   webroot/composeResources/org.bkkernel.control.generated.resources/drawable/policy.svg \
   webroot/composeResources/org.bkkernel.control.generated.resources/drawable/save_log.svg \
-  webroot/composeResources/org.bkkernel.control.generated.resources/font/bk_cjk.ttf; do
+  webroot/composeResources/org.bkkernel.control.generated.resources/font/bk_cjk.ttf \
+  telephony/extphonelib.jar telephony/empty; do
   [ -f "$MODULE_DIR/$file" ] || {
     echo "bkk-control input missing: $MODULE_DIR/$file" >&2; exit 2;
   }
@@ -160,6 +161,8 @@ for required in 'collect-log)' 'open-log)' 'theme-seed)'; do
 done
 require_zip_text post-fs-data.sh '<bool name="support_usb_keyboard">true</bool>'
 require_zip_text post-fs-data.sh 'printf '\''%s\n'\'' noop > "$BK_UFS_SCHEDULER"'
+require_zip_text post-fs-data.sh 'setup_extphone_stub'
+require_zip_text post-fs-data.sh '/system_ext/framework/extphonelib.jar'
 require_zip_text webroot/index.html '/internal/colors.css'
 (cd "$PACKAGE_ROOT" && sha256sum "$(basename "$ZIP_PATH")" > "$(basename "$ZIP_PATH").sha256")
 

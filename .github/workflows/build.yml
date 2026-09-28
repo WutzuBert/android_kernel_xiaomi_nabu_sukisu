@@ -11,6 +11,9 @@ jobs:
   build:
     name: Build nabu A17 Kernel
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
@@ -121,3 +124,21 @@ jobs:
             out/*/packages/*.zip
             out/*/artifacts/*
             out/*/module-artifacts/*
+
+      - name: Create GitHub Release
+        if: success() && github.ref == 'refs/heads/17.0_336-b1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          PACKAGE=$(find out/*/packages -maxdepth 1 -type f -name 'bk-Kernel_nabu-A17-Hyper-Panz-*.zip' | head -1)
+          MODULE=$(find out/*/packages -maxdepth 1 -type f -name 'bkk-control-*.zip' | head -1)
+          if [ -n "$PACKAGE" ] && [ -n "$MODULE" ]; then
+            TAG="bk-Kernel_nabu-A17-Hyper-Panz-$(date -u +%Y%m%d-%H%M%S)"
+            gh release create "$TAG" "$PACKAGE" "$MODULE" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "bk-Kernel nabu A17 Hyper Panz (ReSukiSU + SUSFS 2.3.0 + bkk-control 1.3)" \
+              --notes "Release for Xiaomi Pad 5 (nabu) on Android 17 / HyperOS 2.0 with ReSukiSU main, SUSFS 2.3.0, fixed LSPosed cold boot, and bkk-control 1.3." \
+              --latest || echo "Release creation skipped or failed"
+          fi
+

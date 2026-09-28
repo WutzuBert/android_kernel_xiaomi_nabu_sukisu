@@ -131,7 +131,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          PACKAGE=$(find out/*/packages -maxdepth 1 -type f -name 'bk-Kernel_nabu-A17-Hyper-Panz-*.zip' | head -1)
+          PACKAGE=$(find out/*/packages -maxdepth 1 -type f \( -name 'bk-Kernel-ayin_nabu-A17-Hyper-Panz-*.zip' -o -name 'bk-Kernel_nabu-A17-Hyper-Panz-*.zip' \) | head -1)
           MODULE=$(find out/*/packages -maxdepth 1 -type f -name 'bkk-control-*.zip' | head -1)
           if [ -n "$PACKAGE" ] && [ -n "$MODULE" ]; then
             TAG="bk-Kernel_nabu-A17-Hyper-Panz-$(date -u +%Y%m%d-%H%M%S)"

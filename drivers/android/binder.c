@@ -2877,9 +2877,10 @@ static bool binder_can_update_transaction(struct binder_transaction *t1,
 	    (TF_ONE_WAY | TF_UPDATE_TXN) || !t1->to_proc || !t2->to_proc)
 		return false;
 	if (t1->to_proc->tsk == t2->to_proc->tsk && t1->code == t2->code &&
-	    t1->flags == t2->flags && t1->buffer->pid == t2->buffer->pid &&
-	    t1->buffer->target_node->ptr == t2->buffer->target_node->ptr &&
-	    t1->buffer->target_node->cookie == t2->buffer->target_node->cookie)
+	    t1->flags == t2->flags &&
+	    uid_eq(t1->sender_euid, t2->sender_euid) &&
+	    t1->buffer && t2->buffer &&
+	    t1->buffer->target_node == t2->buffer->target_node)
 		return true;
 	return false;
 }

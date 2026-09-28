@@ -9,7 +9,7 @@ else
 fi
 ARCH=${ARCH:-arm64}
 DEFCONFIG=${DEFCONFIG:-nabu_defconfig}
-OUT_DIR=${OUT_DIR:-$KERNEL_DIR/out/nabu-4.14.336-Pan}
+OUT_DIR=${OUT_DIR:-$KERNEL_DIR/out/nabu-4.14.357-Pan}
 JOBS=${JOBS:-$(nproc 2>/dev/null || echo 4)}
 CLANG_DIR=${CLANG_DIR:-/home/WutzuBert/toolchains/linux-x86/clang-r547379}
 GCC64_DIR=${GCC64_DIR:-/home/WutzuBert/toolchains/aarch64-linux-android-4.9}
@@ -268,7 +268,7 @@ grep -Eq '(^|[[:space:]])pid[[:space:]]*;' \
   echo "BTF task_struct::pid is missing" >&2; exit 1;
 }
 kernel_release=$(make_kernel -s kernelrelease)
-[ "$kernel_release" = "4.14.336_bk-Kernel-ayin_17.0-Panz" ] || {
+[ "$kernel_release" = "4.14.357_bk-Kernel-ayin_17.0-Panz" ] || {
   echo "unexpected kernel release: $kernel_release" >&2; exit 1;
 }
 

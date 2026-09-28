@@ -46,6 +46,8 @@ cd "$home";
 
 # Keep recovery selection under the bootloader's force_normal_boot property.
 patch_cmdline androidboot.force_normal_boot ""
+patch_cmdline androidboot.selinux enforcing
+patch_cmdline enforcing 1
 patch_prop "$ramdisk/prop.default" ro.mi.os.custfeatureresolve true;
 
 write_boot;

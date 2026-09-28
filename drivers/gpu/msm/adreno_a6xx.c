@@ -2992,15 +2992,31 @@ static void a6xx_platform_setup(struct adreno_device *adreno_dev)
 static unsigned int a6xx_ccu_invalidate(struct adreno_device *adreno_dev,
 	unsigned int *cmds)
 {
-	/* CCU_INVALIDATE_DEPTH */
-	*cmds++ = cp_packet(adreno_dev, CP_EVENT_WRITE, 1);
-	*cmds++ = 24;
+	struct kgsl_device *device = KGSL_DEVICE(adreno_dev);
+	uint64_t scratch = MEMSTORE_ID_GPU_ADDR(device, KGSL_MEMSTORE_GLOBAL,
+			ref_wait_ts);
+	unsigned int *start = cmds;
+	int i;
 
-	/* CCU_INVALIDATE_COLOR */
-	*cmds++ = cp_packet(adreno_dev, CP_EVENT_WRITE, 1);
-	*cmds++ = 25;
+	/*
+	 * Invalidate while the CCU still holds dirty lines does not retire
+	 * the write. Flush first. The seqno packet is what makes
+	 * PC_CCU_FLUSH_*_TS complete. ref_wait_ts is not consumed on a6xx.
+	 */
+	for (i = 0; i < 2; i++) {
+		*cmds++ = cp_packet(adreno_dev, CP_EVENT_WRITE, 4);
+		*cmds++ = 0x1c + i; /* DEPTH_TS, then COLOR_TS */
+		cmds += cp_gpuaddr(adreno_dev, cmds, scratch);
+		*cmds++ = 0;
+	}
 
-	return 4;
+	/* CCU_INVALIDATE_DEPTH, then CCU_INVALIDATE_COLOR */
+	for (i = 0; i < 2; i++) {
+		*cmds++ = cp_packet(adreno_dev, CP_EVENT_WRITE, 1);
+		*cmds++ = 24 + i;
+	}
+
+	return cmds - start;
 }
 
 /* Register offset defines for A6XX, in order of enum adreno_regs */

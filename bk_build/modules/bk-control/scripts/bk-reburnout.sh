@@ -963,9 +963,27 @@ REB_TOUCH_LAST_JIFFIES=
 REB_TOUCH_HIGH_COUNT=0
 trap 'reb_cleanup' EXIT HUP INT TERM
 
-case "$(uname -r)" in
-	4.14.*_bk-Kernel*_17.0-*) ;;
-	*) reb_log "ignored on incompatible kernel $(uname -r)"; exit 0 ;;
+# uname(2) can be spoofed: hiding modules such as brene rewrite uname -r to
+# "4.14.357-gXXXXXXXX", so the release no longer carries the bk-Kernel name and
+# the daemon would refuse to run.  /proc/sys/kernel/osrelease and /proc/version
+# still report the real build, so read those first and only fall back to uname.
+reb_kernel_release()
+{
+	if [ -r /proc/sys/kernel/osrelease ]; then
+		REB_REL=$(head -n 1 /proc/sys/kernel/osrelease 2>/dev/null)
+		[ -n "$REB_REL" ] && { printf '%s\n' "$REB_REL"; return 0; }
+	fi
+	if [ -r /proc/version ]; then
+		REB_REL=$(awk 'NR == 1 { print $3 }' /proc/version 2>/dev/null)
+		[ -n "$REB_REL" ] && { printf '%s\n' "$REB_REL"; return 0; }
+	fi
+	uname -r 2>/dev/null
+}
+
+REB_KERNEL_RELEASE=$(reb_kernel_release)
+case "$REB_KERNEL_RELEASE" in
+	4.14.*_bk-Kernel*) ;;
+	*) reb_log "ignored on incompatible kernel $REB_KERNEL_RELEASE"; exit 0 ;;
 esac
 
 # service.d starts before Android reports boot completion.  Install the

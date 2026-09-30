@@ -28,6 +28,21 @@ write_node()
 	printf '%s\n' "$2" > "$1"
 }
 
+# uname(2) is spoofable by hiding modules (brene rewrites uname -r), while the
+# kernel's proc files still report the real build.
+kernel_release()
+{
+	if [ -r /proc/sys/kernel/osrelease ]; then
+		BK_REL=$(head -n 1 /proc/sys/kernel/osrelease 2>/dev/null)
+		[ -n "$BK_REL" ] && { printf '%s\n' "$BK_REL"; return 0; }
+	fi
+	if [ -r /proc/version ]; then
+		BK_REL=$(awk 'NR == 1 { print $3 }' /proc/version 2>/dev/null)
+		[ -n "$BK_REL" ] && { printf '%s\n' "$BK_REL"; return 0; }
+	fi
+	uname -r 2>/dev/null
+}
+
 config_init()
 {
 	mkdir -p "$STATE_DIR" || return 1
@@ -39,6 +54,7 @@ config_init()
 		echo 'touch_firmware=modern'
 		echo 'swappiness=180'
 		echo 'mode=auto'
+		echo 'keyboard_enabled=0'
 	} > "$CONFIG_TMP" || return 1
 	mv -f "$CONFIG_TMP" "$CONFIG"
 }
@@ -124,6 +140,7 @@ set_value()
 			;;
 		keyboard_enabled)
 			case "$BK_VALUE" in 0|1) ;; *) return 1 ;; esac
+			config_set "$BK_NAME" "$BK_VALUE" || return 1
 			write_node "$KEYBOARD_NODE" "$BK_VALUE"
 			;;
 		touch_firmware)
@@ -169,7 +186,7 @@ get_all()
 		BK_ANDROID_VERSION="$BK_ANDROID_VERSION (API $BK_ANDROID_SDK)"
 	printf 'system_version=%s\n' "${BK_SYSTEM_VERSION:-unknown}"
 	printf 'android_version=%s\n' "${BK_ANDROID_VERSION:-unknown}"
-	printf 'kernel=%s\n' "$(uname -r)"
+	printf 'kernel=%s\n' "$(kernel_release)"
 	printf 'mode=%s\n' "${BK_MODE:-unknown}"
 	printf 'runtime_mode=%s\n' "${BK_RUNTIME_MODE:-unknown}"
 	printf 'keyboard_enabled=%s\n' "${BK_KEYBOARD:-0}"
@@ -237,6 +254,7 @@ collect_log()
 	{
 		echo '== kernel =='
 		uname -a
+		cat /proc/version 2>/dev/null
 		printf 'slot=%s\n' "$(getprop ro.boot.slot_suffix 2>/dev/null)"
 		printf 'boot_completed=%s\n' "$(getprop sys.boot_completed 2>/dev/null)"
 		printf 'selinux=%s\n' "$(getenforce 2>/dev/null)"
@@ -378,6 +396,10 @@ case "${1:-}" in
 	apply)
 		apply_swappiness "$(config_get swappiness)" || true
 		apply_mode "$(config_get mode)" || true
+		BK_KEYBOARD=$(config_get keyboard_enabled 2>/dev/null || echo 0)
+		case "$BK_KEYBOARD" in
+			0|1) write_node "$KEYBOARD_NODE" "$BK_KEYBOARD" || true ;;
+		esac
 		BK_TOUCH=$(config_get touch_firmware)
 		BK_TOUCH_NODE=$(touch_node 2>/dev/null) || exit 1
 		write_node "$BK_TOUCH_NODE" "$BK_TOUCH"

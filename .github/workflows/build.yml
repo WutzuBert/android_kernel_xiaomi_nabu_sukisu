@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - 17.0_336-b1
+      - 17.0_357-selinux-enforcing
       - main
 
 jobs:
@@ -121,7 +122,7 @@ jobs:
             out/*/module-artifacts/*
 
       - name: Create GitHub Release
-        if: success() && github.ref == 'refs/heads/17.0_336-b1'
+        if: success() && (github.ref == 'refs/heads/17.0_336-b1' || github.ref == 'refs/heads/17.0_357-selinux-enforcing')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -129,11 +130,11 @@ jobs:
           PACKAGE=$(find out/*/packages -maxdepth 1 -type f \( -name 'bk-Kernel-ayin_nabu-A17-Hyper-Panz-*.zip' -o -name 'bk-Kernel_nabu-A17-Hyper-Panz-*.zip' \) | head -1)
           MODULE=$(find out/*/packages -maxdepth 1 -type f -name 'bkk-control-*.zip' | head -1)
           if [ -n "$PACKAGE" ] && [ -n "$MODULE" ]; then
-            TAG="bk-Kernel_nabu-A17-Hyper-Panz-$(date -u +%Y%m%d-%H%M%S)"
+            TAG="bk-Kernel_nabu-A17-Hyper-Panz-SELinux-$(date -u +%Y%m%d-%H%M%S)"
             gh release create "$TAG" "$PACKAGE" "$MODULE" \
               --repo "$GITHUB_REPOSITORY" \
-              --title "bk-Kernel nabu A17 Hyper Panz (ReSukiSU + SUSFS 2.3.0 + bkk-control 1.3)" \
-              --notes "Release for Xiaomi Pad 5 (nabu) on Android 17 / HyperOS 2.0 with ReSukiSU main, SUSFS 2.3.0, fixed LSPosed cold boot, and bkk-control 1.3." \
-              --latest || echo "Release creation skipped or failed"
+              --title "bk-Kernel nabu A17 Hyper Panz (SELinux Enforcing Experimental)" \
+              --notes "Experimental Release for Xiaomi Pad 5 (nabu) on Android 17 / HyperOS 2.0 with kernel-enforced SELinux Enforcing, Linux 4.14.357, ReSukiSU main, SUSFS 2.3.0, and bkk-control 1.3." \
+              --prerelease || echo "Release creation skipped or failed"
           fi
 

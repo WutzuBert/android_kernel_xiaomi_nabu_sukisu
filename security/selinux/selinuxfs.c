@@ -159,8 +159,6 @@ static ssize_t sel_write_enforce(struct file *file, const char __user *buf,
 		goto out;
 
 	new_value = !!new_value;
-	/* Force SELinux enforcing mode at kernel level */
-	new_value = 1;
 
 	old_value = enforcing_enabled(state);
 	if (new_value != old_value) {

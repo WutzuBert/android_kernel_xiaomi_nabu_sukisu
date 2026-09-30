@@ -9,7 +9,7 @@ else
 fi
 ARCH=${ARCH:-arm64}
 DEFCONFIG=${DEFCONFIG:-nabu_defconfig}
-OUT_DIR=${OUT_DIR:-$KERNEL_DIR/out/nabu-4.14.336-b2w3}
+OUT_DIR=${OUT_DIR:-$KERNEL_DIR/out/nabu-4.14.357-Pan}
 JOBS=${JOBS:-$(nproc 2>/dev/null || echo 4)}
 CLANG_DIR=${CLANG_DIR:-/home/WutzuBert/toolchains/linux-x86/clang-r547379}
 GCC64_DIR=${GCC64_DIR:-/home/WutzuBert/toolchains/aarch64-linux-android-4.9}
@@ -76,6 +76,11 @@ stage()
   printf '\n[%s] %s\n' "$1" "$2"
 }
 
+if [ -f "$SCRIPT_DIR/sync_resukisu.sh" ]; then
+  chmod +x "$SCRIPT_DIR/sync_resukisu.sh"
+  "$SCRIPT_DIR/sync_resukisu.sh"
+fi
+
 stage "Config" "内核目录：$KERNEL_DIR"
 printf '输出目录：%s\n配置文件：%s\n并行任务：%s\n' \
   "$OUT_DIR" "$DEFCONFIG" "$JOBS"
@@ -120,7 +125,7 @@ for feat_symbol in REKERNEL TCP_CONG_BBR TCP_CONG_BRUTAL MQ_IOSCHED_ADIOS; do
     echo "required feature is not enabled: CONFIG_$feat_symbol" >&2; exit 1;
   }
 done
-for symbol in KSU_FEATURE_ADBROOT KSU_SUSFS \
+for symbol in KSU_SUSFS \
   KSU_SUSFS_SUS_PATH KSU_SUSFS_SUS_KSTAT KSU_SUSFS_SUS_MOUNT \
   KSU_SUSFS_SPOOF_UNAME KSU_SUSFS_ENABLE_LOG \
   KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG \
@@ -166,8 +171,8 @@ cp "$OUT_DIR/.config" "$OUT_DIR/nabu-a17.config"
 stage "Build" "编译内核对象"
 make_kernel init/version.o
 make_kernel -j"$JOBS" security/selinux/
-# The KernelSU driver object is built ahead of the rest of the tree.
-KSU_OBJECTS=drivers/kernelsu/ksu.o
+# The KernelSU driver directory is built ahead of the rest of the tree.
+make_kernel -j"$JOBS" drivers/kernelsu/
 make_kernel -j"$JOBS" \
   kernel/bpf/syscall.o kernel/bpf/verifier.o kernel/bpf/btf.o \
   kernel/bpf/arraymap.o kernel/bpf/hashtab.o kernel/bpf/ringbuf.o \
@@ -175,7 +180,6 @@ make_kernel -j"$JOBS" \
   net/core/filter.o kernel/bpf/cgroup.o net/ipv4/udp.o net/ipv6/udp.o \
   drivers/devfreq/bimc-bwmon.o \
   drivers/extcon/extcon.o \
-  $KSU_OBJECTS \
   arch/arm64/kernel/setup.o arch/arm64/kernel/cpu_errata.o \
   arch/arm64/net/bpf_jit_comp.o fs/pstore/ram.o fs/pstore/platform.o \
   kernel/printk/printk.o kernel/sys.o mm/oom_kill.o \
@@ -264,7 +268,7 @@ grep -Eq '(^|[[:space:]])pid[[:space:]]*;' \
   echo "BTF task_struct::pid is missing" >&2; exit 1;
 }
 kernel_release=$(make_kernel -s kernelrelease)
-[ "$kernel_release" = "4.14.336_bk-Kernel-ayin_17.0-b2w3" ] || {
+[ "$kernel_release" = "4.14.357_bk-Kernel-ayin_17.0-Panz" ] || {
   echo "unexpected kernel release: $kernel_release" >&2; exit 1;
 }
 
@@ -327,10 +331,15 @@ anykernel_template_sha=$(
   echo "KERNEL_DIRTY_DIFF_SHA256=$dirty_diff_sha"
   echo "ANDROID_STABLE_COMMIT=014241ad77dda0eafbdf671d5b8e86917d8ec97e"
   echo "QUALCOMM_REFERENCE_COMMIT=d1966c80dcfcabe6058eba05ded94a9af967760f"
-  echo "KERNELSU_VARIANT=SukiSU-Ultra"
-  echo "KERNELSU_RELEASE=v4.2.0"
-  echo "KERNELSU_BRANCH=builtin"
-  echo "SUSFS_SERIES=v1.5.5 (4.14 backport)"
+  ksu_rel="v4.2.0-rc3"
+  ksu_sha="fa8311f6"
+  [ -f "$KERNEL_DIR/drivers/kernelsu/.resukisu_tag" ] && ksu_rel=$(cat "$KERNEL_DIR/drivers/kernelsu/.resukisu_tag")
+  [ -f "$KERNEL_DIR/drivers/kernelsu/.resukisu_commit" ] && ksu_sha=$(cat "$KERNEL_DIR/drivers/kernelsu/.resukisu_commit")
+  echo "KERNELSU_VARIANT=ReSukiSU"
+  echo "KERNELSU_RELEASE=$ksu_rel"
+  echo "KERNELSU_COMMIT=$ksu_sha"
+  echo "KERNELSU_BRANCH=main"
+  echo "SUSFS_SERIES=v2.3.0"
   echo "DROIDSPACES_COMMIT=7412f6fb732fe7f5e3dc6ac0848d82ef9ff98acf"
   echo "KERNELSU_TREE_SHA256=$ksu_tree_sha"
   echo "ANYKERNEL_TEMPLATE_SHA256=$anykernel_template_sha"
@@ -361,6 +370,8 @@ stage "Package" "打包AnyKernel3包"
 package_path=$(KERNEL_DIR="$KERNEL_DIR" OUT_DIR="$OUT_DIR" \
   KERNEL_RELEASE="$kernel_release" "$SCRIPT_DIR/pack.sh")
 package_sha=$(sha256sum "$package_path" | awk '{print $1}')
+OUT_DIR="$OUT_DIR" CLANG_DIR="$CLANG_DIR" KERNEL_DIR="$KERNEL_DIR" \
+  "$SCRIPT_DIR/build-module.sh"
 stage "Done" "构建与打包通过"
 printf '[Artifact] 内核版本 : %s\n' "$kernel_release"
 printf '[Artifact] 产物目录 : %s/artifacts\n' "$OUT_DIR"

@@ -596,6 +596,13 @@ adreno_ringbuffer_addcmds(struct adreno_ringbuffer *rb,
 	if (adreno_is_a4xx(adreno_dev) || adreno_is_a3xx(adreno_dev))
 		total_sizedwords += 4;
 
+	/*
+	 * a6xx CCU flush is not ordered with CACHE_FLUSH_TS. Turnip frees
+	 * the BO on that timestamp, and CCU then writes it.
+	 */
+	if (adreno_is_a6xx(adreno_dev))
+		total_sizedwords += 2;
+
 	if (gpudev->preemption_pre_ibsubmit &&
 			adreno_is_preemption_enabled(adreno_dev))
 		total_sizedwords += 27;
@@ -764,6 +771,11 @@ adreno_ringbuffer_addcmds(struct adreno_ringbuffer *rb,
 				MEMSTORE_ID_GPU_ADDR(device,
 				KGSL_MEMSTORE_GLOBAL,
 				ref_wait_ts), ++_seq_cnt);
+
+	if (adreno_is_a6xx(adreno_dev)) {
+		*ringcmds++ = cp_packet(adreno_dev, CP_WAIT_MEM_WRITES, 0);
+		ringcmds += cp_wait_for_idle(adreno_dev, ringcmds);
+	}
 
 	/*
 	 * end-of-pipeline timestamp.  If per context timestamps is not
@@ -1111,7 +1123,7 @@ int adreno_ringbuffer_submitcmd(struct adreno_device *adreno_dev,
 	}
 
 	if (gpudev->ccu_invalidate)
-		dwords += 4;
+		dwords += 14;
 
 	if (dwords <= ARRAY_SIZE(link_onstack)) {
 		link = link_onstack;

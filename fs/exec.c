@@ -1718,10 +1718,11 @@ static int exec_binprm(struct linux_binprm *bprm)
 	return ret;
 }
 
-#ifdef CONFIG_KSU
-extern bool ksu_execveat_hook __read_mostly;
+#if defined(CONFIG_KSU) || defined(CONFIG_KSU_MANUAL_HOOK)
 extern int ksu_handle_execveat(int *fd, struct filename **filename_ptr, void *argv,
 			void *envp, int *flags);
+extern int ksu_handle_post_execveat(int *fd, struct filename **filename_ptr,
+			void *argv, void *envp, int *flags, int *retval);
 #endif
 /*
  * sys_execve() executes a new program.
@@ -1737,7 +1738,7 @@ static int do_execveat_common(int fd, struct filename *filename,
 	struct files_struct *displaced;
 	int retval;
 
-#ifdef CONFIG_KSU
+#if defined(CONFIG_KSU) || defined(CONFIG_KSU_MANUAL_HOOK)
 	ksu_handle_execveat(&fd, &filename, &argv, &envp, &flags);
 #endif
 
@@ -1883,6 +1884,9 @@ static int do_execveat_common(int fd, struct filename *filename,
 	task_numa_free(current, false);
 	free_bprm(bprm);
 	kfree(pathbuf);
+#if defined(CONFIG_KSU) || defined(CONFIG_KSU_MANUAL_HOOK)
+	ksu_handle_post_execveat(&fd, &filename, &argv, &envp, &flags, &retval);
+#endif
 	putname(filename);
 	if (displaced)
 		put_files_struct(displaced);
@@ -1906,6 +1910,11 @@ out_files:
 	if (displaced)
 		reset_files_struct(displaced);
 out_ret:
+#if defined(CONFIG_KSU) || defined(CONFIG_KSU_MANUAL_HOOK)
+	if (!IS_ERR(filename))
+		ksu_handle_post_execveat(&fd, &filename, &argv, &envp,
+					   &flags, &retval);
+#endif
 	putname(filename);
 	return retval;
 }

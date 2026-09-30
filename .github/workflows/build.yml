@@ -11,6 +11,9 @@ jobs:
   build:
     name: Build nabu A17 Kernel
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
@@ -91,9 +94,14 @@ jobs:
             fi
           done
 
+      - name: Sync and adapt latest ReSukiSU main
+        run: |
+          chmod +x bk_build/sync_resukisu.sh
+          ./bk_build/sync_resukisu.sh
+
       - name: Build Kernel and Package AnyKernel3
         run: |
-          chmod +x bk_build/build.sh bk_build/pack.sh
+          chmod +x bk_build/build.sh bk_build/pack.sh bk_build/build-module.sh
           export CLANG_DIR="$HOME/toolchains/linux-x86/clang-r547379"
           export GCC64_DIR="$HOME/toolchains/aarch64-linux-android-4.9"
           export GCC32_DIR="$HOME/toolchains/arm-linux-androideabi-4.9"
@@ -113,5 +121,24 @@ jobs:
         with:
           name: nabu-A17-kernel-artifacts
           path: |
-            out/nabu-4.14.336-b2w3/packages/*.zip
-            out/nabu-4.14.336-b2w3/artifacts/*
+            out/*/packages/*.zip
+            out/*/artifacts/*
+            out/*/module-artifacts/*
+
+      - name: Create GitHub Release
+        if: success() && github.ref == 'refs/heads/17.0_336-b1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          PACKAGE=$(find out/*/packages -maxdepth 1 -type f \( -name 'bk-Kernel-ayin_nabu-A17-Hyper-Panz-*.zip' -o -name 'bk-Kernel_nabu-A17-Hyper-Panz-*.zip' \) | head -1)
+          MODULE=$(find out/*/packages -maxdepth 1 -type f -name 'bkk-control-*.zip' | head -1)
+          if [ -n "$PACKAGE" ] && [ -n "$MODULE" ]; then
+            TAG="bk-Kernel_nabu-A17-Hyper-Panz-$(date -u +%Y%m%d-%H%M%S)"
+            gh release create "$TAG" "$PACKAGE" "$MODULE" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "bk-Kernel nabu A17 Hyper Panz (ReSukiSU + SUSFS 2.3.0 + bkk-control 1.3)" \
+              --notes "Release for Xiaomi Pad 5 (nabu) on Android 17 / HyperOS 2.0 with ReSukiSU main, SUSFS 2.3.0, fixed LSPosed cold boot, and bkk-control 1.3." \
+              --latest || echo "Release creation skipped or failed"
+          fi
+

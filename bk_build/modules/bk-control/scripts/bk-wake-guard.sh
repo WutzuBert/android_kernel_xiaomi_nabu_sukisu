@@ -83,33 +83,7 @@ capture_wake_state()
 
 recover_wake()
 {
-	[ ! -e "$ACTIVE_FILE" ] || return 0
-	: > "$ACTIVE_FILE" || return 0
-	trap 'rm -f "$ACTIVE_FILE"' EXIT HUP INT TERM
-
-	[ "$(getprop sys.boot_completed 2>/dev/null)" = 1 ] || return 0
-	screen_on && return 0
-	wait_for_screen 8 && return 0
-
-	guard_log "wake timeout; restarting SystemUI"
-	capture_wake_state before-systemui
-	BK_SYSTEMUI_PID=$(pidof com.android.systemui 2>/dev/null)
-	case "$BK_SYSTEMUI_PID" in
-		''|*[!0-9\ ]*) ;;
-		*) kill -9 $BK_SYSTEMUI_PID 2>/dev/null || true ;;
-	esac
-	wait_for_screen 10 && {
-		guard_log "wake recovered after SystemUI restart"
-		return 0
-	}
-
-	guard_log "wake still blocked; restarting Android framework"
-	capture_wake_state before-framework
-	BK_SYSTEM_SERVER_PID=$(pidof system_server 2>/dev/null)
-	case "$BK_SYSTEM_SERVER_PID" in
-		''|*[!0-9]*) ;;
-		*) kill -9 "$BK_SYSTEM_SERVER_PID" 2>/dev/null || true ;;
-	esac
+	return 0
 }
 
 find_power_event()

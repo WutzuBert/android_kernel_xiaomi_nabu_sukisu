@@ -94,11 +94,6 @@ jobs:
             fi
           done
 
-      - name: Sync and adapt latest ReSukiSU main
-        run: |
-          chmod +x bk_build/sync_resukisu.sh
-          ./bk_build/sync_resukisu.sh
-
       - name: Build Kernel and Package AnyKernel3
         run: |
           chmod +x bk_build/build.sh bk_build/pack.sh bk_build/build-module.sh

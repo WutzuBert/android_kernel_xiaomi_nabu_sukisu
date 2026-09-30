@@ -198,18 +198,8 @@ int vfs_statx_fd(unsigned int fd, struct kstat *stat,
 }
 EXPORT_SYMBOL(vfs_statx_fd);
 
-#if defined(CONFIG_KSU) || defined(CONFIG_KSU_MANUAL_HOOK)
+#ifdef CONFIG_KSU
 extern int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags);
-extern void ksu_handle_newfstat_ret(unsigned int *fd,
-				    struct stat __user **statbuf_ptr);
-#if defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_COMPAT_STAT64)
-extern void ksu_handle_fstat64_ret(unsigned long *fd,
-				  struct stat64 __user **statbuf_ptr);
-#endif
-#endif
-
-#ifdef CONFIG_KSU_SUSFS
-extern void ksu_handle_vfs_fstat(int fd, loff_t *kstat_size_ptr);
 #endif
 /**
  * vfs_statx - Get basic and extra attributes by filename
@@ -428,10 +418,6 @@ SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
 	int error;
 
 	error = vfs_fstatat(dfd, filename, &stat, flag);
-#ifdef CONFIG_KSU_SUSFS
-	if (!error && (flag & AT_EMPTY_PATH))
-		ksu_handle_vfs_fstat(dfd, &stat.size);
-#endif
 	if (error)
 		return error;
 	return cp_new_stat(&stat, statbuf);
@@ -443,17 +429,8 @@ SYSCALL_DEFINE2(newfstat, unsigned int, fd, struct stat __user *, statbuf)
 	struct kstat stat;
 	int error = vfs_fstat(fd, &stat);
 
-#ifdef CONFIG_KSU_SUSFS
-	if (!error)
-		ksu_handle_vfs_fstat(fd, &stat.size);
-#endif
-
 	if (!error)
 		error = cp_new_stat(&stat, statbuf);
-#ifdef CONFIG_KSU_MANUAL_HOOK
-	if (!error)
-		ksu_handle_newfstat_ret(&fd, &statbuf);
-#endif
 
 	return error;
 }
@@ -572,17 +549,8 @@ SYSCALL_DEFINE2(fstat64, unsigned long, fd, struct stat64 __user *, statbuf)
 	struct kstat stat;
 	int error = vfs_fstat(fd, &stat);
 
-#ifdef CONFIG_KSU_SUSFS
-	if (!error)
-		ksu_handle_vfs_fstat(fd, &stat.size);
-#endif
-
 	if (!error)
 		error = cp_new_stat64(&stat, statbuf);
-#ifdef CONFIG_KSU_MANUAL_HOOK
-	if (!error)
-		ksu_handle_fstat64_ret(&fd, &statbuf);
-#endif
 
 	return error;
 }
@@ -594,10 +562,6 @@ SYSCALL_DEFINE4(fstatat64, int, dfd, const char __user *, filename,
 	int error;
 
 	error = vfs_fstatat(dfd, filename, &stat, flag);
-#ifdef CONFIG_KSU_SUSFS
-	if (!error && (flag & AT_EMPTY_PATH))
-		ksu_handle_vfs_fstat(dfd, &stat.size);
-#endif
 	if (error)
 		return error;
 	return cp_new_stat64(&stat, statbuf);
@@ -663,10 +627,6 @@ SYSCALL_DEFINE5(statx,
 		return -EINVAL;
 
 	error = vfs_statx(dfd, filename, flags, &stat, mask);
-#ifdef CONFIG_KSU_SUSFS
-	if (!error && (flags & AT_EMPTY_PATH))
-		ksu_handle_vfs_fstat(dfd, &stat.size);
-#endif
 	if (error)
 		return error;
 
@@ -742,10 +702,6 @@ COMPAT_SYSCALL_DEFINE4(newfstatat, unsigned int, dfd,
 	int error;
 
 	error = vfs_fstatat(dfd, filename, &stat, flag);
-#ifdef CONFIG_KSU_SUSFS
-	if (!error && (flag & AT_EMPTY_PATH))
-		ksu_handle_vfs_fstat(dfd, &stat.size);
-#endif
 	if (error)
 		return error;
 	return cp_compat_stat(&stat, statbuf);
@@ -758,17 +714,8 @@ COMPAT_SYSCALL_DEFINE2(newfstat, unsigned int, fd,
 	struct kstat stat;
 	int error = vfs_fstat(fd, &stat);
 
-#ifdef CONFIG_KSU_SUSFS
-	if (!error)
-		ksu_handle_vfs_fstat(fd, &stat.size);
-#endif
-
 	if (!error)
 		error = cp_compat_stat(&stat, statbuf);
-#ifdef CONFIG_KSU_MANUAL_HOOK
-	if (!error)
-		ksu_handle_newfstat_ret(&fd, &statbuf);
-#endif
 	return error;
 }
 #endif

@@ -76,11 +76,6 @@ stage()
   printf '\n[%s] %s\n' "$1" "$2"
 }
 
-if [ -f "$SCRIPT_DIR/sync_resukisu.sh" ]; then
-  chmod +x "$SCRIPT_DIR/sync_resukisu.sh"
-  "$SCRIPT_DIR/sync_resukisu.sh"
-fi
-
 stage "Config" "内核目录：$KERNEL_DIR"
 printf '输出目录：%s\n配置文件：%s\n并行任务：%s\n' \
   "$OUT_DIR" "$DEFCONFIG" "$JOBS"
@@ -125,7 +120,7 @@ for feat_symbol in REKERNEL TCP_CONG_BBR TCP_CONG_BRUTAL MQ_IOSCHED_ADIOS; do
     echo "required feature is not enabled: CONFIG_$feat_symbol" >&2; exit 1;
   }
 done
-for symbol in KSU_SUSFS \
+for symbol in KSU_FEATURE_ADBROOT KSU_SUSFS \
   KSU_SUSFS_SUS_PATH KSU_SUSFS_SUS_KSTAT KSU_SUSFS_SUS_MOUNT \
   KSU_SUSFS_SPOOF_UNAME KSU_SUSFS_ENABLE_LOG \
   KSU_SUSFS_HIDE_KSU_SUSFS_SYMBOLS KSU_SUSFS_SPOOF_CMDLINE_OR_BOOTCONFIG \
@@ -171,8 +166,8 @@ cp "$OUT_DIR/.config" "$OUT_DIR/nabu-a17.config"
 stage "Build" "编译内核对象"
 make_kernel init/version.o
 make_kernel -j"$JOBS" security/selinux/
-# The KernelSU driver directory is built ahead of the rest of the tree.
-make_kernel -j"$JOBS" drivers/kernelsu/
+# The KernelSU driver object is built ahead of the rest of the tree.
+KSU_OBJECTS=drivers/kernelsu/ksu.o
 make_kernel -j"$JOBS" \
   kernel/bpf/syscall.o kernel/bpf/verifier.o kernel/bpf/btf.o \
   kernel/bpf/arraymap.o kernel/bpf/hashtab.o kernel/bpf/ringbuf.o \
@@ -180,6 +175,7 @@ make_kernel -j"$JOBS" \
   net/core/filter.o kernel/bpf/cgroup.o net/ipv4/udp.o net/ipv6/udp.o \
   drivers/devfreq/bimc-bwmon.o \
   drivers/extcon/extcon.o \
+  $KSU_OBJECTS \
   arch/arm64/kernel/setup.o arch/arm64/kernel/cpu_errata.o \
   arch/arm64/net/bpf_jit_comp.o fs/pstore/ram.o fs/pstore/platform.o \
   kernel/printk/printk.o kernel/sys.o mm/oom_kill.o \
@@ -331,15 +327,10 @@ anykernel_template_sha=$(
   echo "KERNEL_DIRTY_DIFF_SHA256=$dirty_diff_sha"
   echo "ANDROID_STABLE_COMMIT=014241ad77dda0eafbdf671d5b8e86917d8ec97e"
   echo "QUALCOMM_REFERENCE_COMMIT=d1966c80dcfcabe6058eba05ded94a9af967760f"
-  ksu_rel="v4.2.0-rc3"
-  ksu_sha="fa8311f6"
-  [ -f "$KERNEL_DIR/drivers/kernelsu/.resukisu_tag" ] && ksu_rel=$(cat "$KERNEL_DIR/drivers/kernelsu/.resukisu_tag")
-  [ -f "$KERNEL_DIR/drivers/kernelsu/.resukisu_commit" ] && ksu_sha=$(cat "$KERNEL_DIR/drivers/kernelsu/.resukisu_commit")
-  echo "KERNELSU_VARIANT=ReSukiSU"
-  echo "KERNELSU_RELEASE=$ksu_rel"
-  echo "KERNELSU_COMMIT=$ksu_sha"
-  echo "KERNELSU_BRANCH=main"
-  echo "SUSFS_SERIES=v2.3.0"
+  echo "KERNELSU_VARIANT=SukiSU-Ultra"
+  echo "KERNELSU_RELEASE=v4.2.0"
+  echo "KERNELSU_BRANCH=builtin"
+  echo "SUSFS_SERIES=v1.5.5 (4.14 backport)"
   echo "DROIDSPACES_COMMIT=7412f6fb732fe7f5e3dc6ac0848d82ef9ff98acf"
   echo "KERNELSU_TREE_SHA256=$ksu_tree_sha"
   echo "ANYKERNEL_TEMPLATE_SHA256=$anykernel_template_sha"

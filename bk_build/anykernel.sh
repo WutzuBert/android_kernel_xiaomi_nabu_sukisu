@@ -46,12 +46,12 @@ cd "$home";
 
 # Keep recovery selection under the bootloader's force_normal_boot property.
 patch_cmdline androidboot.force_normal_boot ""
-# The stock nabu HyperOS boot header starts Android with
-# androidboot.selinux=permissive; keep that value so the ROM boots in the mode it
-# was built for. patch_cmdline replaces the whole matched token, so the
-# replacement must repeat the key=value form: passing a bare value deletes the
-# key and leaves init without ro.boot.selinux, which defaults to enforcing and
-# halts this ROM at the first screen.
+# Keep the boot header's androidboot.selinux entry in key=value form. The header
+# this package replaces carried "androidboot.selinux=permissive", and
+# patch_cmdline() substitutes the whole matched token, so passing a bare value
+# (as an earlier revision of this script did) deletes the key and leaves junk on
+# the command line. The mode Android finally runs in is selected by the ROM's own
+# configuration, not by this entry.
 patch_cmdline androidboot.selinux androidboot.selinux=permissive
 patch_prop "$ramdisk/prop.default" ro.mi.os.custfeatureresolve true;
 
